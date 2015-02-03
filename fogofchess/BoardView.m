@@ -22,29 +22,53 @@
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth
 {
     self = [super initWithImage:image];
-    [self setContentMode:UIViewContentModeScaleAspectFit];
-    
-    self.userInteractionEnabled = YES;
-    self.squareWidth = fullWidth/8;
-    
-    Piece *piece = [[Piece alloc] initWithImage: [UIImage imageNamed:@"Chess_plt60"]];
-    piece.frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
-    [piece setContentMode:UIViewContentModeScaleAspectFit];
-    piece.userInteractionEnabled = YES;
-    
-    [self addSubview:piece];
+    if(self) {
+        [self setContentMode:UIViewContentModeScaleAspectFit];
+        
+        self.userInteractionEnabled = YES;
+        self.squareWidth = fullWidth/8;
+        
+        int ycoord = (590 - fullWidth)/2 + 20;
+        self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
+        
+        Piece *piece = [[Piece alloc] initWithImage: [UIImage imageNamed:@"Chess_plt60"] width:self.squareWidth];
+        
+        [piece setXLoc:3];
+        [piece setYLoc:4];
+        
+        CGRect frame = piece.frame;
+        frame.origin.x = [piece xLoc] * self.squareWidth; // new x coordinate
+        frame.origin.y = [piece yLoc] * self.squareWidth; // new y coordinate
+        piece.frame = frame;
+
+        [self addSubview:piece];
+        
+        UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                   action:@selector(handleSingleTap:)];
+        [self addGestureRecognizer:singleFingerTap];
+    }
     
     return self;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView:touch.view];
+
+}
+
+//The setup code (in viewDidLoad in your view controller)
+
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
     
     int xLoc = (int)location.x/self.squareWidth;
     int yLoc = (int)location.y/self.squareWidth;
     
     NSLog(@"Whereami x:%d,y:%d", xLoc, yLoc);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 }
 
 @end

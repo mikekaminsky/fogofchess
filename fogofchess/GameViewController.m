@@ -30,34 +30,14 @@
     self.view.backgroundColor = [UIColor darkGrayColor];
     
     BoardView *imgView = [[BoardView alloc] initWithImage: [UIImage imageNamed:@"chessboard.jpg"] width:self.view.frame.size.width];
-    int ycoord = (590 - self.view.frame.size.width)/2 + 20;
-    imgView.frame = CGRectMake(0, ycoord, self.view.frame.size.width, self.view.frame.size.width);
-
-    //imgView.frame = self.view.frame;
-
     
     [self.view addSubview:imgView];
 }
 
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    UITouch *touch = [[event allTouches] anyObject];
-//    CGPoint location = [touch locationInView:touch.view];
-//    NSLog(@"Whereami x:%f,y:%f",location.x, location.y);
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

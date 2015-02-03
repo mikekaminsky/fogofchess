@@ -10,4 +10,11 @@
 
 @interface Piece : UIImageView
 
+@property int xLoc;
+@property int yLoc;
+
+@property float squareWidth;
+
+- (id)initWithImage:(UIImage *)image width:(float)squareWidth;
+
 @end
