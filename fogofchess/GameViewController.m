@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor darkGrayColor];
     
-    BoardView *imgView = [[BoardView alloc] initWithImage: [UIImage imageNamed:@"chessboard.jpg"]];
+    BoardView *imgView = [[BoardView alloc] initWithImage: [UIImage imageNamed:@"chessboard.jpg"] width:self.view.frame.size.width];
     int ycoord = (590 - self.view.frame.size.width)/2 + 20;
     imgView.frame = CGRectMake(0, ycoord, self.view.frame.size.width, self.view.frame.size.width);
 

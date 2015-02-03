@@ -1,5 +1,5 @@
 //
-//  BoardView.h
+//  Piece.h
 //  fogofchess
 //
 //  Created by Case Commons on 2/2/15.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BoardView : UIImageView
-
-- (id)initWithImage:(UIImage *)image width:(float)fullWidth;
-
-@property float squareWidth;
+@interface Piece : UIImageView
 
 @end

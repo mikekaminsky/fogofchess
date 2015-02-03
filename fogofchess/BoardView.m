@@ -7,6 +7,7 @@
 //
 
 #import "BoardView.h"
+#import "Piece.h"
 
 @implementation BoardView
 
@@ -18,12 +19,20 @@
 }
 */
 
-
-- (id)initWithImage:(UIImage *)image
+- (id)initWithImage:(UIImage *)image width:(float)fullWidth
 {
     self = [super initWithImage:image];
     [self setContentMode:UIViewContentModeScaleAspectFit];
+    
     self.userInteractionEnabled = YES;
+    self.squareWidth = fullWidth/8;
+    
+    Piece *piece = [[Piece alloc] initWithImage: [UIImage imageNamed:@"Chess_plt60"]];
+    piece.frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
+    [piece setContentMode:UIViewContentModeScaleAspectFit];
+    piece.userInteractionEnabled = YES;
+    
+    [self addSubview:piece];
     
     return self;
 }
@@ -32,11 +41,10 @@
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView:touch.view];
     
-    float squareWidth = self.frame.size.width/8;
-    int xLoc = (int)location.x/squareWidth;
-    int yLoc = (int)location.y/squareWidth;
+    int xLoc = (int)location.x/self.squareWidth;
+    int yLoc = (int)location.y/self.squareWidth;
     
     NSLog(@"Whereami x:%d,y:%d", xLoc, yLoc);
-    NSLog(@"RealCoords x:%f,y:%f",location.x, location.y);
 }
+
 @end
