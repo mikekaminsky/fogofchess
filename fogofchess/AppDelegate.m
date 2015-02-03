@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "GameViewController.h"
+#import "MenuViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -16,7 +19,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    GameViewController * gameController = [[GameViewController alloc] init];
+    
+    MenuViewController *menuController = [[MenuViewController alloc] init];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController setViewControllers:@[gameController, menuController]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = tabBarController;
+
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
