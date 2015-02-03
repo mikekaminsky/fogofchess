@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		791ECE1B1A803F8F00686891 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE1A1A803F8F00686891 /* BoardView.m */; };
+		791ECE1E1A804B7F00686891 /* Chess_plt60.png in Resources */ = {isa = PBXBuildFile; fileRef = 791ECE1D1A804B7F00686891 /* Chess_plt60.png */; };
+		791ECE211A804BE900686891 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE201A804BE900686891 /* Piece.m */; };
 		79961C0E1A7AFD5700343E2B /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79961C0D1A7AFD5700343E2B /* GameViewController.m */; };
 		79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79961C101A7B0CFA00343E2B /* MenuViewController.m */; };
-		79961C151A7B117500343E2B /* business-target-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C121A7B117500343E2B /* business-target-7.png */; };
 		79961C161A7B117500343E2B /* electric-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C131A7B117500343E2B /* electric-7.png */; };
 		79961C171A7B117500343E2B /* spanner-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C141A7B117500343E2B /* spanner-7.png */; };
-		79961C191A7B139000343E2B /* ExperimentalChessbaseChessBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C181A7B139000343E2B /* ExperimentalChessbaseChessBoard.png */; };
 		79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79961C1A1A7B14ED00343E2B /* chessboard.jpg */; };
 		79C1989F1A69D61300CA028E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C1989E1A69D61300CA028E /* main.m */; };
 		79C198A21A69D61300CA028E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C198A11A69D61300CA028E /* AppDelegate.m */; };
@@ -37,15 +37,16 @@
 /* Begin PBXFileReference section */
 		791ECE191A803F8F00686891 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
 		791ECE1A1A803F8F00686891 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
+		791ECE1D1A804B7F00686891 /* Chess_plt60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chess_plt60.png; sourceTree = "<group>"; };
+		791ECE1F1A804BE900686891 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
+		791ECE201A804BE900686891 /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
 		79961C0C1A7AFD5700343E2B /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		79961C0D1A7AFD5700343E2B /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		79961C0F1A7B0CFA00343E2B /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		79961C101A7B0CFA00343E2B /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		79961C121A7B117500343E2B /* business-target-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "business-target-7.png"; sourceTree = "<group>"; };
-		79961C131A7B117500343E2B /* electric-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "electric-7.png"; sourceTree = "<group>"; };
-		79961C141A7B117500343E2B /* spanner-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spanner-7.png"; sourceTree = "<group>"; };
-		79961C181A7B139000343E2B /* ExperimentalChessbaseChessBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ExperimentalChessbaseChessBoard.png; sourceTree = "<group>"; };
-		79961C1A1A7B14ED00343E2B /* chessboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chessboard.jpg; sourceTree = "<group>"; };
+		79961C131A7B117500343E2B /* electric-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "electric-7.png"; path = "../electric-7.png"; sourceTree = "<group>"; };
+		79961C141A7B117500343E2B /* spanner-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spanner-7.png"; path = "../spanner-7.png"; sourceTree = "<group>"; };
+		79961C1A1A7B14ED00343E2B /* chessboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chessboard.jpg; path = ../chessboard.jpg; sourceTree = "<group>"; };
 		79C198991A69D61300CA028E /* fogofchess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fogofchess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C1989D1A69D61300CA028E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C1989E1A69D61300CA028E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,6 +80,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		791ECE1C1A804B7F00686891 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				79961C1A1A7B14ED00343E2B /* chessboard.jpg */,
+				79961C131A7B117500343E2B /* electric-7.png */,
+				79961C141A7B117500343E2B /* spanner-7.png */,
+				791ECE1D1A804B7F00686891 /* Chess_plt60.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		79C198901A69D61300CA028E = {
 			isa = PBXGroup;
 			children = (
@@ -100,11 +112,7 @@
 		79C1989B1A69D61300CA028E /* fogofchess */ = {
 			isa = PBXGroup;
 			children = (
-				79961C1A1A7B14ED00343E2B /* chessboard.jpg */,
-				79961C181A7B139000343E2B /* ExperimentalChessbaseChessBoard.png */,
-				79961C121A7B117500343E2B /* business-target-7.png */,
-				79961C131A7B117500343E2B /* electric-7.png */,
-				79961C141A7B117500343E2B /* spanner-7.png */,
+				791ECE1C1A804B7F00686891 /* images */,
 				79C198A01A69D61300CA028E /* AppDelegate.h */,
 				79C198A11A69D61300CA028E /* AppDelegate.m */,
 				79C198A31A69D61300CA028E /* ViewController.h */,
@@ -112,6 +120,8 @@
 				79961C0D1A7AFD5700343E2B /* GameViewController.m */,
 				791ECE191A803F8F00686891 /* BoardView.h */,
 				791ECE1A1A803F8F00686891 /* BoardView.m */,
+				791ECE1F1A804BE900686891 /* Piece.h */,
+				791ECE201A804BE900686891 /* Piece.m */,
 				79C198A41A69D61300CA028E /* ViewController.m */,
 				79961C0F1A7B0CFA00343E2B /* MenuViewController.h */,
 				79961C101A7B0CFA00343E2B /* MenuViewController.m */,
@@ -229,11 +239,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79961C151A7B117500343E2B /* business-target-7.png in Resources */,
-				79961C191A7B139000343E2B /* ExperimentalChessbaseChessBoard.png in Resources */,
 				79C198A81A69D61300CA028E /* Main.storyboard in Resources */,
 				79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */,
 				79C198AD1A69D61300CA028E /* LaunchScreen.xib in Resources */,
+				791ECE1E1A804B7F00686891 /* Chess_plt60.png in Resources */,
 				79961C161A7B117500343E2B /* electric-7.png in Resources */,
 				79C198AA1A69D61300CA028E /* Images.xcassets in Resources */,
 				79961C171A7B117500343E2B /* spanner-7.png in Resources */,
@@ -260,6 +269,7 @@
 				79C1989F1A69D61300CA028E /* main.m in Sources */,
 				79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */,
 				791ECE1B1A803F8F00686891 /* BoardView.m in Sources */,
+				791ECE211A804BE900686891 /* Piece.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
