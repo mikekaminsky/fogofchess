@@ -31,17 +31,21 @@
         int ycoord = (590 - fullWidth)/2 + 20;
         self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
         
-        Piece *piece = [[Piece alloc] initWithImage: [UIImage imageNamed:@"Chess_plt60"] width:self.squareWidth];
-        
-        [piece setXLoc:3];
-        [piece setYLoc:4];
-        
-        CGRect frame = piece.frame;
-        frame.origin.x = [piece xLoc] * self.squareWidth; // new x coordinate
-        frame.origin.y = [piece yLoc] * self.squareWidth; // new y coordinate
-        piece.frame = frame;
+        NSMutableArray *arrayOfPieces = [NSMutableArray array];
+        for (int i = 0; i < 8; i++) {
+            Piece *newPiece = [[Piece alloc] initWithImage: [UIImage imageNamed:@"Chess_plt60"] width:self.squareWidth];
+            CGRect frame = newPiece.frame;
+            [newPiece setXLoc:i];
+            [newPiece setYLoc:1];
+            frame.origin.x = [newPiece xLoc] * self.squareWidth; // new x coordinate
+            frame.origin.y = [newPiece yLoc] * self.squareWidth; // new y coordinate
+            newPiece.frame = frame;
 
-        [self addSubview:piece];
+            [arrayOfPieces addObject:newPiece];
+            [self addSubview:newPiece];
+        }
+        
+        self.pieces = [[NSArray alloc] initWithArray:arrayOfPieces];
         
         UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                    action:@selector(handleSingleTap:)];
@@ -55,9 +59,6 @@
     //CGPoint location = [[touches anyObject] locationInView:self];
     //[[self superview] bringSubviewToFront:self];
 }
-
-//The setup code (in viewDidLoad in your view controller)
-
 
 //The event handling method
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {

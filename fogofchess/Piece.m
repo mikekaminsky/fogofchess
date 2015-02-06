@@ -49,6 +49,8 @@
         frame.origin.x = self.xLoc * self.squareWidth; // new x coordinate
         frame.origin.y = self.yLoc * self.squareWidth; // new y coordinate
         self.frame = frame;
+        
+        NSLog(@"Ended up x:%f,y:%f", frame.origin.x, frame.origin.y);
     }
 }
 

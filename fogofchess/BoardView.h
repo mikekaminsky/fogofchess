@@ -13,5 +13,6 @@
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
 @property float squareWidth;
+@property(nonatomic, strong) NSArray *pieces;
 
 @end
