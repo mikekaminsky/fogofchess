@@ -52,7 +52,8 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    //CGPoint location = [[touches anyObject] locationInView:self];
+    //[[self superview] bringSubviewToFront:self];
 }
 
 //The setup code (in viewDidLoad in your view controller)
@@ -60,12 +61,13 @@
 
 //The event handling method
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    CGPoint location = [recognizer locationInView:self];
     
     int xLoc = (int)location.x/self.squareWidth;
     int yLoc = (int)location.y/self.squareWidth;
     
-    NSLog(@"Whereami x:%d,y:%d", xLoc, yLoc);
+    //NSLog(@"Whereami x:%d,y:%d", xLoc, yLoc);
+    NSLog(@"Whereami x:%f,y:%f", location.x, location.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

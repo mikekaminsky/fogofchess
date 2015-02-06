@@ -19,8 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    GameViewController * gameController = [[GameViewController alloc] init];
-    
+    GameViewController *gameController = [[GameViewController alloc] init];
     MenuViewController *menuController = [[MenuViewController alloc] init];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
