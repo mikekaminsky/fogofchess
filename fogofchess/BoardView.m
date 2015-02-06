@@ -26,7 +26,7 @@
         [self setContentMode:UIViewContentModeScaleAspectFit];
         
         self.userInteractionEnabled = YES;
-        self.squareWidth = fullWidth/8;
+        self.squareWidth = (fullWidth - 2) / 8;
         
         int ycoord = (590 - fullWidth)/2 + 20;
         self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
