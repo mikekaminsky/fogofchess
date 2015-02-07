@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Piece;
+
 
 @interface BoardView : UIImageView
 
-- (id)initWithImage:(UIImage *)image width:(float)fullWidth;
-
 @property float squareWidth;
 @property(nonatomic, strong) NSArray *pieces;
+
+- (id)initWithImage:(UIImage *)image width:(float)fullWidth;
+
+- (bool)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 @end

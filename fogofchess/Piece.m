@@ -7,32 +7,52 @@
 //
 
 #import "Piece.h"
+#import "BoardView.h"
 
 @implementation Piece
 
-- (id)initWithImage:(UIImage *)image width:(float)squareWidth
+- (id)initWithImage:(UIImage *)image withBoard:(BoardView *)gameBoard
 {
     self = [super initWithImage:image];
-    
+
     if(self) {
-        self.frame = CGRectMake(0, 0, squareWidth, squareWidth);
         [self setContentMode:UIViewContentModeScaleAspectFit];
         self.userInteractionEnabled = YES;
-        self.squareWidth = squareWidth;
-        
-        UIPanGestureRecognizer *singleFingerTap = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(panAnim:)];
-        [self addGestureRecognizer:singleFingerTap];
+
+        self.board = gameBoard;
+        self.squareWidth = [gameBoard squareWidth];
+        self.frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
+
+        UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                   action:@selector(panAnim:)];
+        [self addGestureRecognizer:swipeRecognizer];
     }
-    
+
     return self;
 }
 
-//The event handling method
+- (void)changeLocationX:(int)xLoc Y:(int)yLoc
+{
+  self.xLoc = xLoc;
+  self.yLoc = yLoc;
+
+  CGRect frame = self.frame;
+  frame.origin.x = self.xLoc * self.squareWidth;
+  frame.origin.y = self.yLoc * self.squareWidth;
+  self.frame = frame;
+}
+
+- (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
+{
+  if([self.board canMove:self X:xLoc Y:yLoc]) {
+    [self changeLocationX:xLoc Y:yLoc];
+  }
+}
+
 -(void) panAnim:(UIPanGestureRecognizer*)gestureRecognizer
 {
     CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer.view superview]];
-    
+
     if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         //Highlight potential moves.
@@ -41,16 +61,8 @@
     {
         int xLoc = (int)location.x/self.squareWidth;
         int yLoc = (int)location.y/self.squareWidth;
-        
-        self.xLoc = xLoc;
-        self.yLoc = yLoc;
-        
-        CGRect frame = self.frame;
-        frame.origin.x = self.xLoc * self.squareWidth; // new x coordinate
-        frame.origin.y = self.yLoc * self.squareWidth; // new y coordinate
-        self.frame = frame;
-        
-        NSLog(@"Ended up x:%f,y:%f", frame.origin.x, frame.origin.y);
+
+        [self attemptMoveX:xLoc Y:yLoc];
     }
 }
 

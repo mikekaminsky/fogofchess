@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BoardView;
+
 
 @interface Piece : UIImageView
 
@@ -14,7 +16,12 @@
 @property int yLoc;
 
 @property float squareWidth;
+@property (strong, nonatomic) BoardView *board;
 
-- (id)initWithImage:(UIImage *)image width:(float)squareWidth;
+- (id)initWithImage:(UIImage *)image withBoard:(BoardView *)gameBoard;
+
+- (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
+
+- (void)changeLocationX:(int)xLoc Y:(int)yLoc;
 
 @end
