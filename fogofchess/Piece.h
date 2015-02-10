@@ -30,8 +30,8 @@ typedef NS_ENUM(NSInteger, Type) {
 @property int xLoc;
 @property int yLoc;
 
-@property char type;
-@property char team;
+@property Type type;
+@property Team team;
 
 @property float squareWidth;
 

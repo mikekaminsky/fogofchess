@@ -13,32 +13,32 @@
 
 - (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard
 {
-    self = [super initWithFrame:frame];
+  self = [super initWithFrame:frame];
 
-    if(self) {
-        [self setContentMode:UIViewContentModeScaleAspectFit];
-        self.userInteractionEnabled = YES;
+  if(self) {
+    [self setContentMode:UIViewContentModeScaleAspectFit];
+    self.userInteractionEnabled = YES;
 
-        self.board = gameBoard;
-        self.squareWidth = [gameBoard squareWidth];
+    self.board = gameBoard;
+    self.squareWidth = [gameBoard squareWidth];
 
-        UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                   action:@selector(panAnim:)];
-        [self addGestureRecognizer:swipeRecognizer];
-    }
+    UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(panAnim:)];
+    [self addGestureRecognizer:swipeRecognizer];
+  }
 
-    return self;
+  return self;
 }
 
 - (void)setTeam:(Team)newTeam andType:(Type)newType
 {
-    self.team = newTeam;
-    self.type = newType;
-    if(newTeam == DARK) {
-        [self setImage:[UIImage imageNamed:@"dark_pawn"]];
-    } else {
-        [self setImage:[UIImage imageNamed:@"light_pawn"]];
-    }
+  self.team = newTeam;
+  self.type = newType;
+  if(newTeam == DARK) {
+    [self setImage:[UIImage imageNamed:@"dark_pawn"]];
+  } else {
+    [self setImage:[UIImage imageNamed:@"light_pawn"]];
+  }
 }
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc
@@ -55,32 +55,32 @@
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
   if(xLoc < 0 || yLoc < 0 || xLoc > 7 || yLoc > 7) return;
-    
+
   if([self.board canMove:self X:xLoc Y:yLoc]) {
-    [self changeLocationX:xLoc Y:yLoc];
+   [self changeLocationX:xLoc Y:yLoc];
   }
 }
 
--(void) panAnim:(UIPanGestureRecognizer*)gestureRecognizer
+- (void)panAnim:(UIPanGestureRecognizer*)gestureRecognizer
 {
-    CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer.view superview]];
+  CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer.view superview]];
 
-    if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        //Highlight potential moves.
-    }
-    else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        int xLoc = (int)location.x/self.squareWidth;
-        int yLoc = (int)location.y/self.squareWidth;
+  if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
+  {
+    //Highlight potential moves.
+  }
+  else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+  {
+    int xLoc = (int)location.x/self.squareWidth;
+    int yLoc = (int)location.y/self.squareWidth;
 
-        [self attemptMoveX:xLoc Y:yLoc];
-    }
+    [self attemptMoveX:xLoc Y:yLoc];
+  }
 }
 
--(void)capture
+- (void)capture
 {
-    self.hidden = YES;
+  self.hidden = YES;
 }
 
 @end

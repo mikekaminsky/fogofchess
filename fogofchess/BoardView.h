@@ -23,4 +23,8 @@
 
 - (BOOL)isOccupiedX:(int)xLoc Y:(int)yLoc;
 
+- (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)attemptCaptureOf:(Piece *)attacked byAggressor:(Piece *)aggressor;
+
 @end
