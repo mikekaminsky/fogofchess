@@ -41,35 +41,47 @@
 
 - (NSMutableArray *)populatePieces
 {
-    NSMutableArray *arrayOfPieces = [NSMutableArray array];
-    for (int i = 0; i < 8; i++) {
-        Piece *newPiece = [self addPieceToArray:arrayOfPieces];
-        [newPiece changeLocationX:i Y:1];
-        [newPiece setTeam:LIGHT andType:PAWN];
-        
-        newPiece = [self addPieceToArray:arrayOfPieces];
-        [newPiece changeLocationX:i Y:6];
-        [newPiece setTeam:DARK andType:PAWN];
-    }
-    
-    return arrayOfPieces;
+  NSMutableArray *arrayOfPieces = [NSMutableArray array];
+  for (int i = 0; i < 8; i++) {
+    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:1];
+    [newPiece setTeam:LIGHT andType:PAWN];
+
+    newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:6];
+    [newPiece setTeam:DARK andType:PAWN];
+  }
+
+  return arrayOfPieces;
 }
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-  int direction = [curPiece team]==DARK ? 1 : -1;
+  int direction = [curPiece team] == DARK ? -1 : 1;
 
-  int xDiff = curPiece.xLoc - xLoc;
-  int yDiff = curPiece.yLoc - yLoc;
+  int xDiff = xLoc - curPiece.xLoc;
+  int yDiff = yLoc - curPiece.yLoc;
 
-
-  if(curPiece.xLoc == xLoc) {
-    if (yDiff == 1*direction || yDiff == 2*direction) {
-      return [self getPieceAtX:xLoc Y:yLoc] == nil;
+  if (xLoc == curPiece.xLoc)
+  {
+    if (yDiff == 1*direction)
+    {
+      return [self isUnoccupied:xLoc Y:yLoc];
     }
-  } else if(abs(xDiff) == 1 && yDiff == 1*direction) {
+    else if (yDiff == 2*direction)
+    {
+      return !curPiece.everMoved
+        && [self isUnoccupied:xLoc Y:yLoc]
+        && [self isUnoccupied:xLoc Y:curPiece.yLoc + direction];
+    }
+
+  }
+  else if (abs(xDiff) == 1 && yDiff == 1*direction)
+  {
+
     Piece *attacked = [self getPieceAtX:xLoc Y:yLoc];
     return [self attemptCaptureOf:attacked byTeam:curPiece.team];
+
   }
 
   return NO;
@@ -85,7 +97,7 @@
   return nil;
 }
 
-- (BOOL)isOccupiedX:(int)xLoc Y:(int)yLoc {
+- (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc {
     return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 

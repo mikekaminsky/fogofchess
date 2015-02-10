@@ -17,17 +17,23 @@
 
   if(self) {
     self.board = gameBoard;
-    
-    UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                      action:@selector(panAnim:)];
-    [self addGestureRecognizer:swipeRecognizer];
-      
+    self.everMoved = NO;
     self.contentMode = UIViewContentModeScaleAspectFit;
-    self.userInteractionEnabled = YES;
+
+    [self enableInteraction];
   }
 
   return self;
 }
+
+- (void)enableInteraction
+{
+  UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(panAnim:)];
+  [self addGestureRecognizer:swipeRecognizer];
+  self.userInteractionEnabled = YES;
+}
+
 
 - (void)setTeam:(Team)newTeam andType:(Type)newType
 {
@@ -56,7 +62,8 @@
   if(xLoc < 0 || yLoc < 0 || xLoc > 7 || yLoc > 7) return;
 
   if([self.board canMove:self X:xLoc Y:yLoc]) {
-   [self changeLocationX:xLoc Y:yLoc];
+    self.everMoved = YES;
+    [self changeLocationX:xLoc Y:yLoc];
   }
 }
 

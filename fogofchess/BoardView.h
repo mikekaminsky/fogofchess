@@ -25,7 +25,7 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
-- (BOOL)isOccupiedX:(int)xLoc Y:(int)yLoc;
+- (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
 

@@ -21,7 +21,11 @@
 @property Type type;
 @property Team team;
 
+@property BOOL everMoved;
+
 - (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard;
+
+- (void)enableInteraction;
 
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 
