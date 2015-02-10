@@ -8,8 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		791ECE1B1A803F8F00686891 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE1A1A803F8F00686891 /* BoardView.m */; };
-		791ECE1E1A804B7F00686891 /* Chess_plt60.png in Resources */ = {isa = PBXBuildFile; fileRef = 791ECE1D1A804B7F00686891 /* Chess_plt60.png */; };
 		791ECE211A804BE900686891 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE201A804BE900686891 /* Piece.m */; };
+		797430931A898EB2001503D9 /* dark_bishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430871A898EB2001503D9 /* dark_bishop.png */; };
+		797430941A898EB2001503D9 /* dark_king.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430881A898EB2001503D9 /* dark_king.png */; };
+		797430951A898EB2001503D9 /* dark_knight.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430891A898EB2001503D9 /* dark_knight.png */; };
+		797430961A898EB2001503D9 /* dark_pawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308A1A898EB2001503D9 /* dark_pawn.png */; };
+		797430971A898EB2001503D9 /* dark_queen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308B1A898EB2001503D9 /* dark_queen.png */; };
+		797430981A898EB2001503D9 /* dark_rook.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308C1A898EB2001503D9 /* dark_rook.png */; };
+		797430991A898EB2001503D9 /* light_bishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308D1A898EB2001503D9 /* light_bishop.png */; };
+		7974309A1A898EB2001503D9 /* light_king.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308E1A898EB2001503D9 /* light_king.png */; };
+		7974309B1A898EB2001503D9 /* light_knight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7974308F1A898EB2001503D9 /* light_knight.png */; };
+		7974309C1A898EB2001503D9 /* light_pawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430901A898EB2001503D9 /* light_pawn.png */; };
+		7974309D1A898EB2001503D9 /* light_queen.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430911A898EB2001503D9 /* light_queen.png */; };
+		7974309E1A898EB2001503D9 /* light_rook.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430921A898EB2001503D9 /* light_rook.png */; };
 		79961C0E1A7AFD5700343E2B /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79961C0D1A7AFD5700343E2B /* GameViewController.m */; };
 		79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79961C101A7B0CFA00343E2B /* MenuViewController.m */; };
 		79961C161A7B117500343E2B /* electric-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C131A7B117500343E2B /* electric-7.png */; };
@@ -37,9 +48,20 @@
 /* Begin PBXFileReference section */
 		791ECE191A803F8F00686891 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
 		791ECE1A1A803F8F00686891 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
-		791ECE1D1A804B7F00686891 /* Chess_plt60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chess_plt60.png; sourceTree = "<group>"; };
 		791ECE1F1A804BE900686891 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		791ECE201A804BE900686891 /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
+		797430871A898EB2001503D9 /* dark_bishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_bishop.png; sourceTree = "<group>"; };
+		797430881A898EB2001503D9 /* dark_king.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_king.png; sourceTree = "<group>"; };
+		797430891A898EB2001503D9 /* dark_knight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_knight.png; sourceTree = "<group>"; };
+		7974308A1A898EB2001503D9 /* dark_pawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_pawn.png; sourceTree = "<group>"; };
+		7974308B1A898EB2001503D9 /* dark_queen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_queen.png; sourceTree = "<group>"; };
+		7974308C1A898EB2001503D9 /* dark_rook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_rook.png; sourceTree = "<group>"; };
+		7974308D1A898EB2001503D9 /* light_bishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_bishop.png; sourceTree = "<group>"; };
+		7974308E1A898EB2001503D9 /* light_king.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_king.png; sourceTree = "<group>"; };
+		7974308F1A898EB2001503D9 /* light_knight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_knight.png; sourceTree = "<group>"; };
+		797430901A898EB2001503D9 /* light_pawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_pawn.png; sourceTree = "<group>"; };
+		797430911A898EB2001503D9 /* light_queen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_queen.png; sourceTree = "<group>"; };
+		797430921A898EB2001503D9 /* light_rook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_rook.png; sourceTree = "<group>"; };
 		79961C0C1A7AFD5700343E2B /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		79961C0D1A7AFD5700343E2B /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		79961C0F1A7B0CFA00343E2B /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -83,10 +105,21 @@
 		791ECE1C1A804B7F00686891 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				797430891A898EB2001503D9 /* dark_knight.png */,
+				7974308A1A898EB2001503D9 /* dark_pawn.png */,
+				7974308B1A898EB2001503D9 /* dark_queen.png */,
+				7974308C1A898EB2001503D9 /* dark_rook.png */,
+				7974308D1A898EB2001503D9 /* light_bishop.png */,
+				7974308E1A898EB2001503D9 /* light_king.png */,
+				7974308F1A898EB2001503D9 /* light_knight.png */,
+				797430901A898EB2001503D9 /* light_pawn.png */,
+				797430911A898EB2001503D9 /* light_queen.png */,
+				797430921A898EB2001503D9 /* light_rook.png */,
+				797430881A898EB2001503D9 /* dark_king.png */,
+				797430871A898EB2001503D9 /* dark_bishop.png */,
 				79961C1A1A7B14ED00343E2B /* chessboard.jpg */,
 				79961C131A7B117500343E2B /* electric-7.png */,
 				79961C141A7B117500343E2B /* spanner-7.png */,
-				791ECE1D1A804B7F00686891 /* Chess_plt60.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -240,12 +273,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C198A81A69D61300CA028E /* Main.storyboard in Resources */,
+				797430951A898EB2001503D9 /* dark_knight.png in Resources */,
+				797430931A898EB2001503D9 /* dark_bishop.png in Resources */,
+				797430941A898EB2001503D9 /* dark_king.png in Resources */,
+				797430981A898EB2001503D9 /* dark_rook.png in Resources */,
 				79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */,
+				7974309B1A898EB2001503D9 /* light_knight.png in Resources */,
 				79C198AD1A69D61300CA028E /* LaunchScreen.xib in Resources */,
-				791ECE1E1A804B7F00686891 /* Chess_plt60.png in Resources */,
+				7974309D1A898EB2001503D9 /* light_queen.png in Resources */,
+				797430971A898EB2001503D9 /* dark_queen.png in Resources */,
+				797430991A898EB2001503D9 /* light_bishop.png in Resources */,
 				79961C161A7B117500343E2B /* electric-7.png in Resources */,
 				79C198AA1A69D61300CA028E /* Images.xcassets in Resources */,
+				7974309E1A898EB2001503D9 /* light_rook.png in Resources */,
+				7974309A1A898EB2001503D9 /* light_king.png in Resources */,
 				79961C171A7B117500343E2B /* spanner-7.png in Resources */,
+				7974309C1A898EB2001503D9 /* light_pawn.png in Resources */,
+				797430961A898EB2001503D9 /* dark_pawn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

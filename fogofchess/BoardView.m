@@ -25,10 +25,16 @@
 
         NSMutableArray *arrayOfPieces = [NSMutableArray array];
         for (int i = 0; i < 8; i++) {
-            Piece *newPiece = [[Piece alloc] initWithImage:[UIImage imageNamed:@"Chess_plt60"] withBoard:self];
+            Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+            
             [newPiece changeLocationX:i Y:1];
-            [arrayOfPieces addObject:newPiece];
-            [self addSubview:newPiece];
+            [newPiece setTeam:LIGHT andType:PAWN];
+        }
+        for (int i = 0; i < 8; i++) {
+            Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+            
+            [newPiece changeLocationX:i Y:6];
+            [newPiece setTeam:DARK andType:PAWN];
         }
 
         self.pieces = [[NSArray alloc] initWithArray:arrayOfPieces];
@@ -37,10 +43,21 @@
     return self;
 }
 
+- (Piece *)addPieceToArray:(NSMutableArray *)array
+{
+    CGRect frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
+    Piece *newPiece = [[Piece alloc] initWithFrame:frame withBoard:self];
+    [array addObject:newPiece];
+    [self addSubview:newPiece];
+    
+    return newPiece;
+}
+
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  int direction = [curPiece team]==DARK ? -1 : 1;
   if([curPiece xLoc] == xLoc &&
-      (yLoc - [curPiece yLoc] == 1 || yLoc - [curPiece yLoc] == 2)) {
+      (yLoc - [curPiece yLoc] == 1*direction || yLoc - [curPiece yLoc] == 2*direction )) {
     return YES;
   }
   return NO;

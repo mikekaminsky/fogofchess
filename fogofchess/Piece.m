@@ -11,9 +11,9 @@
 
 @implementation Piece
 
-- (id)initWithImage:(UIImage *)image withBoard:(BoardView *)gameBoard
+- (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard
 {
-    self = [super initWithImage:image];
+    self = [super initWithFrame:frame];
 
     if(self) {
         [self setContentMode:UIViewContentModeScaleAspectFit];
@@ -21,7 +21,6 @@
 
         self.board = gameBoard;
         self.squareWidth = [gameBoard squareWidth];
-        self.frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
 
         UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                    action:@selector(panAnim:)];
@@ -29,6 +28,17 @@
     }
 
     return self;
+}
+
+- (void)setTeam:(Team)newTeam andType:(Type)newType
+{
+    self.team = newTeam;
+    self.type = newType;
+    if(newTeam == DARK) {
+        [self setImage:[UIImage imageNamed:@"dark_pawn"]];
+    } else {
+        [self setImage:[UIImage imageNamed:@"light_pawn"]];
+    }
 }
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc
@@ -44,6 +54,8 @@
 
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
+  if(xLoc < 0 || yLoc < 0 || xLoc > 7 || yLoc > 7) return;
+    
   if([self.board canMove:self X:xLoc Y:yLoc]) {
     [self changeLocationX:xLoc Y:yLoc];
   }

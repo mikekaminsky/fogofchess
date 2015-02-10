@@ -17,6 +17,8 @@
 
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
+- (Piece *)addPieceToArray:(NSMutableArray *)array;
+
 - (bool)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 @end
