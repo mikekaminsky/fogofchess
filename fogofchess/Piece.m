@@ -78,4 +78,9 @@
     }
 }
 
+-(void)capture
+{
+    self.hidden = YES;
+}
+
 @end

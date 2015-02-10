@@ -55,12 +55,26 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-  int direction = [curPiece team]==DARK ? -1 : 1;
-  if([curPiece xLoc] == xLoc &&
-      (yLoc - [curPiece yLoc] == 1*direction || yLoc - [curPiece yLoc] == 2*direction )) {
-    return YES;
-  }
-  return NO;
+    int direction = [curPiece team]==DARK ? -1 : 1;
+    
+    if(curPiece.xLoc == xLoc) {
+      if (yLoc - curPiece.yLoc == 1*direction || yLoc - curPiece.yLoc == 2*direction) {
+          return ![self isOccupiedX:xLoc Y:yLoc];
+      }
+    }
+        
+    return NO;
 }
+    
+- (BOOL)isOccupiedX:(int)xLoc Y:(int)yLoc
+{
+    for(Piece* piece in self.pieces) {
+        if(piece.xLoc == xLoc && piece.yLoc == yLoc)
+            return YES;
+    }
+    
+    return NO;
+}
+
 
 @end

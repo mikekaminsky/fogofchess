@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, Type) {
 
 @interface Piece : UIImageView
 
+@property (strong, nonatomic) BoardView *board;
+
 @property int xLoc;
 @property int yLoc;
 
@@ -32,13 +34,15 @@ typedef NS_ENUM(NSInteger, Type) {
 @property char team;
 
 @property float squareWidth;
-@property (strong, nonatomic) BoardView *board;
 
 - (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard;
 
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc;
+
 - (void)setTeam:(Team)newTeam andType:(Type)newType;
+
+- (void)capture;
 
 @end

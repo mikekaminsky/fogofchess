@@ -19,6 +19,8 @@
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 
-- (bool)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)isOccupiedX:(int)xLoc Y:(int)yLoc;
 
 @end
