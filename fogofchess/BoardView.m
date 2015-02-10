@@ -23,18 +23,7 @@
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
-    NSMutableArray *arrayOfPieces = [NSMutableArray array];
-    for (int i = 0; i < 8; i++) {
-      Piece *newPiece = [self addPieceToArray:arrayOfPieces];
-      [newPiece changeLocationX:i Y:1];
-      [newPiece setTeam:LIGHT andType:PAWN];
-
-      newPiece = [self addPieceToArray:arrayOfPieces];
-      [newPiece changeLocationX:i Y:6];
-      [newPiece setTeam:DARK andType:PAWN];
-    }
-
-    self.pieces = [[NSArray alloc] initWithArray:arrayOfPieces];
+    self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
   }
 
   return self;
@@ -48,6 +37,22 @@
   [self addSubview:newPiece];
 
   return newPiece;
+}
+
+- (NSMutableArray *)populatePieces
+{
+    NSMutableArray *arrayOfPieces = [NSMutableArray array];
+    for (int i = 0; i < 8; i++) {
+        Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+        [newPiece changeLocationX:i Y:1];
+        [newPiece setTeam:LIGHT andType:PAWN];
+        
+        newPiece = [self addPieceToArray:arrayOfPieces];
+        [newPiece changeLocationX:i Y:6];
+        [newPiece setTeam:DARK andType:PAWN];
+    }
+    
+    return arrayOfPieces;
 }
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
@@ -64,7 +69,7 @@
     }
   } else if(abs(xDiff) == 1 && yDiff == 1*direction) {
     Piece *attacked = [self getPieceAtX:xLoc Y:yLoc];
-    return [self attemptCaptureOf:attacked byAggressor:curPiece];
+    return [self attemptCaptureOf:attacked byTeam:curPiece.team];
   }
 
   return NO;
@@ -84,9 +89,9 @@
     return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 
-- (BOOL)attemptCaptureOf:(Piece *)attacked byAggressor:(Piece *)aggressor
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 {
-  if(attacked && attacked.team != aggressor.team) {
+  if(attacked && attacked.team != team) {
     [attacked capture];
     return YES;
   }

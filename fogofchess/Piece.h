@@ -7,21 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 @class BoardView;
 
-typedef NS_ENUM(NSInteger, Team) {
-    DARK,
-    LIGHT
-};
-
-typedef NS_ENUM(NSInteger, Type) {
-    PAWN,
-    KNIGHT,
-    BISHOP,
-    ROOK,
-    QUEEN,
-    KING,
-};
 
 @interface Piece : UIImageView
 
@@ -32,8 +20,6 @@ typedef NS_ENUM(NSInteger, Type) {
 
 @property Type type;
 @property Team team;
-
-@property float squareWidth;
 
 - (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard;
 

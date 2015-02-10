@@ -16,15 +16,14 @@
   self = [super initWithFrame:frame];
 
   if(self) {
-    [self setContentMode:UIViewContentModeScaleAspectFit];
-    self.userInteractionEnabled = YES;
-
     self.board = gameBoard;
-    self.squareWidth = [gameBoard squareWidth];
-
+    
     UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(panAnim:)];
     [self addGestureRecognizer:swipeRecognizer];
+      
+    self.contentMode = UIViewContentModeScaleAspectFit;
+    self.userInteractionEnabled = YES;
   }
 
   return self;
@@ -47,8 +46,8 @@
   self.yLoc = yLoc;
 
   CGRect frame = self.frame;
-  frame.origin.x = self.xLoc * self.squareWidth;
-  frame.origin.y = self.yLoc * self.squareWidth;
+  frame.origin.x = self.xLoc * self.board.squareWidth;
+  frame.origin.y = self.yLoc * self.board.squareWidth;
   self.frame = frame;
 }
 
@@ -71,8 +70,8 @@
   }
   else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
   {
-    int xLoc = (int)location.x/self.squareWidth;
-    int yLoc = (int)location.y/self.squareWidth;
+    int xLoc = (int)location.x/self.board.squareWidth;
+    int yLoc = (int)location.y/self.board.squareWidth;
 
     [self attemptMoveX:xLoc Y:yLoc];
   }

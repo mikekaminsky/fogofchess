@@ -62,6 +62,7 @@
 		797430901A898EB2001503D9 /* light_pawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_pawn.png; sourceTree = "<group>"; };
 		797430911A898EB2001503D9 /* light_queen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_queen.png; sourceTree = "<group>"; };
 		797430921A898EB2001503D9 /* light_rook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_rook.png; sourceTree = "<group>"; };
+		7974309F1A89B0CB001503D9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		79961C0C1A7AFD5700343E2B /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		79961C0D1A7AFD5700343E2B /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		79961C0F1A7B0CFA00343E2B /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -148,14 +149,15 @@
 				791ECE1C1A804B7F00686891 /* images */,
 				79C198A01A69D61300CA028E /* AppDelegate.h */,
 				79C198A11A69D61300CA028E /* AppDelegate.m */,
+				7974309F1A89B0CB001503D9 /* Constants.h */,
 				79C198A31A69D61300CA028E /* ViewController.h */,
+				79C198A41A69D61300CA028E /* ViewController.m */,
 				79961C0C1A7AFD5700343E2B /* GameViewController.h */,
 				79961C0D1A7AFD5700343E2B /* GameViewController.m */,
 				791ECE191A803F8F00686891 /* BoardView.h */,
 				791ECE1A1A803F8F00686891 /* BoardView.m */,
 				791ECE1F1A804BE900686891 /* Piece.h */,
 				791ECE201A804BE900686891 /* Piece.m */,
-				79C198A41A69D61300CA028E /* ViewController.m */,
 				79961C0F1A7B0CFA00343E2B /* MenuViewController.h */,
 				79961C101A7B0CFA00343E2B /* MenuViewController.m */,
 				79C198A61A69D61300CA028E /* Main.storyboard */,

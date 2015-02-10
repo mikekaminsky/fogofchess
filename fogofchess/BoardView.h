@@ -7,17 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 @class Piece;
 
 
 @interface BoardView : UIImageView
 
 @property float squareWidth;
+
 @property(nonatomic, strong) NSArray *pieces;
 
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
+
+- (NSMutableArray *)populatePieces;
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
@@ -25,6 +29,6 @@
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
 
-- (BOOL)attemptCaptureOf:(Piece *)attacked byAggressor:(Piece *)aggressor;
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
 @end
