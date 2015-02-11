@@ -3,7 +3,7 @@
 
 ###TODO:
 * [X] Add all pieces to board.
-* [ ] Rename BoardView to Board
+* [X] Rename BoardView to Board
 * [ ] Move game logic to GameEngine class
 * [ ] Split out movement rules by piece.
 * [ ] Teams take turns

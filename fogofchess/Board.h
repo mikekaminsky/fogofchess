@@ -11,7 +11,7 @@
 @class Piece;
 
 
-@interface BoardView : UIImageView
+@interface Board : UIImageView
 
 @property float squareWidth;
 

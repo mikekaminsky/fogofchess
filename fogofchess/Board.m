@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Kaminsky. All rights reserved.
 //
 
-#import "BoardView.h"
+#import "Board.h"
 #import "Piece.h"
 
-@implementation BoardView
+@implementation Board
 
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth
 {

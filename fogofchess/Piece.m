@@ -7,7 +7,7 @@
 //
 
 #import "Piece.h"
-#import "BoardView.h"
+#import "Board.h"
 
 NSString * const TypeName[] = {
   [PAWN] = @"pawn",
@@ -25,7 +25,7 @@ NSString * const TeamName[] = {
 
 @implementation Piece
 
-- (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard
+- (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard
 {
   self = [super initWithFrame:frame];
 

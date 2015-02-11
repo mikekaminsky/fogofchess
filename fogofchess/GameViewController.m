@@ -7,7 +7,7 @@
 //
 
 #import "GameViewController.h"
-#import "BoardView.h"
+#import "Board.h"
 
 @interface GameViewController ()
 
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor darkGrayColor];
     
-    BoardView *imgView = [[BoardView alloc] initWithImage: [UIImage imageNamed:@"chessboard.jpg"] width:self.view.frame.size.width];
+    Board *imgView = [[Board alloc] initWithImage: [UIImage imageNamed:@"chessboard.jpg"] width:self.view.frame.size.width];
     
     [self.view addSubview:imgView];
 }

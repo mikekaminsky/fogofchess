@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
-@class BoardView;
+@class Board;
 
 
 @interface Piece : UIImageView
 
-@property (strong, nonatomic) BoardView *board;
+@property (strong, nonatomic) Board *board;
 
 @property int xLoc;
 @property int yLoc;
@@ -23,7 +23,7 @@
 
 @property BOOL everMoved;
 
-- (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard;
+- (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard;
 
 - (void)enableInteraction;
 

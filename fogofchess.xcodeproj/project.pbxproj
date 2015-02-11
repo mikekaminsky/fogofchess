@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		791ECE1B1A803F8F00686891 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE1A1A803F8F00686891 /* BoardView.m */; };
+		791ECE1B1A803F8F00686891 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE1A1A803F8F00686891 /* Board.m */; };
 		791ECE211A804BE900686891 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE201A804BE900686891 /* Piece.m */; };
 		797430931A898EB2001503D9 /* dark_bishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430871A898EB2001503D9 /* dark_bishop.png */; };
 		797430941A898EB2001503D9 /* dark_king.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430881A898EB2001503D9 /* dark_king.png */; };
@@ -46,8 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		791ECE191A803F8F00686891 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
-		791ECE1A1A803F8F00686891 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
+		791ECE191A803F8F00686891 /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
+		791ECE1A1A803F8F00686891 /* Board.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Board.m; sourceTree = "<group>"; };
 		791ECE1F1A804BE900686891 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		791ECE201A804BE900686891 /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
 		797430871A898EB2001503D9 /* dark_bishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_bishop.png; sourceTree = "<group>"; };
@@ -154,8 +154,8 @@
 				79C198A41A69D61300CA028E /* ViewController.m */,
 				79961C0C1A7AFD5700343E2B /* GameViewController.h */,
 				79961C0D1A7AFD5700343E2B /* GameViewController.m */,
-				791ECE191A803F8F00686891 /* BoardView.h */,
-				791ECE1A1A803F8F00686891 /* BoardView.m */,
+				791ECE191A803F8F00686891 /* Board.h */,
+				791ECE1A1A803F8F00686891 /* Board.m */,
 				791ECE1F1A804BE900686891 /* Piece.h */,
 				791ECE201A804BE900686891 /* Piece.m */,
 				79961C0F1A7B0CFA00343E2B /* MenuViewController.h */,
@@ -314,7 +314,7 @@
 				79C198A21A69D61300CA028E /* AppDelegate.m in Sources */,
 				79C1989F1A69D61300CA028E /* main.m in Sources */,
 				79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */,
-				791ECE1B1A803F8F00686891 /* BoardView.m in Sources */,
+				791ECE1B1A803F8F00686891 /* Board.m in Sources */,
 				791ECE211A804BE900686891 /* Piece.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
