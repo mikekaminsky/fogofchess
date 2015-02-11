@@ -8,6 +8,7 @@
 
 #import "Board.h"
 #import "Piece.h"
+#import "GameEngine.h"
 
 @implementation Board
 
@@ -22,6 +23,7 @@
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
+    self.engine = [[GameEngine alloc] initWithBoard:self];
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     self.userInteractionEnabled = YES;
@@ -90,69 +92,6 @@
   return arrayOfPieces;
 }
 
-- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
-{
-  if(curPiece.type == PAWN)
-    return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == KNIGHT)
-    return [self knightCanMove:curPiece X:xLoc Y:yLoc];
-  return NO;
-}
-
-- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
-{
-  int direction = [curPiece team] == DARK ? -1 : 1;
-
-  int xDiff = xLoc - curPiece.xLoc;
-  int yDiff = yLoc - curPiece.yLoc;
-
-  if (xLoc == curPiece.xLoc)
-  {
-    if (yDiff == 1*direction)
-    {
-      return [self isUnoccupied:xLoc Y:yLoc];
-    }
-    else if (yDiff == 2*direction)
-    {
-      return !curPiece.everMoved
-        && [self isUnoccupied:xLoc Y:yLoc]
-        && [self isUnoccupied:xLoc Y:curPiece.yLoc + direction];
-    }
-
-  }
-  else if (abs(xDiff) == 1 && yDiff == 1*direction)
-  {
-
-    Piece *attacked = [self getPieceAtX:xLoc Y:yLoc];
-    return [self attemptCaptureOf:attacked byTeam:curPiece.team];
-
-  }
-
-  return NO;
-}
-
-- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
-{
-  int xDiff = abs(xLoc - curPiece.xLoc);
-  int yDiff = abs(yLoc - curPiece.yLoc);
-
-  if (xDiff > 2)
-    return NO;
-  if (yDiff > 2)
-    return NO;
-
-  if (xDiff + yDiff == 3) {
-    Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc];
-
-    if(otherPiece == nil)
-      return YES;
-
-    return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
-  }
-
-  return NO;
-}
-
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
   for(Piece* piece in self.pieces) {
@@ -165,6 +104,11 @@
 
 - (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc {
     return [self getPieceAtX:xLoc Y:yLoc] == nil;
+}
+
+- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+    return [self.engine canMove:curPiece X:xLoc Y:yLoc];
 }
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;

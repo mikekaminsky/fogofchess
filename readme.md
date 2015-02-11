@@ -4,7 +4,7 @@
 ###TODO:
 * [X] Add all pieces to board.
 * [X] Rename BoardView to Board
-* [ ] Move game logic to GameEngine class
+* [X] Move game logic to GameEngine class
 * [ ] Split out movement rules by piece.
 * [ ] Teams take turns
 * [ ] Display captured pieces to 'bank' at top/bottom of board.

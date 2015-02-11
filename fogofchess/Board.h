@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 @class Piece;
+@class GameEngine;
 
 
 @interface Board : UIImageView
@@ -17,21 +18,19 @@
 
 @property(nonatomic, strong) NSArray *pieces;
 
+@property(nonatomic, strong) GameEngine *engine;
+
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 
 - (NSMutableArray *)populatePieces;
 
-- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
 - (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 

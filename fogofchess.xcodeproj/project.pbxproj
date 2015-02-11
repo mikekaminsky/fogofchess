@@ -26,6 +26,7 @@
 		79961C161A7B117500343E2B /* electric-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C131A7B117500343E2B /* electric-7.png */; };
 		79961C171A7B117500343E2B /* spanner-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C141A7B117500343E2B /* spanner-7.png */; };
 		79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79961C1A1A7B14ED00343E2B /* chessboard.jpg */; };
+		79A2BE111A8C1A0A00884261 /* GameEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A2BE101A8C1A0A00884261 /* GameEngine.m */; };
 		79C1989F1A69D61300CA028E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C1989E1A69D61300CA028E /* main.m */; };
 		79C198A21A69D61300CA028E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C198A11A69D61300CA028E /* AppDelegate.m */; };
 		79C198A81A69D61300CA028E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79C198A61A69D61300CA028E /* Main.storyboard */; };
@@ -69,6 +70,8 @@
 		79961C131A7B117500343E2B /* electric-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "electric-7.png"; path = "../electric-7.png"; sourceTree = "<group>"; };
 		79961C141A7B117500343E2B /* spanner-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spanner-7.png"; path = "../spanner-7.png"; sourceTree = "<group>"; };
 		79961C1A1A7B14ED00343E2B /* chessboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chessboard.jpg; path = ../chessboard.jpg; sourceTree = "<group>"; };
+		79A2BE0F1A8C1A0A00884261 /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
+		79A2BE101A8C1A0A00884261 /* GameEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEngine.m; sourceTree = "<group>"; };
 		79C198991A69D61300CA028E /* fogofchess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fogofchess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C1989D1A69D61300CA028E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C1989E1A69D61300CA028E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 				791ECE1A1A803F8F00686891 /* Board.m */,
 				791ECE1F1A804BE900686891 /* Piece.h */,
 				791ECE201A804BE900686891 /* Piece.m */,
+				79A2BE0F1A8C1A0A00884261 /* GameEngine.h */,
+				79A2BE101A8C1A0A00884261 /* GameEngine.m */,
 				79961C0F1A7B0CFA00343E2B /* MenuViewController.h */,
 				79961C101A7B0CFA00343E2B /* MenuViewController.m */,
 				79C198A61A69D61300CA028E /* Main.storyboard */,
@@ -308,6 +313,7 @@
 				79C198A21A69D61300CA028E /* AppDelegate.m in Sources */,
 				79C1989F1A69D61300CA028E /* main.m in Sources */,
 				79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */,
+				79A2BE111A8C1A0A00884261 /* GameEngine.m in Sources */,
 				791ECE1B1A803F8F00686891 /* Board.m in Sources */,
 				791ECE211A804BE900686891 /* Piece.m in Sources */,
 			);
