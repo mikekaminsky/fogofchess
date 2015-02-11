@@ -11,8 +11,7 @@
 
 typedef NS_ENUM(NSInteger, Team) {
   DARK = 0,
-  LIGHT,
-  TeamCount
+  LIGHT
 };
 
 typedef NS_ENUM(NSInteger, Type) {
@@ -21,11 +20,10 @@ typedef NS_ENUM(NSInteger, Type) {
   BISHOP,
   ROOK,
   QUEEN,
-  KING,
-  TypeCount
+  KING
 };
 
-extern NSString *const TypeName[TypeCount];
-extern NSString *const TeamName[TeamCount];
+extern NSString *const TypeName[];
+extern NSString *const TeamName[];
 
 #endif

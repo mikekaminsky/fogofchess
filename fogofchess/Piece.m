@@ -32,8 +32,8 @@ NSString * const TeamName[] = {
   if(self) {
     self.board = gameBoard;
     self.everMoved = NO;
-    self.contentMode = UIViewContentModeScaleAspectFit;
 
+    self.contentMode = UIViewContentModeScaleAspectFit;
     [self enableInteraction];
   }
 
@@ -53,9 +53,9 @@ NSString * const TeamName[] = {
 {
   self.team = newTeam;
   self.type = newType;
-  
+
   NSString *assetFile = [NSString stringWithFormat:@"%@_%@", TeamName[newTeam], TypeName[newType]];
-  
+
   [self setImage:[UIImage imageNamed:assetFile]];
 }
 

@@ -15,15 +15,16 @@
 {
   self = [super initWithImage:image];
   if(self) {
-    [self setContentMode:UIViewContentModeScaleAspectFit];
 
-    self.userInteractionEnabled = YES;
     self.squareWidth = (fullWidth - 2) / 8;
 
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
+
+    self.contentMode = UIViewContentModeScaleAspectFit;
+    self.userInteractionEnabled = YES;
   }
 
   return self;
@@ -51,7 +52,7 @@
     [newPiece changeLocationX:i Y:6];
     [newPiece setTeam:DARK andType:PAWN];
   }
-  
+
   for (int i = 0; i < 8; i++) {
     Type newType;
     switch(i) {
@@ -76,16 +77,16 @@
       default:
         break;
     }
-    
+
     Piece *newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:0];
     [newPiece setTeam:LIGHT andType:newType];
-    
+
     newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:7];
     [newPiece setTeam:DARK andType:newType];
   }
-  
+
   return arrayOfPieces;
 }
 
@@ -134,21 +135,21 @@
 {
   int xDiff = abs(xLoc - curPiece.xLoc);
   int yDiff = abs(yLoc - curPiece.yLoc);
-  
+
   if (xDiff > 2)
     return NO;
   if (yDiff > 2)
     return NO;
-  
+
   if (xDiff + yDiff == 3) {
     Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc];
-    
+
     if(otherPiece == nil)
       return YES;
-    
+
     return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
   }
-  
+
   return NO;
 }
 
