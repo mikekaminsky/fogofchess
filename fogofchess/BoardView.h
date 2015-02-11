@@ -25,6 +25,10 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
+- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
 - (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;

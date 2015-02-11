@@ -91,6 +91,15 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  if(curPiece.type == PAWN)
+    return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == KNIGHT)
+    return [self knightCanMove:curPiece X:xLoc Y:yLoc];
+  return NO;
+}
+
+- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
   int direction = [curPiece team] == DARK ? -1 : 1;
 
   int xDiff = xLoc - curPiece.xLoc;
@@ -118,6 +127,28 @@
 
   }
 
+  return NO;
+}
+
+- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  int xDiff = abs(xLoc - curPiece.xLoc);
+  int yDiff = abs(yLoc - curPiece.yLoc);
+  
+  if (xDiff > 2)
+    return NO;
+  if (yDiff > 2)
+    return NO;
+  
+  if (xDiff + yDiff == 3) {
+    Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc];
+    
+    if(otherPiece == nil)
+      return YES;
+    
+    return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  }
+  
   return NO;
 }
 
