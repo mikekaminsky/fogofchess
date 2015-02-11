@@ -51,7 +51,41 @@
     [newPiece changeLocationX:i Y:6];
     [newPiece setTeam:DARK andType:PAWN];
   }
-
+  
+  for (int i = 0; i < 8; i++) {
+    Type newType;
+    switch(i) {
+      case 0 :
+      case 7 :
+        newType = ROOK;
+        break;
+      case 1 :
+      case 6 :
+        newType = KNIGHT;
+        break;
+      case 2 :
+      case 5 :
+        newType = BISHOP;
+        break;
+      case 3 :
+        newType = QUEEN;
+        break;
+      case 4 :
+        newType = KING;
+        break;
+      default:
+        break;
+    }
+    
+    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:0];
+    [newPiece setTeam:LIGHT andType:newType];
+    
+    newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:7];
+    [newPiece setTeam:DARK andType:newType];
+  }
+  
   return arrayOfPieces;
 }
 

@@ -9,6 +9,20 @@
 #import "Piece.h"
 #import "BoardView.h"
 
+NSString * const TypeName[] = {
+  [PAWN] = @"pawn",
+  [KNIGHT] = @"knight",
+  [BISHOP] = @"bishop",
+  [ROOK] = @"rook",
+  [QUEEN] = @"queen",
+  [KING] = @"king"
+};
+
+NSString * const TeamName[] = {
+  [DARK] = @"dark",
+  [LIGHT] = @"light",
+};
+
 @implementation Piece
 
 - (id)initWithFrame:(CGRect)frame withBoard:(BoardView *)gameBoard
@@ -39,11 +53,10 @@
 {
   self.team = newTeam;
   self.type = newType;
-  if(newTeam == DARK) {
-    [self setImage:[UIImage imageNamed:@"dark_pawn"]];
-  } else {
-    [self setImage:[UIImage imageNamed:@"light_pawn"]];
-  }
+  
+  NSString *assetFile = [NSString stringWithFormat:@"%@_%@", TeamName[newTeam], TypeName[newType]];
+  
+  [self setImage:[UIImage imageNamed:assetFile]];
 }
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc

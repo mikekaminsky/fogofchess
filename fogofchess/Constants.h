@@ -10,17 +10,22 @@
 #define fogofchess_Constants_h
 
 typedef NS_ENUM(NSInteger, Team) {
-  DARK,
-  LIGHT
+  DARK = 0,
+  LIGHT,
+  TeamCount
 };
 
 typedef NS_ENUM(NSInteger, Type) {
-  PAWN,
+  PAWN = 0,
   KNIGHT,
   BISHOP,
   ROOK,
   QUEEN,
-  KING
+  KING,
+  TypeCount
 };
+
+extern NSString *const TypeName[TypeCount];
+extern NSString *const TeamName[TeamCount];
 
 #endif
