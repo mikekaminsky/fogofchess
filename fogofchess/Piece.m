@@ -72,8 +72,6 @@ NSString * const TeamName[] = {
 
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
-  if(xLoc < 0 || yLoc < 0 || xLoc > 7 || yLoc > 7) return;
-
   if([self.board canMove:self X:xLoc Y:yLoc]) {
     self.everMoved = YES;
     [self changeLocationX:xLoc Y:yLoc];
