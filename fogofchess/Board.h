@@ -26,6 +26,8 @@
 
 - (NSMutableArray *)populatePieces;
 
+- (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;

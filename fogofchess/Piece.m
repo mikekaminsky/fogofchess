@@ -32,6 +32,8 @@ NSString * const TeamName[] = {
   if(self) {
     self.board = gameBoard;
     self.everMoved = NO;
+    self.xLoc = 0;
+    self.yLoc = 0;
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     [self enableInteraction];
@@ -61,6 +63,8 @@ NSString * const TeamName[] = {
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc
 {
+  [self.board updateAllSquares:self X:xLoc Y:yLoc];
+  
   self.xLoc = xLoc;
   self.yLoc = yLoc;
 

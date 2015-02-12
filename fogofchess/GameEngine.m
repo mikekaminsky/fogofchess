@@ -25,11 +25,11 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-  if(xLoc < 0 || yLoc < 0 || xLoc > 7 || yLoc > 7)
+  if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
     return NO;
   if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
     return NO;
-  
+
   if(curPiece.type == PAWN)
     return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
   if(curPiece.type == KNIGHT)

@@ -10,17 +10,25 @@
 #import "Piece.h"
 #import "GameEngine.h"
 
-@implementation Board
+@implementation Board {
+   NSMutableArray *allSquares;
+}
+
 
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth
 {
   self = [super initWithImage:image];
   if(self) {
+    allSquares = [NSMutableArray array];
+    for (int i=0; i<BOARD_SIZE * BOARD_SIZE; i++)
+      [allSquares addObject:[NSNull null]];//initWithCapacity:BOARD_SIZE * BOARD_SIZE];
 
-    self.squareWidth = (fullWidth - 2) / 8;
+    self.squareWidth = (fullWidth - 2) / BOARD_SIZE;
 
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
+
+
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
@@ -45,17 +53,17 @@
 - (NSMutableArray *)populatePieces
 {
   NSMutableArray *arrayOfPieces = [NSMutableArray array];
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     Piece *newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:1];
     [newPiece setTeam:LIGHT andType:PAWN];
 
     newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:6];
+    [newPiece changeLocationX:i Y:BOARD_SIZE-2];
     [newPiece setTeam:DARK andType:PAWN];
   }
 
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     Type newType;
     switch(i) {
       case 0 :
@@ -92,18 +100,26 @@
   return arrayOfPieces;
 }
 
+- (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  int oldIndex = curPiece.yLoc * BOARD_SIZE + curPiece.xLoc;
+  int newIndex = yLoc * BOARD_SIZE + xLoc;
+
+  [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
+  [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+}
+
+
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
-  for(Piece* piece in self.pieces) {
-    if(piece.xLoc == xLoc && piece.yLoc == yLoc && !piece.hidden)
-      return piece;
-  }
-
-  return nil;
+  Piece *p = [allSquares objectAtIndex:yLoc*BOARD_SIZE+xLoc];
+  if([p isEqual:[NSNull null]])
+    return nil;
+  return p;
 }
 
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc {
-    return [self getPieceAtX:xLoc Y:yLoc] == nil;
+  return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc

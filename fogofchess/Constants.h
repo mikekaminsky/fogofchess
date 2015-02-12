@@ -9,6 +9,8 @@
 #ifndef fogofchess_Constants_h
 #define fogofchess_Constants_h
 
+#define BOARD_SIZE 8
+
 typedef NS_ENUM(NSInteger, Team) {
   DARK = 0,
   LIGHT
