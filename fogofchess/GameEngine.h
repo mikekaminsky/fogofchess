@@ -22,4 +22,12 @@
 
 - (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
+- (BOOL)rookCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)bishopCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
 @end

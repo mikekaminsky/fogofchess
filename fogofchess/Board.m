@@ -102,7 +102,7 @@
   return nil;
 }
 
-- (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc {
+- (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc {
     return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 

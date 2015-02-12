@@ -26,7 +26,7 @@
 
 - (NSMutableArray *)populatePieces;
 
-- (BOOL)isUnoccupied:(int)xLoc Y:(int)yLoc;
+- (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
 

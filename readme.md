@@ -5,10 +5,11 @@
 * [X] Add all pieces to board.
 * [X] Rename BoardView to Board
 * [X] Move game logic to GameEngine class
-* [ ] Split out movement rules by piece.
+* [x] Split out movement rules by piece.
 * [ ] Teams take turns
 * [ ] Display captured pieces to 'bank' at top/bottom of board.
 * [ ] Implement en passant
+* [ ] Implement castling
 * [ ] Prevent moves into check
 * [ ] Detect checkmate
 * [ ] Figure out how to network iphones.

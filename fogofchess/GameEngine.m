@@ -29,6 +29,14 @@
     return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
   if(curPiece.type == KNIGHT)
     return [self knightCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == ROOK)
+    return [self rookCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == BISHOP)
+    return [self bishopCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == QUEEN)
+    return [self queenCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == KING)
+    return [self kingCanMove:curPiece X:xLoc Y:yLoc];
   return NO;
 }
 
@@ -43,13 +51,13 @@
   {
     if (yDiff == 1*direction)
     {
-      return [self.board isUnoccupied:xLoc Y:yLoc];
+      return [self.board isUnoccupiedX:xLoc Y:yLoc];
     }
     else if (yDiff == 2*direction)
     {
       return !curPiece.everMoved
-        && [self.board isUnoccupied:xLoc Y:yLoc]
-        && [self.board isUnoccupied:xLoc Y:curPiece.yLoc + direction];
+        && [self.board isUnoccupiedX:xLoc Y:yLoc]
+        && [self.board isUnoccupiedX:xLoc Y:curPiece.yLoc + direction];
     }
 
   }
@@ -83,6 +91,91 @@
 
   return NO;
 }
+
+- (BOOL)rookCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  int xDiff = xLoc - curPiece.xLoc;
+  int yDiff = yLoc - curPiece.yLoc;
+
+  if (xDiff != 0 && yDiff != 0)
+    return NO;
+
+  if (yDiff != 0)
+  {
+    int direction = yDiff > 0 ? 1 : -1;
+    for (int i = curPiece.yLoc + direction; i != yLoc; i += direction) {
+      if (![self.board isUnoccupiedX:curPiece.xLoc Y:i])
+        return NO;
+    }
+  }
+  else if (xDiff != 0)
+  {
+    int direction = xDiff > 0 ? 1 : -1;
+    for (int i = curPiece.xLoc + direction; i != xLoc; i += direction) {
+      if (![self.board isUnoccupiedX:i Y:curPiece.yLoc])
+        return NO;
+    }
+  }
+
+  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+  if(otherPiece == nil)
+    return YES;
+
+  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+}
+
+
+- (BOOL)bishopCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+
+  int xDiff = xLoc - curPiece.xLoc;
+  int yDiff = yLoc - curPiece.yLoc;
+  int xDirection = xDiff > 0 ? 1 : -1;
+  int yDirection = yDiff > 0 ? 1 : -1;
+
+  if (abs(xDiff) != abs(yDiff))
+    return NO;
+
+  int j = curPiece.yLoc + yDirection;
+  for (int i = curPiece.xLoc + xDirection; i != xLoc && j != yLoc; i += xDirection) {
+    if (![self.board isUnoccupiedX:i Y:j])
+      return NO;
+    j += yDirection;
+  }
+
+  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+  if(otherPiece == nil)
+    return YES;
+
+  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+}
+
+
+- (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  return [self bishopCanMove:curPiece X:xLoc Y:yLoc] ||
+         [self rookCanMove:curPiece X:xLoc Y:yLoc];
+}
+
+
+- (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  int xDiff = xLoc - curPiece.xLoc;
+  int yDiff = yLoc - curPiece.yLoc;
+
+  if (abs(xDiff) > 1 || abs(yDiff) > 1)
+    return NO;
+
+  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+  if(otherPiece == nil)
+    return YES;
+
+  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+}
+
 
 @end
 
