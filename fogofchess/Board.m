@@ -106,7 +106,9 @@
   int oldIndex = curPiece.yLoc * BOARD_SIZE + curPiece.xLoc;
   int newIndex = yLoc * BOARD_SIZE + xLoc;
 
-  [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
+  if(oldIndex >= 0 && oldIndex < BOARD_SIZE * BOARD_SIZE) {
+    [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
+  }
 
   if(!curPiece.bCaptured) {
     [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];

@@ -34,8 +34,8 @@ NSString * const TeamName[] = {
 
     self.bEverMoved = NO;
     self.bCaptured = NO;
-    self.xLoc = 0;
-    self.yLoc = 0;
+    self.xLoc = -1;
+    self.yLoc = -1;
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     [self enableInteraction];
