@@ -31,7 +31,9 @@ NSString * const TeamName[] = {
 
   if(self) {
     self.board = gameBoard;
-    self.everMoved = NO;
+
+    self.bEverMoved = NO;
+    self.bCaptured = NO;
     self.xLoc = 0;
     self.yLoc = 0;
 
@@ -50,7 +52,6 @@ NSString * const TeamName[] = {
   self.userInteractionEnabled = YES;
 }
 
-
 - (void)setTeam:(Team)newTeam andType:(Type)newType
 {
   self.team = newTeam;
@@ -64,7 +65,7 @@ NSString * const TeamName[] = {
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc
 {
   [self.board updateAllSquares:self X:xLoc Y:yLoc];
-  
+
   self.xLoc = xLoc;
   self.yLoc = yLoc;
 
@@ -77,7 +78,7 @@ NSString * const TeamName[] = {
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
   if([self.board canMove:self X:xLoc Y:yLoc]) {
-    self.everMoved = YES;
+    self.bEverMoved = YES;
     [self changeLocationX:xLoc Y:yLoc];
   }
 }
@@ -101,7 +102,7 @@ NSString * const TeamName[] = {
 
 - (void)capture
 {
-  self.hidden = YES;
+  self.bCaptured = YES;
 }
 
 @end

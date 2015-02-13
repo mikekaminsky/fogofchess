@@ -21,7 +21,9 @@
 @property Type type;
 @property Team team;
 
-@property BOOL everMoved;
+@property BOOL bCaptured;
+
+@property BOOL bEverMoved;
 
 - (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard;
 

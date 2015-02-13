@@ -7,12 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
+
 @class Board;
 @class Piece;
 
 @interface GameEngine : NSObject
 
 @property (strong, nonatomic) Board *board;
+
+@property int lightCapturedCount;
+@property int darkCapturedCount;
+
 
 - (id)initWithBoard:(Board *)board;
 
@@ -29,5 +35,7 @@
 - (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
 @end

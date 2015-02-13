@@ -20,15 +20,13 @@
   self = [super initWithImage:image];
   if(self) {
     allSquares = [NSMutableArray array];
-    for (int i=0; i<BOARD_SIZE * BOARD_SIZE; i++)
+    for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
       [allSquares addObject:[NSNull null]];//initWithCapacity:BOARD_SIZE * BOARD_SIZE];
 
     self.squareWidth = (fullWidth - 2) / BOARD_SIZE;
 
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
-
-
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
@@ -106,14 +104,17 @@
   int newIndex = yLoc * BOARD_SIZE + xLoc;
 
   [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
-  [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+  
+  if(!curPiece.bCaptured) {
+    [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+  }
 }
 
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
   Piece *p = [allSquares objectAtIndex:yLoc*BOARD_SIZE+xLoc];
-  if([p isEqual:[NSNull null]])
+  if([p isEqual:[NSNull null]] || p.bCaptured == YES)
     return nil;
   return p;
 }
@@ -125,16 +126,6 @@
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
     return [self.engine canMove:curPiece X:xLoc Y:yLoc];
-}
-
-- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
-{
-  if(attacked && attacked.team != team) {
-    [attacked capture];
-    return YES;
-  }
-
-  return NO;
 }
 
 @end
