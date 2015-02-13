@@ -20,6 +20,9 @@
 
 @property(nonatomic, strong) GameEngine *engine;
 
+@property int lightCapturedCount;
+@property int darkCapturedCount;
+
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
@@ -34,6 +37,6 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
-- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
+- (void)capturePiece:(Piece *)piece;
 
 @end

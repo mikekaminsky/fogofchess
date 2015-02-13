@@ -20,7 +20,7 @@
   self = [super initWithImage:image];
   if(self) {
     allSquares = [NSMutableArray array];
-    for (int i=0; i<BOARD_SIZE * BOARD_SIZE; i++)
+    for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
       [allSquares addObject:[NSNull null]];//initWithCapacity:BOARD_SIZE * BOARD_SIZE];
 
     self.squareWidth = (fullWidth - 2) / BOARD_SIZE;
@@ -28,7 +28,8 @@
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
-
+    self.darkCapturedCount = 0;
+    self.lightCapturedCount = 0;
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
@@ -106,14 +107,17 @@
   int newIndex = yLoc * BOARD_SIZE + xLoc;
 
   [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
-  [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+
+  if(!curPiece.bCaptured) {
+    [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+  }
 }
 
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
   Piece *p = [allSquares objectAtIndex:yLoc*BOARD_SIZE+xLoc];
-  if([p isEqual:[NSNull null]])
+  if([p isEqual:[NSNull null]] || p.bCaptured == YES)
     return nil;
   return p;
 }
@@ -127,14 +131,28 @@
     return [self.engine canMove:curPiece X:xLoc Y:yLoc];
 }
 
-- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
+- (void)capturePiece:(Piece *)piece
 {
-  if(attacked && attacked.team != team) {
-    [attacked capture];
-    return YES;
-  }
+  piece.bCaptured = true;
+  [self updateAllSquares:piece X:-1 Y:-1];
 
-  return NO;
+  if(piece.team == LIGHT) {
+
+    CGRect frame = piece.frame;
+    frame.origin.x = (self.lightCapturedCount % BOARD_SIZE) * self.squareWidth;
+    frame.origin.y = (BOARD_SIZE + self.lightCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
+    piece.frame = frame;
+
+    self.lightCapturedCount++;
+  } else {
+
+    CGRect frame = piece.frame;
+    frame.origin.x = (self.darkCapturedCount % BOARD_SIZE) * self.squareWidth;
+    frame.origin.y = (-1 - self.darkCapturedCount/BOARD_SIZE) * self.squareWidth - (self.squareWidth/2);
+    piece.frame = frame;
+
+    self.darkCapturedCount++;
+  }
 }
 
 @end

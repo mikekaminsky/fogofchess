@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
+
 @class Board;
 @class Piece;
 
@@ -29,5 +31,7 @@
 - (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
 @end

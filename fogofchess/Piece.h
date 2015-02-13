@@ -21,7 +21,9 @@
 @property Type type;
 @property Team team;
 
-@property BOOL everMoved;
+@property BOOL bCaptured;
+
+@property BOOL bEverMoved;
 
 - (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard;
 
@@ -32,7 +34,5 @@
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc;
 
 - (void)setTeam:(Team)newTeam andType:(Type)newType;
-
-- (void)capture;
 
 @end

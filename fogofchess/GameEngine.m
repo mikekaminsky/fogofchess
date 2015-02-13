@@ -60,7 +60,7 @@
     }
     else if (yDiff == 2*direction)
     {
-      return !curPiece.everMoved
+      return !curPiece.bEverMoved
         && [self.board isUnoccupiedX:xLoc Y:yLoc]
         && [self.board isUnoccupiedX:xLoc Y:curPiece.yLoc + direction];
     }
@@ -69,7 +69,7 @@
   else if (abs(xDiff) == 1 && yDiff == 1*direction)
   {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
-    return [self.board attemptCaptureOf:attacked byTeam:curPiece.team];
+    return [self attemptCaptureOf:attacked byTeam:curPiece.team];
   }
 
   return NO;
@@ -91,7 +91,7 @@
     if(otherPiece == nil)
       return YES;
 
-    return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+    return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
   }
 
   return NO;
@@ -127,7 +127,7 @@
   if(otherPiece == nil)
     return YES;
 
-  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
 }
 
 
@@ -154,7 +154,7 @@
   if(otherPiece == nil)
     return YES;
 
-  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
 }
 
 
@@ -178,7 +178,19 @@
   if(otherPiece == nil)
     return YES;
 
-  return [self.board attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+}
+
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
+{
+  if(attacked && attacked.team != team) {
+    [self.board capturePiece: attacked];
+ 
+    return YES;
+  }
+  
+  
+  return NO;
 }
 
 
