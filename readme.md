@@ -8,9 +8,9 @@
 * [x] Split out movement rules by piece
 * [x] Cache board status for O(1) square lookups
 * [x] Display captured pieces to 'bank' at top/bottom of board
+* [x] Promote pawn to queen
 * [ ] Highlight selected piece during move
 * [ ] Naive castling
-* [ ] Promote pawn to queen
 * [ ] Create log of moves
   * [x] Keep track of current move number
   * [x] White's turn if current_move %% 2  == 1

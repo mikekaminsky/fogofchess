@@ -32,6 +32,8 @@
 
 - (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
+- (void)promotePawn:(Piece *)curPiece Y:(int)yLoc;
+
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
 @end

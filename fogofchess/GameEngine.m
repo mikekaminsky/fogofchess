@@ -26,8 +26,9 @@
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
-     (self.board.turn %2 == 1 && curPiece.team == LIGHT) )
+     (self.board.turn %2 == 1 && curPiece.team == LIGHT) ) {
     return NO;
+  }
 
   if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
     return NO;
@@ -49,6 +50,13 @@
   return NO;
 }
 
+- (void)promotePawn:(Piece *)curPiece Y:(int)yLoc
+{
+  if(yLoc == 0 || yLoc == BOARD_SIZE - 1) {
+    [curPiece setTeam:curPiece.team andType:QUEEN];
+  }
+}
+
 - (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   int direction = [curPiece team] == DARK ? 1 : -1;
@@ -56,27 +64,33 @@
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
 
+  BOOL bReturn = NO;
+
   if (xLoc == curPiece.xLoc)
   {
-    if (yDiff == 1*direction)
+    if (yDiff == 1 * direction)
     {
-      return [self.board isUnoccupiedX:xLoc Y:yLoc];
+      bReturn = [self.board isUnoccupiedX:xLoc Y:yLoc];
     }
-    else if (yDiff == 2*direction)
+    else if (yDiff == 2 * direction)
     {
-      return !curPiece.bEverMoved
-        && [self.board isUnoccupiedX:xLoc Y:yLoc]
-        && [self.board isUnoccupiedX:xLoc Y:curPiece.yLoc + direction];
+      bReturn = !curPiece.bEverMoved &&
+                [self.board isUnoccupiedX:xLoc Y:yLoc] &&
+                [self.board isUnoccupiedX:xLoc Y:curPiece.yLoc + direction];
     }
 
   }
-  else if (abs(xDiff) == 1 && yDiff == 1*direction)
+  else if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
-    return [self attemptCaptureOf:attacked byTeam:curPiece.team];
+    bReturn =  [self attemptCaptureOf:attacked byTeam:curPiece.team];
   }
 
-  return NO;
+  if(bReturn) {
+    [self promotePawn:curPiece Y:yLoc];
+  }
+
+  return bReturn;
 }
 
 - (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
