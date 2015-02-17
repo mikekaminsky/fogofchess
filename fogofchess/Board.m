@@ -28,6 +28,8 @@
     int ycoord = (590 - fullWidth)/2 + 20;
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
+    self.turn = 0;
+
     self.darkCapturedCount = 0;
     self.lightCapturedCount = 0;
 
@@ -130,7 +132,11 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-    return [self.engine canMove:curPiece X:xLoc Y:yLoc];
+    BOOL bMoved = [self.engine canMove:curPiece X:xLoc Y:yLoc];
+    if(bMoved) {
+      self.turn++;
+    }
+    return bMoved;
 }
 
 - (void)capturePiece:(Piece *)piece

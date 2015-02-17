@@ -25,11 +25,15 @@
 
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
+     (self.board.turn %2 == 1 && curPiece.team == LIGHT) )
+    return NO;
+  
   if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
     return NO;
   if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
     return NO;
-
+  
   if(curPiece.type == PAWN)
     return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
   if(curPiece.type == KNIGHT)

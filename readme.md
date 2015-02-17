@@ -8,15 +8,19 @@
 * [x] Split out movement rules by piece
 * [x] Cache board status for O(1) square lookups
 * [x] Display captured pieces to 'bank' at top/bottom of board
+* [ ] Highlight selected piece during move
+* [ ] Naive castling
+* [ ] Promote pawn to queen
 * [ ] Create log of moves
-  * [ ] Keep track of current move number
-  * [ ] White's turn if current_move %% 2  == 1
+  * [x] Keep track of current move number
+  * [x] White's turn if current_move %% 2  == 1
   * [ ] Save move once executed with enumeration
 * [ ] List possible moves per piece
 * [ ] Detect check per square
 * [ ] Finish rules
   * [ ] Implement en passant
   * [ ] Implement castling
+  * [ ] Promote pawn to any piece
   * [ ] Prevent moves into check
   * [ ] Detect checkmate
   * [ ] Allow players to resign

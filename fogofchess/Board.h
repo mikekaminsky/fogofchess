@@ -22,6 +22,7 @@
 
 @property int lightCapturedCount;
 @property int darkCapturedCount;
+@property int turn;
 
 - (id)initWithImage:(UIImage *)image width:(float)fullWidth;
 
