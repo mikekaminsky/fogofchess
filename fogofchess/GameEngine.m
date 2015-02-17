@@ -28,12 +28,12 @@
   if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
      (self.board.turn %2 == 1 && curPiece.team == LIGHT) )
     return NO;
-  
+
   if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
     return NO;
   if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
     return NO;
-  
+
   if(curPiece.type == PAWN)
     return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
   if(curPiece.type == KNIGHT)
@@ -51,7 +51,7 @@
 
 - (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-  int direction = [curPiece team] == DARK ? -1 : 1;
+  int direction = [curPiece team] == DARK ? 1 : -1;
 
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
@@ -189,11 +189,11 @@
 {
   if(attacked && attacked.team != team) {
     [self.board capturePiece: attacked];
- 
+
     return YES;
   }
-  
-  
+
+
   return NO;
 }
 

@@ -15,9 +15,9 @@
 }
 
 
-- (id)initWithImage:(UIImage *)image width:(float)fullWidth
+- (id)initWithWidth:(float)fullWidth
 {
-  self = [super initWithImage:image];
+  self = [super initWithImage:[UIImage imageNamed:@"chessboard_flip.jpg"]];
   if(self) {
     allSquares = [NSMutableArray array];
     for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
@@ -59,11 +59,11 @@
   for (int i = 0; i < BOARD_SIZE; i++) {
     Piece *newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:1];
-    [newPiece setTeam:LIGHT andType:PAWN];
+    [newPiece setTeam:DARK andType:PAWN];
 
     newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:BOARD_SIZE-2];
-    [newPiece setTeam:DARK andType:PAWN];
+    [newPiece setTeam:LIGHT andType:PAWN];
   }
 
   for (int i = 0; i < BOARD_SIZE; i++) {
@@ -93,11 +93,11 @@
 
     Piece *newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:0];
-    [newPiece setTeam:LIGHT andType:newType];
+    [newPiece setTeam:DARK andType:newType];
 
     newPiece = [self addPieceToArray:arrayOfPieces];
     [newPiece changeLocationX:i Y:7];
-    [newPiece setTeam:DARK andType:newType];
+    [newPiece setTeam:LIGHT andType:newType];
   }
 
   return arrayOfPieces;
@@ -144,11 +144,11 @@
   piece.bCaptured = true;
   [self updateAllSquares:piece X:-1 Y:-1];
 
-  if(piece.team == LIGHT) {
+  if(piece.team == DARK) {
 
     CGRect frame = piece.frame;
-    frame.origin.x = (self.lightCapturedCount % BOARD_SIZE) * self.squareWidth;
-    frame.origin.y = (BOARD_SIZE + self.lightCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
+    frame.origin.x = (self.darkCapturedCount % BOARD_SIZE) * self.squareWidth;
+    frame.origin.y = (BOARD_SIZE + self.darkCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
     piece.frame = frame;
 
     self.lightCapturedCount++;

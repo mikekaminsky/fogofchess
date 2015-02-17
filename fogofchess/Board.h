@@ -15,16 +15,15 @@
 @interface Board : UIImageView
 
 @property float squareWidth;
+@property int lightCapturedCount;
+@property int darkCapturedCount;
+@property int turn;
 
 @property(nonatomic, strong) NSArray *pieces;
 
 @property(nonatomic, strong) GameEngine *engine;
 
-@property int lightCapturedCount;
-@property int darkCapturedCount;
-@property int turn;
-
-- (id)initWithImage:(UIImage *)image width:(float)fullWidth;
+- (id)initWithWidth:(float)fullWidth;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 

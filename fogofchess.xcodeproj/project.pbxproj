@@ -25,8 +25,9 @@
 		79961C111A7B0CFA00343E2B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79961C101A7B0CFA00343E2B /* MenuViewController.m */; };
 		79961C161A7B117500343E2B /* electric-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C131A7B117500343E2B /* electric-7.png */; };
 		79961C171A7B117500343E2B /* spanner-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 79961C141A7B117500343E2B /* spanner-7.png */; };
-		79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79961C1A1A7B14ED00343E2B /* chessboard.jpg */; };
 		79A2BE111A8C1A0A00884261 /* GameEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A2BE101A8C1A0A00884261 /* GameEngine.m */; };
+		79A627B21A92CF3700646C2D /* chessboard_flip.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79A627B01A92CF3700646C2D /* chessboard_flip.jpg */; };
+		79A627B31A92CF3700646C2D /* chessboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79A627B11A92CF3700646C2D /* chessboard.jpg */; };
 		79C1989F1A69D61300CA028E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C1989E1A69D61300CA028E /* main.m */; };
 		79C198A21A69D61300CA028E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C198A11A69D61300CA028E /* AppDelegate.m */; };
 		79C198A81A69D61300CA028E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79C198A61A69D61300CA028E /* Main.storyboard */; };
@@ -69,9 +70,10 @@
 		79961C101A7B0CFA00343E2B /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		79961C131A7B117500343E2B /* electric-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "electric-7.png"; path = "../electric-7.png"; sourceTree = "<group>"; };
 		79961C141A7B117500343E2B /* spanner-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spanner-7.png"; path = "../spanner-7.png"; sourceTree = "<group>"; };
-		79961C1A1A7B14ED00343E2B /* chessboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chessboard.jpg; path = ../chessboard.jpg; sourceTree = "<group>"; };
 		79A2BE0F1A8C1A0A00884261 /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
 		79A2BE101A8C1A0A00884261 /* GameEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEngine.m; sourceTree = "<group>"; };
+		79A627B01A92CF3700646C2D /* chessboard_flip.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chessboard_flip.jpg; sourceTree = "<group>"; };
+		79A627B11A92CF3700646C2D /* chessboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chessboard.jpg; sourceTree = "<group>"; };
 		79C198991A69D61300CA028E /* fogofchess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fogofchess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C1989D1A69D61300CA028E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C1989E1A69D61300CA028E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -106,6 +108,8 @@
 		791ECE1C1A804B7F00686891 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				79A627B01A92CF3700646C2D /* chessboard_flip.jpg */,
+				79A627B11A92CF3700646C2D /* chessboard.jpg */,
 				797430891A898EB2001503D9 /* dark_knight.png */,
 				7974308A1A898EB2001503D9 /* dark_pawn.png */,
 				7974308B1A898EB2001503D9 /* dark_queen.png */,
@@ -118,7 +122,6 @@
 				797430921A898EB2001503D9 /* light_rook.png */,
 				797430881A898EB2001503D9 /* dark_king.png */,
 				797430871A898EB2001503D9 /* dark_bishop.png */,
-				79961C1A1A7B14ED00343E2B /* chessboard.jpg */,
 				79961C131A7B117500343E2B /* electric-7.png */,
 				79961C141A7B117500343E2B /* spanner-7.png */,
 			);
@@ -276,10 +279,10 @@
 			files = (
 				79C198A81A69D61300CA028E /* Main.storyboard in Resources */,
 				797430951A898EB2001503D9 /* dark_knight.png in Resources */,
+				79A627B21A92CF3700646C2D /* chessboard_flip.jpg in Resources */,
 				797430931A898EB2001503D9 /* dark_bishop.png in Resources */,
 				797430941A898EB2001503D9 /* dark_king.png in Resources */,
 				797430981A898EB2001503D9 /* dark_rook.png in Resources */,
-				79961C1B1A7B14ED00343E2B /* chessboard.jpg in Resources */,
 				7974309B1A898EB2001503D9 /* light_knight.png in Resources */,
 				79C198AD1A69D61300CA028E /* LaunchScreen.xib in Resources */,
 				7974309D1A898EB2001503D9 /* light_queen.png in Resources */,
@@ -287,6 +290,7 @@
 				797430991A898EB2001503D9 /* light_bishop.png in Resources */,
 				79961C161A7B117500343E2B /* electric-7.png in Resources */,
 				79C198AA1A69D61300CA028E /* Images.xcassets in Resources */,
+				79A627B31A92CF3700646C2D /* chessboard.jpg in Resources */,
 				7974309E1A898EB2001503D9 /* light_rook.png in Resources */,
 				7974309A1A898EB2001503D9 /* light_king.png in Resources */,
 				79961C171A7B117500343E2B /* spanner-7.png in Resources */,
