@@ -14,7 +14,6 @@
    NSMutableArray *allSquares;
 }
 
-
 - (id)initWithWidth:(float)fullWidth
 {
   self = [super initWithImage:[UIImage imageNamed:@"chessboard_flip.jpg"]];
@@ -35,6 +34,9 @@
 
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
+
+    self.turnMarker = [UIImageView initWithImage:[UIImage imageNamed:@"my_turn"]];
+    self.turnMarker.frame = CGRectMake(0, 0, fullWidth/2, fullWidth/4);
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     self.userInteractionEnabled = YES;
@@ -134,7 +136,7 @@
 {
     BOOL bMoved = [self.engine canMove:curPiece X:xLoc Y:yLoc];
     if(bMoved) {
-      self.turn++;
+      [self nextTurn];
     }
     return bMoved;
 }
@@ -161,6 +163,18 @@
 
     self.darkCapturedCount++;
   }
+}
+
+- (void)nextTurn{
+  self.turn ++;
+  float xPosition = self.squareWidth * 3;
+  float yPosition = self.squareWidth * 8;
+
+  CGRect frame = self.turnMarker.frame;
+  frame.origin.x = 3 * self.squareWidth;
+  frame.origin.y = 8 * self.squareWidth;
+  self.turnMarker.frame = frame;
+
 }
 
 @end

@@ -32,6 +32,7 @@
     Board *imgView = [[Board alloc] initWithWidth:self.view.frame.size.width];
     
     [self.view addSubview:imgView];
+  
 }
 
 

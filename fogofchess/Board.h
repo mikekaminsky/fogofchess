@@ -23,6 +23,8 @@
 
 @property(nonatomic, strong) GameEngine *engine;
 
+@property(nonatomic, strong) UIImageView *turnMarker;
+
 - (id)initWithWidth:(float)fullWidth;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
@@ -38,5 +40,7 @@
 - (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (void)capturePiece:(Piece *)piece;
+
+- (void)nextTurn;
 
 @end
