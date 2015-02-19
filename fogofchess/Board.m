@@ -35,8 +35,10 @@
     self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
 
-    self.turnMarker = [UIImageView initWithImage:[UIImage imageNamed:@"my_turn"]];
-    self.turnMarker.frame = CGRectMake(0, 0, fullWidth/2, fullWidth/4);
+    self.turnMarker = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"my_turn"]];
+    self.turnMarker.frame = CGRectMake(3 * self.squareWidth, 8.25 * self.squareWidth, fullWidth/8, fullWidth/16);
+    self.turnMarker.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview: self.turnMarker];
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     self.userInteractionEnabled = YES;
@@ -166,15 +168,18 @@
 }
 
 - (void)nextTurn{
-  self.turn ++;
-  float xPosition = self.squareWidth * 3;
-  float yPosition = self.squareWidth * 8;
+  self.turn++;
 
   CGRect frame = self.turnMarker.frame;
-  frame.origin.x = 3 * self.squareWidth;
-  frame.origin.y = 8 * self.squareWidth;
-  self.turnMarker.frame = frame;
 
+  float yCoord = -0.75 * self.squareWidth;
+  if(self.turn % 2 == 0) {
+    yCoord = 8.25 * self.squareWidth;
+  }
+
+  frame.origin.y = yCoord;
+  frame.origin.x = 3 * self.squareWidth;
+  self.turnMarker.frame = frame;
 }
 
 @end

@@ -10,8 +10,8 @@
 * [x] Display captured pieces to 'bank' at top/bottom of board
 * [x] Promote pawn to queen
 * [x] Make 'your turn' appear on screen
+* [x] Naive castling
 * [ ] Highlight selected piece during move
-* [ ] Naive castling
 * [ ] Create log of moves
   * [x] Keep track of current move number
   * [x] White's turn if current_move %% 2  == 1

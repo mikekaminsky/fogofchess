@@ -188,6 +188,32 @@
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
 
+  BOOL isCastleXLoc = xLoc == 2 || xLoc == BOARD_SIZE - 2;
+  if (!curPiece.bEverMoved && curPiece.yLoc == yLoc && isCastleXLoc) {
+    Piece *rook;
+    if(xLoc == 2) {
+      rook = [self.board getPieceAtX:0 Y:curPiece.yLoc];
+    } else {
+      rook = [self.board getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc];
+    }
+
+    if(!rook || rook.bEverMoved) {
+      return NO;
+    }
+
+    int direction = xLoc == 2 ? -1 : 1;
+
+    for (int i = curPiece.xLoc + direction; i != rook.xLoc; i += direction) {
+      if (![self.board isUnoccupiedX:i Y:curPiece.yLoc])
+        return NO;
+    }
+
+    int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
+
+    [rook changeLocationX:newXLoc Y:rook.yLoc];
+    return YES;
+  }
+
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
@@ -206,7 +232,6 @@
 
     return YES;
   }
-
 
   return NO;
 }
