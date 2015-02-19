@@ -35,4 +35,6 @@
 
 - (void)setTeam:(Team)newTeam andType:(Type)newType;
 
+- (void)highlight:(BOOL)bOn;
+
 @end

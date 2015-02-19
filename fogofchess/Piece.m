@@ -89,7 +89,7 @@ NSString * const TeamName[] = {
 
   if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
   {
-    //Highlight potential moves.
+    [self highlight:YES];
   }
   else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
   {
@@ -97,6 +97,16 @@ NSString * const TeamName[] = {
     int yLoc = (int)location.y/self.board.squareWidth;
 
     [self attemptMoveX:xLoc Y:yLoc];
+    [self highlight:NO];
+  }
+}
+
+- (void)highlight:(BOOL)bOn{
+  if (bOn){
+    self.alpha = 0.5;
+  }
+  else{
+    self.alpha = 1;
   }
 }
 
