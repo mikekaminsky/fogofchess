@@ -10,6 +10,7 @@
 #import "Constants.h"
 @class Piece;
 @class GameEngine;
+@class Move;
 
 
 @interface Board : UIImageView
@@ -18,6 +19,7 @@
 @property int lightCapturedCount;
 @property int darkCapturedCount;
 @property int turn;
+@property(nonatomic, strong) NSMutableArray *moves;
 
 @property(nonatomic, strong) NSArray *pieces;
 
@@ -42,5 +44,7 @@
 - (void)capturePiece:(Piece *)piece;
 
 - (void)nextTurn;
+
+- (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 @end

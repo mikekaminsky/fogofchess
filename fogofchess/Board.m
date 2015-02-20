@@ -9,9 +9,12 @@
 #import "Board.h"
 #import "Piece.h"
 #import "GameEngine.h"
+#import "Move.h"
+
 
 @implementation Board {
    NSMutableArray *allSquares;
+   Move *lastMove;
 }
 
 - (id)initWithWidth:(float)fullWidth
@@ -28,6 +31,7 @@
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
     self.turn = 0;
+    lastMove = nil;
 
     self.darkCapturedCount = 0;
     self.lightCapturedCount = 0;
@@ -139,6 +143,7 @@
     BOOL bMoved = [self.engine canMove:curPiece X:xLoc Y:yLoc];
     if(bMoved) {
       [self nextTurn];
+      [self recordMove:curPiece X:xLoc Y:yLoc];
     }
     return bMoved;
 }
@@ -180,6 +185,11 @@
   frame.origin.y = yCoord;
   frame.origin.x = 3 * self.squareWidth;
   self.turnMarker.frame = frame;
+}
+
+- (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc{
+  lastMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
+  [self.moves addObject:[lastMove toS]];
 }
 
 @end

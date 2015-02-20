@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		791ECE1B1A803F8F00686891 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE1A1A803F8F00686891 /* Board.m */; };
 		791ECE211A804BE900686891 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = 791ECE201A804BE900686891 /* Piece.m */; };
+		795D1DDA1A96B51900DFAF32 /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D1DD91A96B51900DFAF32 /* Move.m */; };
 		797430931A898EB2001503D9 /* dark_bishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430871A898EB2001503D9 /* dark_bishop.png */; };
 		797430941A898EB2001503D9 /* dark_king.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430881A898EB2001503D9 /* dark_king.png */; };
 		797430951A898EB2001503D9 /* dark_knight.png in Resources */ = {isa = PBXBuildFile; fileRef = 797430891A898EB2001503D9 /* dark_knight.png */; };
@@ -52,6 +53,8 @@
 		791ECE1A1A803F8F00686891 /* Board.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Board.m; sourceTree = "<group>"; };
 		791ECE1F1A804BE900686891 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		791ECE201A804BE900686891 /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
+		795D1DD81A96B51900DFAF32 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
+		795D1DD91A96B51900DFAF32 /* Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Move.m; sourceTree = "<group>"; };
 		797430871A898EB2001503D9 /* dark_bishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_bishop.png; sourceTree = "<group>"; };
 		797430881A898EB2001503D9 /* dark_king.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_king.png; sourceTree = "<group>"; };
 		797430891A898EB2001503D9 /* dark_knight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_knight.png; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 				79961C0D1A7AFD5700343E2B /* GameViewController.m */,
 				791ECE191A803F8F00686891 /* Board.h */,
 				791ECE1A1A803F8F00686891 /* Board.m */,
+				795D1DD81A96B51900DFAF32 /* Move.h */,
+				795D1DD91A96B51900DFAF32 /* Move.m */,
 				791ECE1F1A804BE900686891 /* Piece.h */,
 				791ECE201A804BE900686891 /* Piece.m */,
 				79A2BE0F1A8C1A0A00884261 /* GameEngine.h */,
@@ -317,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				795D1DDA1A96B51900DFAF32 /* Move.m in Sources */,
 				79961C0E1A7AFD5700343E2B /* GameViewController.m in Sources */,
 				79C198A21A69D61300CA028E /* AppDelegate.m in Sources */,
 				79C1989F1A69D61300CA028E /* main.m in Sources */,

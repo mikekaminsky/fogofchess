@@ -16,8 +16,8 @@
   * [x] Keep track of current move number
   * [x] White's turn if current_move %% 2  == 1
   * [ ] Save move once executed with enumeration
-* [ ] List possible moves per piece
 * [ ] Detect check per square
+* [ ] List possible moves per piece
 * [ ] Finish rules
   * [ ] Implement en passant
   * [ ] Implement castling
