@@ -9,18 +9,18 @@
 #import "Piece.h"
 #import "Board.h"
 
-NSString * const TypeChar[] = {
-  [PAWN] = @"P",
-  [KNIGHT] = @"N",
-  [BISHOP] = @"B",
-  [ROOK] = @"R",
-  [QUEEN] = @"Q",
-  [KING] = @"K"
+char * const TypeChar[] = {
+  [PAWN] = 'P',
+  [KNIGHT] = 'N',
+  [BISHOP] = 'B',
+  [ROOK] = 'R',
+  [QUEEN] = 'Q',
+  [KING] = 'K'
 };
 
-NSString * const TeamChar[] = {
-  [DARK] = @"D",
-  [LIGHT] = @"L",
+char * const TeamChar[] = {
+  [DARK] = 'D',
+  [LIGHT] = 'L',
 };
 
 @implementation Move
@@ -38,7 +38,7 @@ NSString * const TeamChar[] = {
   }
 
   -(NSString *)toS{
-    NSString *moveString = [NSString stringWithFormat:@"%@%@%d%d%d%d",
+    NSString *moveString = [NSString stringWithFormat:@"%c%c%d%d%d%d",
              TypeChar[self.piece.type],
              TeamChar[self.piece.team],
              self.oldXLoc,
