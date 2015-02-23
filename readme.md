@@ -12,10 +12,10 @@
 * [x] Make 'your turn' appear on screen
 * [x] Naive castling
 * [x] Highlight selected piece during move
-* [ ] Create log of moves
+* [x] Create log of moves
   * [x] Keep track of current move number
   * [x] White's turn if current_move %% 2  == 1
-  * [ ] Save move once executed with enumeration
+  * [x] Save move once executed with enumeration
 * [ ] Detect check per square
 * [ ] List possible moves per piece
 * [ ] Finish rules

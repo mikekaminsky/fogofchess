@@ -32,6 +32,8 @@
 
     self.turn = 0;
     lastMove = nil;
+    
+    self.moves = [NSMutableArray array];
 
     self.darkCapturedCount = 0;
     self.lightCapturedCount = 0;
@@ -156,8 +158,8 @@
   if(piece.team == DARK) {
 
     CGRect frame = piece.frame;
-    frame.origin.x = (self.darkCapturedCount % BOARD_SIZE) * self.squareWidth;
-    frame.origin.y = (BOARD_SIZE + self.darkCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
+    frame.origin.x = (self.lightCapturedCount % BOARD_SIZE) * self.squareWidth;
+    frame.origin.y = (BOARD_SIZE + self.lightCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
     piece.frame = frame;
 
     self.lightCapturedCount++;
@@ -190,6 +192,9 @@
 - (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc{
   lastMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
   [self.moves addObject:[lastMove toS]];
+  for (int i = 0; i<self.moves.count; i++) {
+    NSLog(@"obj: %@",self.moves[i]);
+  }
 }
 
 @end

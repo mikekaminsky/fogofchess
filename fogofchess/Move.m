@@ -38,9 +38,11 @@ NSString * const TeamChar[] = {
   }
 
   -(NSString *)toS{
-    NSString *moveString = [NSString stringWithFormat:@"%@,%@,%d,%d",
+    NSString *moveString = [NSString stringWithFormat:@"%@%@%d%d%d%d",
              TypeChar[self.piece.type],
              TeamChar[self.piece.team],
+             self.oldXLoc,
+             self.oldYLoc,
              self.xLoc,
              self.yLoc];
     return moveString;
