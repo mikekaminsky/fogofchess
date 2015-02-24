@@ -20,7 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Game";
-        self.tabBarItem.image = [UIImage imageNamed:@"electric-7"];
+        self.tabBarItem.image = [UIImage imageNamed:@"electric"];
     }
     return self;
 }

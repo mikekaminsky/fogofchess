@@ -19,7 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Menu";
-        self.tabBarItem.image = [UIImage imageNamed:@"spanner-7"];
+        self.tabBarItem.image = [UIImage imageNamed:@"spanner"];
       
   
     }

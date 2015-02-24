@@ -17,8 +17,8 @@
   * [x] White's turn if current_move %% 2  == 1
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
-* [ ] Detect check per square
 * [ ] List possible moves per piece
+* [ ] Detect check per square
 * [ ] Finish rules
   * [ ] Implement en passant
   * [ ] Implement castling
