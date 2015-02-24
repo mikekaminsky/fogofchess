@@ -46,9 +46,11 @@ NSString * const TeamName[] = {
 
 - (void)enableInteraction
 {
-  UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                    action:@selector(panAnim:)];
+  UIPanGestureRecognizer *swipeRecognizer = [[UIPanGestureRecognizer alloc]
+                                              initWithTarget:self
+                                              action:@selector(panAnim:)];
   [self addGestureRecognizer:swipeRecognizer];
+
   self.userInteractionEnabled = YES;
 }
 
@@ -77,6 +79,7 @@ NSString * const TeamName[] = {
 
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
+
   if([self.board canMove:self X:xLoc Y:yLoc]) {
     self.bEverMoved = YES;
     [self changeLocationX:xLoc Y:yLoc];
@@ -89,15 +92,16 @@ NSString * const TeamName[] = {
 
   if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
   {
-    [self highlight:YES];
+    [self.board clearSelection];
+    [self select:YES];
   }
   else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
   {
     int xLoc = (int)location.x/self.board.squareWidth;
     int yLoc = (int)location.y/self.board.squareWidth;
 
+    [self select:NO];
     [self attemptMoveX:xLoc Y:yLoc];
-    [self highlight:NO];
   }
 }
 
@@ -110,4 +114,7 @@ NSString * const TeamName[] = {
   }
 }
 
+- (void)select:(BOOL)bOn{
+  [self highlight:bOn];
+}
 @end

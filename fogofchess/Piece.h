@@ -37,4 +37,5 @@
 
 - (void)highlight:(BOOL)bOn;
 
+- (void)select:(BOOL)bOn;
 @end

@@ -29,6 +29,8 @@
 
 - (id)initWithWidth:(float)fullWidth;
 
+- (void)enableInteraction;
+
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 
 - (NSMutableArray *)populatePieces;
@@ -46,5 +48,7 @@
 - (void)nextTurn;
 
 - (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (void)clearSelection;
 
 @end

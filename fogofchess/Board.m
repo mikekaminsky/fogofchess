@@ -15,6 +15,7 @@
 @implementation Board {
    NSMutableArray *allSquares;
    Move *lastMove;
+   Piece *selected;
 }
 
 - (id)initWithWidth:(float)fullWidth
@@ -32,7 +33,7 @@
 
     self.turn = 0;
     lastMove = nil;
-    
+
     self.moves = [NSMutableArray array];
 
     self.darkCapturedCount = 0;
@@ -47,10 +48,21 @@
     [self addSubview: self.turnMarker];
 
     self.contentMode = UIViewContentModeScaleAspectFit;
-    self.userInteractionEnabled = YES;
+    [self enableInteraction];
   }
 
   return self;
+}
+
+- (void)enableInteraction
+{
+  UITapGestureRecognizer *tapGestureRecognize = [[UITapGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(singleTapGesture:)];
+  tapGestureRecognize.numberOfTapsRequired = 1;
+  [self addGestureRecognizer:tapGestureRecognize];
+
+  self.userInteractionEnabled = YES;
 }
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array
@@ -189,12 +201,39 @@
   self.turnMarker.frame = frame;
 }
 
-- (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc{
+- (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
   lastMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
   [self.moves addObject:[lastMove toS]];
   for (int i = 0; i<self.moves.count; i++) {
     NSLog(@"obj: %@",self.moves[i]);
   }
+}
+
+- (void)singleTapGesture:(UITapGestureRecognizer *)gestureRecognizer
+{
+  CGPoint location = [gestureRecognizer locationInView: self];
+  int xLoc = (int)location.x/self.squareWidth;
+  int yLoc = (int)location.y/self.squareWidth;
+
+  if(selected) {
+    [selected attemptMoveX:xLoc Y:yLoc];
+    [self clearSelection];
+  }
+  else
+  {
+    Piece *piece = [self getPieceAtX:xLoc Y:yLoc];
+    if(piece) {
+      selected = piece;
+      [piece select:YES];
+    }
+  }
+}
+
+-(void) clearSelection
+{
+  [selected select:NO];
+  selected = nil;
 }
 
 @end
