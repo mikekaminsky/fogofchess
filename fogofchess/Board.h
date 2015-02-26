@@ -19,13 +19,14 @@
 @property int lightCapturedCount;
 @property int darkCapturedCount;
 @property int turn;
+
 @property(nonatomic, strong) NSMutableArray *moves;
 
 @property(nonatomic, strong) NSArray *pieces;
 
 @property(nonatomic, strong) GameEngine *engine;
 
-@property(nonatomic, strong) UIImageView *turnMarker;
+@property(nonatomic, strong) UIButton *turnMarker;
 
 - (id)initWithWidth:(float)fullWidth;
 
