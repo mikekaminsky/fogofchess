@@ -140,12 +140,7 @@
     }
   }
 
-  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
-
-  if(otherPiece == nil)
-    return YES;
-
-  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
 }
 
 
@@ -167,12 +162,7 @@
     j += yDirection;
   }
 
-  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
-
-  if(otherPiece == nil)
-    return YES;
-
-  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
 }
 
 
@@ -217,12 +207,7 @@
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
-  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
-
-  if(otherPiece == nil)
-    return YES;
-
-  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
 }
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
@@ -236,7 +221,14 @@
   return NO;
 }
 
+- (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+  if(otherPiece == nil)
+    return YES;
+
+  return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+}
 
 @end
-
-

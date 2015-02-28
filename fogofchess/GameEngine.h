@@ -36,4 +36,6 @@
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
+- (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
 @end
