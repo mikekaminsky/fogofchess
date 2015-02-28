@@ -86,6 +86,19 @@ NSString * const TeamName[] = {
   }
 }
 
+- (void)highlight:(BOOL)bOn{
+  if (bOn){
+    self.alpha = 0.5;
+  }
+  else{
+    self.alpha = 1;
+  }
+}
+
+- (void)select:(BOOL)bOn{
+  [self highlight:bOn];
+}
+
 - (void)panAnim:(UIPanGestureRecognizer*)gestureRecognizer
 {
   CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer.view superview]];
@@ -105,16 +118,4 @@ NSString * const TeamName[] = {
   }
 }
 
-- (void)highlight:(BOOL)bOn{
-  if (bOn){
-    self.alpha = 0.5;
-  }
-  else{
-    self.alpha = 1;
-  }
-}
-
-- (void)select:(BOOL)bOn{
-  [self highlight:bOn];
-}
 @end

@@ -43,7 +43,7 @@
     self.engine = [[GameEngine alloc] initWithBoard:self];
 
     self.turnMarker = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, fullWidth/7, fullWidth/16);
+    self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, fullWidth/6, fullWidth/16);
     [self.turnMarker setTitle:@"My turn!" forState:UIControlStateNormal];
 
     [self addSubview: self.turnMarker];
