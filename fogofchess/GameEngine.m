@@ -9,6 +9,7 @@
 #import "GameEngine.h"
 #import "Board.h"
 #import "Piece.h"
+#import "Move.h"
 
 
 @implementation GameEngine
@@ -23,7 +24,7 @@
   return self;
 }
 
-- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
      (self.board.turn %2 == 1 && curPiece.team == LIGHT) ) {
@@ -35,18 +36,36 @@
   if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
     return NO;
 
-  if(curPiece.type == PAWN)
-    return [self pawnCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == KNIGHT)
-    return [self knightCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == ROOK)
-    return [self rookCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == BISHOP)
-    return [self bishopCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == QUEEN)
-    return [self queenCanMove:curPiece X:xLoc Y:yLoc];
-  if(curPiece.type == KING)
-    return [self kingCanMove:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == PAWN &&
+      [self pawnCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self pawnMoveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
+  if(curPiece.type == KNIGHT &&
+      [self knightCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
+  if(curPiece.type == ROOK &&
+      [self rookCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
+  if(curPiece.type == BISHOP &&
+      [self bishopCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
+  if(curPiece.type == QUEEN &&
+      [self queenCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
+  if(curPiece.type == KING &&
+      [self kingCanMove:curPiece X:xLoc Y:yLoc])
+  {
+    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  }
   return NO;
 }
 
@@ -83,11 +102,12 @@
   else if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
-    bReturn =  [self attemptCaptureOf:attacked byTeam:curPiece.team];
+    if (attacked){
+      bReturn = YES;
+    }
   }
 
   if(bReturn) {
-    [self promotePawn:curPiece Y:yLoc];
   }
 
   return bReturn;
@@ -210,7 +230,7 @@
   return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
 }
 
-- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
+- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team
 {
   if(attacked && attacked.team != team) {
     [self.board capturePiece: attacked];
@@ -230,5 +250,47 @@
 
   return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
 }
+
+- (BOOL)pawnMoveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  BOOL bReturn = NO;
+  if(xLoc != curPiece.xLoc) {
+    Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
+    bReturn = [self attemptCaptureOf:attacked byTeam:curPiece.team];
+  } else {
+    bReturn = YES;
+  }
+  if(bReturn)
+    [self promotePawn:curPiece Y:yLoc];
+  return bReturn;
+}
+
+- (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc byTeam:(Team)team
+{
+
+  // if( self.board.turn % 2 == 0 ){
+    // Dark
+  // }
+  return NO;
+
+}
+
+- (NSMutableArray *)pawnMoves:(Piece *)piece{
+  int direction = [piece team] == DARK ? 1 : -1;
+
+  NSMutableArray *array = [NSMutableArray array];
+
+  int xLoc = piece.xLoc;
+  int yLoc = piece.yLoc + direction;
+
+  if([self.board isUnoccupiedX:xLoc Y:yLoc])
+  {
+    Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+    [array addObject:move];
+  }
+
+  return array;
+}
+
 
 @end

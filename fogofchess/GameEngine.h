@@ -18,7 +18,9 @@
 
 - (id)initWithBoard:(Board *)board;
 
-- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+- (BOOL)pawnMoveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
@@ -37,5 +39,9 @@
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
 
 - (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc;
+
+- (NSMutableArray *)pawnMoves:(Piece *)piece;
 
 @end

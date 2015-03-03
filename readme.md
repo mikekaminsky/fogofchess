@@ -18,12 +18,13 @@
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
 * [ ] List possible moves per piece
-* [ ] Detect check per square
+  * [ ] Detect if square is under attack?
+  * [ ] Check if square with king is under attack?
+  * [ ] Verify no check before allowing move.
 * [ ] Finish rules
   * [ ] Implement en passant
   * [ ] Implement castling
   * [ ] Promote pawn to any piece
-  * [ ] Prevent moves into check
   * [ ] Detect checkmate
   * [ ] Allow players to resign
 * [ ] Network iphones.

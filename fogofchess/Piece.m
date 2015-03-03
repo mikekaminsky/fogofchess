@@ -80,7 +80,7 @@ NSString * const TeamName[] = {
 - (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 {
 
-  if([self.board canMove:self X:xLoc Y:yLoc]) {
+  if([self.board executeMove:self X:xLoc Y:yLoc]) {
     self.bEverMoved = YES;
     [self changeLocationX:xLoc Y:yLoc];
   }

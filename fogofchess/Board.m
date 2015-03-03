@@ -153,9 +153,9 @@
   return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 
-- (BOOL)canMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-    BOOL bMoved = [self.engine canMove:curPiece X:xLoc Y:yLoc];
+    BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
     if(bMoved) {
       [self nextTurn];
       [self recordMove:curPiece X:xLoc Y:yLoc];
