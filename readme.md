@@ -17,16 +17,21 @@
   * [x] White's turn if current_move %% 2  == 1
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
+* [ ] BUG! Move 'square occupied by own team' logic to canMove()
 * [ ] List possible moves per piece
-  * [ ] Detect if square is under attack?
+  * [x] List possible moves pawn
+  * [x] List possible moves knight
+  * [ ] List possible moves other pieces
+* [ ] Detect if square is under attack?
+* [ ] List legal moves per piece
   * [ ] Check if square with king is under attack?
   * [ ] Verify no check before allowing move.
 * [ ] Finish rules
   * [ ] Implement en passant
-  * [ ] Implement castling
+  * [ ] Implement correct castling
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
-  * [ ] Allow players to resign
+* [ ] Allow players to resign
 * [ ] Network iphones.
 * [ ] Limit view based on piece position.
 * [ ] Upgrade all UI
