@@ -142,9 +142,10 @@
   }
 }
 
-
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
+  if(![self.engine onBoardX:xLoc Y:yLoc])
+    return nil;
   Piece *p = [allSquares objectAtIndex:yLoc*BOARD_SIZE+xLoc];
   if([p isEqual:[NSNull null]] || p.bCaptured == YES)
     return nil;

@@ -24,6 +24,15 @@
   return self;
 }
 
+- (BOOL)onBoardX:(int)xLoc Y:(int)yLoc
+{
+  if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1){
+    return NO;
+  }else{
+    return YES;
+  }
+}
+
 - (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
@@ -31,7 +40,7 @@
     return NO;
   }
 
-  if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
+  if(![self onBoardX:xLoc Y:yLoc])
     return NO;
   if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
     return NO;

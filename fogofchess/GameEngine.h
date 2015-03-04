@@ -18,6 +18,8 @@
 
 - (id)initWithBoard:(Board *)board;
 
+- (BOOL)onBoardX:(int)xLoc Y:(int)yLoc;
+
 - (BOOL)pawnMoveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
