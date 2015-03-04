@@ -276,16 +276,26 @@
 }
 
 - (NSMutableArray *)pawnMoves:(Piece *)piece{
-  int direction = [piece team] == DARK ? 1 : -1;
 
+  int direction = [piece team] == DARK ? 1 : -1;
   NSMutableArray *array = [NSMutableArray array];
 
-  int xLoc = piece.xLoc;
-  int yLoc = piece.yLoc + direction;
-
-  if([self.board isUnoccupiedX:xLoc Y:yLoc])
+  for (int i = -1; i <= 1; i++)
   {
+    int xLoc = piece.xLoc + i;
+    int yLoc = piece.yLoc + direction;
+
     Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+    if ([self pawnCanMove:piece X:xLoc Y:yLoc]){
+      [array addObject:move];
+    }
+  }
+
+  int xLoc = piece.xLoc;
+  int yLoc = piece.yLoc + 2*direction;
+
+  Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+  if ([self pawnCanMove:piece X:xLoc Y:yLoc]){
     [array addObject:move];
   }
 
