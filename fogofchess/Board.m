@@ -273,6 +273,10 @@
     array = [self.engine knightMoves:curPiece];
   }
 
+  if(bOn && curPiece.type == ROOK){
+    array = [self.engine rookMoves:curPiece];
+  }
+
   if(array) {
     for (Move *move in array) {
       int xLoc = move.xLoc;

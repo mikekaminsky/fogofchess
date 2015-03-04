@@ -342,5 +342,37 @@
   return array;
 }
 
+- (NSMutableArray *)rookMoves:(Piece *)piece
+{
+  NSMutableArray *array = [NSMutableArray array];
+
+  for (int i = 1; i <= BOARD_SIZE-1; i++)
+  {
+    for (int pos = 0; pos <= 1; pos++)
+    {
+      for (int x = 0; x <= 1; x++)
+      {
+        int direction = pos == 0 ? -1 : 1;
+
+        int xLoc = x == 0 ? piece.xLoc : piece.xLoc + i*direction;
+        int yLoc = x == 1 ? piece.yLoc : piece.yLoc + i*direction;
+
+        Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+        Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+        if ([self rookCanMove:piece X:xLoc Y:yLoc] && [self onBoardX:xLoc Y:yLoc]){
+          if ((!otherPiece || otherPiece.team != piece.team)){
+           [array addObject:move];
+          }
+        }
+      }
+    }
+  }
+  return array;
+}
+
+
+
+
 
 @end

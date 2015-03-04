@@ -48,4 +48,7 @@
 
 - (NSMutableArray *)knightMoves:(Piece *)piece;
 
+- (NSMutableArray *)rookMoves:(Piece *)piece;
+
+
 @end
