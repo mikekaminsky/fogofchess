@@ -261,9 +261,18 @@
     [view removeFromSuperview];
   }
 
-  if(bOn && curPiece.type == PAWN){
-    NSMutableArray *array = [self.engine pawnMoves:curPiece];
 
+  NSMutableArray *array = nil;
+
+  if(bOn && curPiece.type == PAWN){
+    array = [self.engine pawnMoves:curPiece];
+  }
+
+  if(bOn && curPiece.type == KNIGHT){
+    array = [self.engine knightMoves:curPiece];
+  }
+
+  if(array) {
     for (Move *move in array) {
       int xLoc = move.xLoc;
       int yLoc = move.yLoc;

@@ -115,6 +115,11 @@
 
 - (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
+    return NO;
+  if(xLoc == curPiece.xLoc && yLoc == curPiece.yLoc)
+    return NO;
+
   int xDiff = abs(xLoc - curPiece.xLoc);
   int yDiff = abs(yLoc - curPiece.yLoc);
 
@@ -129,7 +134,7 @@
     if(otherPiece == nil)
       return YES;
 
-    return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
+    return YES;
   }
 
   return NO;
@@ -160,7 +165,7 @@
     }
   }
 
-  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  return YES;
 }
 
 
@@ -182,7 +187,7 @@
     j += yDirection;
   }
 
-  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  return YES;
 }
 
 
@@ -227,7 +232,7 @@
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
-  return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  return YES;
 }
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team
@@ -297,6 +302,29 @@
   Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
   if ([self pawnCanMove:piece X:xLoc Y:yLoc]){
     [array addObject:move];
+  }
+
+  return array;
+}
+
+- (NSMutableArray *)knightMoves:(Piece *)piece
+{
+  NSMutableArray *array = [NSMutableArray array];
+
+  for (int x = -2; x <= 2; x++)
+  {
+    for(int y = -2; y <= 2; y++) {
+      if(x == 0 || y == 0 || x == y){
+        continue;
+      }
+      int xLoc = piece.xLoc + x;
+      int yLoc = piece.yLoc + y;
+
+      Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+      if ([self knightCanMove:piece X:xLoc Y:yLoc]){
+             [array addObject:move];
+      }
+    }
   }
 
   return array;

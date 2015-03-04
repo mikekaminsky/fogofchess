@@ -44,4 +44,6 @@
 
 - (NSMutableArray *)pawnMoves:(Piece *)piece;
 
+- (NSMutableArray *)knightMoves:(Piece *)piece;
+
 @end
