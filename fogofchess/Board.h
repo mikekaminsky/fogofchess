@@ -52,4 +52,6 @@
 
 - (void)clearSelection;
 
+- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL) bOn;
+
 @end

@@ -14,6 +14,7 @@
 
 @implementation Board {
    NSMutableArray *allSquares;
+   NSMutableArray *highlights;
    Move *lastMove;
    Piece *selected;
 }
@@ -25,6 +26,7 @@
     allSquares = [NSMutableArray array];
     for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
       [allSquares addObject:[NSNull null]];//initWithCapacity:BOARD_SIZE * BOARD_SIZE];
+    highlights = [NSMutableArray array];
 
     self.squareWidth = (fullWidth - 2) / BOARD_SIZE;
 
@@ -235,6 +237,40 @@
 {
   [selected select:NO];
   selected = nil;
+}
+
+- (void)highlightSquareX:(int)xLoc Y:(int)yLoc
+{
+  float xCoord = xLoc * self.squareWidth;
+  float yCoord = yLoc * self.squareWidth;
+  CGRect frame = CGRectMake(xCoord, yCoord, self.squareWidth, self.squareWidth);
+
+  UIImageView *highlight = [[UIImageView alloc] initWithFrame:frame];
+  [highlight setImage:[UIImage imageNamed:@"white_square"]];
+
+  highlight.alpha = 0.5;
+
+  [highlights addObject:highlight];
+  [self addSubview: highlight];
+}
+
+
+- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL)bOn
+{
+  for(UIImageView* view in highlights) {
+    [view removeFromSuperview];
+  }
+
+  if(bOn && curPiece.type == PAWN){
+    NSMutableArray *array = [self.engine pawnMoves:curPiece];
+
+    for (Move *move in array) {
+      int xLoc = move.xLoc;
+      int yLoc = move.yLoc;
+      [self highlightSquareX:xLoc Y:yLoc];
+      NSLog(@"%d",xLoc);
+    }
+  }
 }
 
 @end

@@ -97,6 +97,8 @@ NSString * const TeamName[] = {
 
 - (void)select:(BOOL)bOn{
   [self highlight:bOn];
+
+  [self.board highlightPossibleMoves:self On:bOn];
 }
 
 - (void)panAnim:(UIPanGestureRecognizer*)gestureRecognizer
