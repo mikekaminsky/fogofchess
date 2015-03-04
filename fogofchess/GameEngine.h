@@ -50,5 +50,7 @@
 
 - (NSMutableArray *)rookMoves:(Piece *)piece;
 
+- (NSMutableArray *)bishopMoves:(Piece *)piece;
+
 
 @end

@@ -371,6 +371,38 @@
   return array;
 }
 
+- (NSMutableArray *)bishopMoves:(Piece *)piece
+{
+  NSMutableArray *array = [NSMutableArray array];
+
+  for (int i = 1; i <= BOARD_SIZE-1; i++)
+  {
+    for (int xpos = 0; xpos <= 1; xpos++)
+    {
+      for (int ypos = 0; ypos <= 1; ypos++)
+      {
+
+        int xDirection = xpos == 0 ? -1 : 1;
+        int yDirection = ypos == 0 ? -1 : 1;
+
+        int xLoc = piece.xLoc + i*xDirection;
+        int yLoc = piece.yLoc + i*yDirection;
+
+        Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+        Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+        if ([self bishopCanMove:piece X:xLoc Y:yLoc] && [self onBoardX:xLoc Y:yLoc]){
+          if ((!otherPiece || otherPiece.team != piece.team)){
+           [array addObject:move];
+          }
+        }
+      }
+    }
+  }
+  return array;
+}
+
+
 
 
 

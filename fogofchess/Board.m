@@ -277,6 +277,11 @@
     array = [self.engine rookMoves:curPiece];
   }
 
+  if(bOn && curPiece.type == BISHOP){
+    array = [self.engine bishopMoves:curPiece];
+  }
+
+
   if(array) {
     for (Move *move in array) {
       int xLoc = move.xLoc;
