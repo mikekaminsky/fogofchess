@@ -330,12 +330,15 @@
       int yLoc = piece.yLoc + y;
 
       Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+      Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
       if ([self knightCanMove:piece X:xLoc Y:yLoc]){
-             [array addObject:move];
+        if ((!otherPiece || otherPiece.team != piece.team)){
+           [array addObject:move];
+        }
       }
     }
   }
-
   return array;
 }
 
