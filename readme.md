@@ -17,11 +17,16 @@
   * [x] White's turn if current_move %% 2  == 1
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
-* [ ] BUG! Move 'square occupied by own team' logic to canMove()
+* [x] BUG! Move 'square occupied by own team' logic to canMove()
+* [ ] Allow players to resign
+* [ ] BUG! castling is implemented in kingCanMove() which breaks move highlighting
 * [ ] List possible moves per piece
   * [x] List possible moves pawn
   * [x] List possible moves knight
-  * [ ] List possible moves other pieces
+  * [x] List possible moves bishop
+  * [x] List possible moves roook
+  * [x] List possible moves queen
+  * [ ] List possible moves king
 * [ ] Detect if square is under attack?
 * [ ] List legal moves per piece
   * [ ] Check if square with king is under attack?
