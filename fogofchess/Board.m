@@ -281,6 +281,10 @@
     array = [self.engine bishopMoves:curPiece];
   }
 
+  if(bOn && curPiece.type == QUEEN){
+    array = [self.engine queenMoves:curPiece];
+  }
+
 
   if(array) {
     for (Move *move in array) {

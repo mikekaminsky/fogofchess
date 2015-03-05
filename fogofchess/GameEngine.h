@@ -52,5 +52,7 @@
 
 - (NSMutableArray *)bishopMoves:(Piece *)piece;
 
+- (NSMutableArray *)queenMoves:(Piece *)piece;
+
 
 @end

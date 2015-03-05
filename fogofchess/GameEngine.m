@@ -404,7 +404,16 @@
 
 
 
+- (NSMutableArray *)queenMoves:(Piece *)piece
+{
+  NSMutableSet *setA = [NSMutableSet setWithArray:[self bishopMoves:piece]];
+  NSMutableSet *setB = [NSMutableSet setWithArray:[self rookMoves:piece]];
 
+  [setA unionSet:setB];
 
+  NSMutableArray *array = [NSMutableArray arrayWithArray:[setA allObjects]];
+
+  return array;
+}
 
 @end
