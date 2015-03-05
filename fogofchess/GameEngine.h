@@ -54,5 +54,7 @@
 
 - (NSMutableArray *)queenMoves:(Piece *)piece;
 
+- (NSMutableArray *)kingMoves:(Piece *)piece;
+
 
 @end
