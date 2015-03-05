@@ -212,6 +212,18 @@
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
 
+  if ([self kingCanCastle:curPiece X:xLoc Y:yLoc]){
+    return YES;
+  }
+
+  if (abs(xDiff) > 1 || abs(yDiff) > 1)
+    return NO;
+
+  return YES;
+}
+
+- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
   BOOL isCastleXLoc = xLoc == 2 || xLoc == BOARD_SIZE - 2;
   if (!curPiece.bEverMoved && curPiece.yLoc == yLoc && isCastleXLoc) {
     Piece *rook;
@@ -232,17 +244,21 @@
         return NO;
     }
 
-    int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
-
-    [rook changeLocationX:newXLoc Y:rook.yLoc];
+    //[self executeCastle:rook];
     return YES;
   }
 
-  if (abs(xDiff) > 1 || abs(yDiff) > 1)
-    return NO;
-
   return YES;
 }
+
+- (void)executeCastle:(Piece *)rook{
+  //NSLog(@"%d",rook.xLoc);
+  //int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
+  //[rook changeLocationX:newXLoc Y:rook.yLoc];
+}
+
+
+
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team
 {

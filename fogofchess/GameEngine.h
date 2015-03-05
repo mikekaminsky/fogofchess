@@ -36,6 +36,10 @@
 
 - (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
+- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+
+- (void)executeCastle:(Piece *)rook;
+
 - (void)promotePawn:(Piece *)curPiece Y:(int)yLoc;
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
