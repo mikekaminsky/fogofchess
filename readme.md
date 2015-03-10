@@ -18,6 +18,8 @@
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
 * [x] BUG! Move 'square occupied by own team' logic to canMove()
+* [ ] Create '[COLOR] Wins' screen
+* [ ] Show win screen on capture of king
 * [ ] Allow players to resign
 * [ ] BUG! castling is implemented in kingCanMove() which breaks move highlighting
 * [ ] List possible moves per piece
