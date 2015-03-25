@@ -28,11 +28,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor darkGrayColor];
-    
-    Board *imgView = [[Board alloc] initWithWidth:self.view.frame.size.width];
-    
+
+    Board *imgView = [[Board alloc] initWithWidth:self.view.frame.size.width controller:self];
+
+    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.winscreen = [[UIImageView alloc] initWithFrame:frame];
+
+    self.winscreen.contentMode = UIViewContentModeScaleAspectFit;
+    self.winscreen.hidden = true;
+
+    [self.winscreen setImage:[UIImage imageNamed:@"YouWin"]];
+
     [self.view addSubview:imgView];
-  
+    [self.view addSubview:self.winscreen];
+}
+- (void)showWinscreen {
+    self.winscreen.hidden = false;
 }
 
 

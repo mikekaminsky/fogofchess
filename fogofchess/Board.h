@@ -11,6 +11,7 @@
 @class Piece;
 @class GameEngine;
 @class Move;
+@class GameViewController;
 
 
 @interface Board : UIImageView
@@ -26,9 +27,11 @@
 
 @property(nonatomic, strong) GameEngine *engine;
 
+@property(nonatomic, strong) GameViewController *gameViewController;
+
 @property(nonatomic, strong) UIButton *turnMarker;
 
-- (id)initWithWidth:(float)fullWidth;
+- (id)initWithWidth:(float)fullWidth controller:(GameViewController *)viewController;
 
 - (void)enableInteraction;
 

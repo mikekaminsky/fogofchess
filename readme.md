@@ -18,17 +18,18 @@
   * [x] Save move once executed with enumeration
 * [x] Tap to select + tap again to move.
 * [x] BUG! Move 'square occupied by own team' logic to canMove()
-* [ ] Create '[COLOR] Wins' screen
-* [ ] Show win screen on capture of king
-* [ ] Allow players to resign
-* [ ] BUG! castling is implemented in kingCanMove() which breaks move highlighting
-* [ ] List possible moves per piece
+* [x] BUG! castling is implemented in kingCanMove() which breaks move highlighting
+* [x] List possible moves per piece
   * [x] List possible moves pawn
   * [x] List possible moves knight
   * [x] List possible moves bishop
   * [x] List possible moves roook
   * [x] List possible moves queen
-  * [ ] List possible moves king
+  * [x] List possible moves king
+* [x] Show win screen on capture of king
+* [ ] Reset game button after winning
+* [ ] Create '[COLOR] Wins' screen
+* [ ] Allow players to resign
 * [ ] Detect if square is under attack?
 * [ ] List legal moves per piece
   * [ ] Check if square with king is under attack?

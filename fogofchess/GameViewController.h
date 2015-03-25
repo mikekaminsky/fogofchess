@@ -10,4 +10,8 @@
 
 @interface GameViewController : UIViewController
 
+@property(nonatomic, strong) UIImageView *winscreen;
+
+- (void)showWinscreen;
+
 @end
