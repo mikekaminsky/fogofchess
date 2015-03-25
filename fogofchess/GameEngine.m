@@ -70,10 +70,14 @@
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
-  if(curPiece.type == KING &&
-      [self kingCanMove:curPiece X:xLoc Y:yLoc])
-  {
-    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == KING) {
+
+    if([self kingCanMove:curPiece X:xLoc Y:yLoc]) {
+      return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+    } else if([self kingCanCastle:curPiece X:xLoc Y:yLoc]) {
+      return [self executeCastle:curPiece X:xLoc Y:yLoc];
+    }
+
   }
   return NO;
 }
@@ -212,10 +216,6 @@
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
 
-  if ([self kingCanCastle:curPiece X:xLoc Y:yLoc]){
-    return YES;
-  }
-
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
@@ -244,21 +244,29 @@
         return NO;
     }
 
-    //[self executeCastle:rook];
     return YES;
   }
 
+  return NO;
+}
+
+- (BOOL)executeCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  Piece *rook;
+
+  if(xLoc == 2) {
+      rook = [self.board getPieceAtX:0 Y:curPiece.yLoc];
+  } else {
+      rook = [self.board getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc];
+  }
+
+  int direction = xLoc == 2 ? -1 : 1;
+
+  int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
+
+  [rook changeLocationX:newXLoc Y:rook.yLoc];
   return YES;
 }
-
-- (void)executeCastle:(Piece *)rook{
-  //NSLog(@"%d",rook.xLoc);
-  //int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
-  //[rook changeLocationX:newXLoc Y:rook.yLoc];
-}
-
-
-
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team
 {

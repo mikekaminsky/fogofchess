@@ -38,7 +38,7 @@
 
 - (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
-- (void)executeCastle:(Piece *)rook;
+- (BOOL)executeCastle:(Piece *)rook;
 
 - (void)promotePawn:(Piece *)curPiece Y:(int)yLoc;
 
