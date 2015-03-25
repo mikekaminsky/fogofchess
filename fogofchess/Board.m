@@ -24,14 +24,14 @@
 {
   self = [super initWithImage:[UIImage imageNamed:@"chessboard_flip.jpg"]];
   if(self) {
-    
+
     self.gameViewController = viewController;
-    
+
     allSquares = [NSMutableArray array];
     for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
       [allSquares addObject:[NSNull null]];//initWithCapacity:BOARD_SIZE * BOARD_SIZE];
     highlights = [NSMutableArray array];
-    
+
     self.squareWidth = (fullWidth - 2) / BOARD_SIZE;
 
     int ycoord = (590 - fullWidth)/2 + 20;
@@ -59,6 +59,32 @@
   }
 
   return self;
+}
+
+
+- (void)resetGame
+{
+  for (int i = 0; i < BOARD_SIZE * 4; i++) {
+    Piece *piece = self.pieces[i];
+    piece.bCaptured = false;
+    piece.bEverMoved = false;
+
+    if( i < BOARD_SIZE * 2) {
+      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?1:BOARD_SIZE-2];
+    } else {
+      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
+    }
+  }
+
+  lastMove = nil;
+  selected = nil;
+
+  [self.moves removeAllObjects];
+  self.turn = 0;
+  self.darkCapturedCount = 0;
+  self.lightCapturedCount = 0;
+
+  self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, self.frame.size.width/6, self.frame.size.width/16);
 }
 
 - (void)enableInteraction
@@ -194,8 +220,10 @@
   }
 
   if (piece.type == KING){
-    [self.gameViewController showWinscreen];
+    //[self.gameViewController showWinscreen];
+    [self resetGame];
   }
+
 }
 
 - (void)nextTurn{

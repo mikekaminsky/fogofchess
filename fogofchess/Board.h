@@ -33,6 +33,8 @@
 
 - (id)initWithWidth:(float)fullWidth controller:(GameViewController *)viewController;
 
+- (void)resetGame;
+
 - (void)enableInteraction;
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
