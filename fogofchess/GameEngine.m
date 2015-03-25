@@ -70,10 +70,14 @@
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
-  if(curPiece.type == KING &&
-      [self kingCanMove:curPiece X:xLoc Y:yLoc])
-  {
-    return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+  if(curPiece.type == KING) {
+
+    if([self kingCanMove:curPiece X:xLoc Y:yLoc]) {
+      return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
+    } else if([self kingCanCastle:curPiece X:xLoc Y:yLoc]) {
+      return [self executeCastle:curPiece X:xLoc Y:yLoc];
+    }
+
   }
   return NO;
 }
@@ -212,6 +216,14 @@
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
 
+  if (abs(xDiff) > 1 || abs(yDiff) > 1)
+    return NO;
+
+  return YES;
+}
+
+- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
   BOOL isCastleXLoc = xLoc == 2 || xLoc == BOARD_SIZE - 2;
   if (!curPiece.bEverMoved && curPiece.yLoc == yLoc && isCastleXLoc) {
     Piece *rook;
@@ -232,15 +244,27 @@
         return NO;
     }
 
-    int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
-
-    [rook changeLocationX:newXLoc Y:rook.yLoc];
     return YES;
   }
 
-  if (abs(xDiff) > 1 || abs(yDiff) > 1)
-    return NO;
+  return NO;
+}
 
+- (BOOL)executeCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+{
+  Piece *rook;
+
+  if(xLoc == 2) {
+      rook = [self.board getPieceAtX:0 Y:curPiece.yLoc];
+  } else {
+      rook = [self.board getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc];
+  }
+
+  int direction = xLoc == 2 ? -1 : 1;
+
+  int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
+
+  [rook changeLocationX:newXLoc Y:rook.yLoc];
   return YES;
 }
 
@@ -402,8 +426,6 @@
   return array;
 }
 
-
-
 - (NSMutableArray *)queenMoves:(Piece *)piece
 {
   NSMutableSet *setA = [NSMutableSet setWithArray:[self bishopMoves:piece]];
@@ -413,6 +435,36 @@
 
   NSMutableArray *array = [NSMutableArray arrayWithArray:[setA allObjects]];
 
+  return array;
+}
+
+
+- (NSMutableArray *)kingMoves:(Piece *)piece
+{
+  NSMutableArray *array = [NSMutableArray array];
+  int toCheck = piece.bEverMoved ? 1 : 2;
+
+  for (int i = 1; i <= toCheck; i++){
+    for (int pos = 0; pos <= 1; pos++)
+    {
+      for (int x = 0; x <= 1; x++)
+      {
+        int direction = pos == 0 ? -1 : 1;
+
+        int xLoc = x == 0 ? piece.xLoc : piece.xLoc + i*direction;
+        int yLoc = x == 1 ? piece.yLoc : piece.yLoc + i*direction;
+
+        Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
+        Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+
+        if ([self kingCanMove:piece X:xLoc Y:yLoc] && [self onBoardX:xLoc Y:yLoc]){
+          if ((!otherPiece || otherPiece.team != piece.team)){
+           [array addObject:move];
+          }
+        }
+      }
+    }
+  }
   return array;
 }
 

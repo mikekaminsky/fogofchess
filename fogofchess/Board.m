@@ -286,6 +286,11 @@
   }
 
 
+  if(bOn && curPiece.type == KING){
+    array = [self.engine kingMoves:curPiece];
+  }
+
+
   if(array) {
     for (Move *move in array) {
       int xLoc = move.xLoc;
