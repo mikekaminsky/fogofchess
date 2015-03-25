@@ -115,12 +115,9 @@
   else if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
-    if (attacked){
+    if (attacked && attacked.team != curPiece.team){
       bReturn = YES;
     }
-  }
-
-  if(bReturn) {
   }
 
   return bReturn;
