@@ -27,7 +27,8 @@
   * [x] List possible moves queen
   * [x] List possible moves king
 * [x] Show win screen on capture of king
-* [ ] Reset game button after winning
+* [x] Reset game after winning
+* [ ] Win screen specifies who won button restarts
 * [ ] Create '[COLOR] Wins' screen
 * [ ] Allow players to resign
 * [ ] Detect if square is under attack?
