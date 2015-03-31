@@ -61,7 +61,6 @@
   return self;
 }
 
-
 - (void)resetGame
 {
   for (int i = 0; i < BOARD_SIZE * 4; i++) {
@@ -82,9 +81,10 @@
       [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
     }
   }
+  [self highlightPossibleMoves:nil On:NO];
 
   lastMove = nil;
-  selected = nil;
+  [self clearSelection];
 
   [self.moves removeAllObjects];
   self.turn = 0;
@@ -313,6 +313,10 @@
     [view removeFromSuperview];
   }
 
+  if((self.turn % 2 == 0 && curPiece.team == DARK) ||
+      (self.turn % 2 == 1 && curPiece.team == LIGHT)) {
+    return;
+  }
 
   NSMutableArray *array = nil;
 
