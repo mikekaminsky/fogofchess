@@ -66,8 +66,15 @@
 {
   for (int i = 0; i < BOARD_SIZE * 4; i++) {
     Piece *piece = self.pieces[i];
+
+    CGRect frame = piece.frame;
+    frame.size.width = self.squareWidth;
+    frame.size.height = self.squareWidth;
+    piece.frame = frame;
+
     piece.bCaptured = false;
     piece.bEverMoved = false;
+
 
     if( i < BOARD_SIZE * 2) {
       [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?1:BOARD_SIZE-2];
@@ -204,16 +211,24 @@
   if(piece.team == DARK) {
 
     CGRect frame = piece.frame;
-    frame.origin.x = (self.lightCapturedCount % BOARD_SIZE) * self.squareWidth;
-    frame.origin.y = (BOARD_SIZE + self.lightCapturedCount/BOARD_SIZE) * self.squareWidth + (self.squareWidth/2);
+    frame.origin.x = self.lightCapturedCount * self.squareWidth / 2;
+    frame.origin.y = (BOARD_SIZE + 0.5)  * self.squareWidth;
+
+    frame.size.width = self.squareWidth/2;
+    frame.size.height = self.squareWidth/2;
+
     piece.frame = frame;
 
     self.lightCapturedCount++;
   } else {
 
     CGRect frame = piece.frame;
-    frame.origin.x = (self.darkCapturedCount % BOARD_SIZE) * self.squareWidth;
-    frame.origin.y = (-1 - self.darkCapturedCount/BOARD_SIZE) * self.squareWidth - (self.squareWidth/2);
+    frame.origin.x = self.darkCapturedCount * self.squareWidth / 2;
+    frame.origin.y = -self.squareWidth;
+
+    frame.size.width = self.squareWidth/2;
+    frame.size.height = self.squareWidth/2;
+
     piece.frame = frame;
 
     self.darkCapturedCount++;
