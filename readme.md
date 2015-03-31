@@ -28,15 +28,21 @@
   * [x] List possible moves king
 * [x] Show win screen on capture of king
 * [x] Reset game after winning
+  * [x] Clear highlighting
+  * [x] Clear selections
+* [ ] REFACTOR!
+  * [ ] 'Stateful' things inside board, stateless inside game engine.
+    * [ ] Simplify the board class
+  * [ ] Group things by speed
 * [ ] Win screen specifies who won button restarts
 * [ ] Create '[COLOR] Wins' screen
 * [ ] Allow players to resign
-* [ ] Detect if square is under attack?
+* [ ] Check if square with king is under attack?
 * [ ] List legal moves per piece
-  * [ ] Check if square with king is under attack?
   * [ ] Verify no check before allowing move.
 * [ ] Finish rules
   * [x] Implement en passant
+  * [ ] Detect if square is under attack?
   * [ ] Implement correct castling (can't castle through check)
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
