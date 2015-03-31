@@ -36,8 +36,8 @@
   * [ ] Check if square with king is under attack?
   * [ ] Verify no check before allowing move.
 * [ ] Finish rules
-  * [ ] Implement en passant
-  * [ ] Implement correct castling
+  * [x] Implement en passant
+  * [ ] Implement correct castling (can't castle through check)
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
 * [ ] Allow players to resign

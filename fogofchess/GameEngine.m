@@ -115,6 +115,9 @@
   else if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
+    if(!attacked) {
+      attacked = [self.board getEnPassantPawnX:xLoc Y:yLoc];
+    }
     if (attacked && attacked.team != curPiece.team){
       bReturn = YES;
     }
@@ -257,8 +260,6 @@
       rook = [self.board getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc];
   }
 
-  int direction = xLoc == 2 ? -1 : 1;
-
   int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
 
   [rook changeLocationX:newXLoc Y:rook.yLoc];
@@ -294,6 +295,9 @@
   BOOL bReturn = NO;
   if(xLoc != curPiece.xLoc) {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
+    if(!attacked) {
+      attacked = [self.board getEnPassantPawnX:xLoc Y:yLoc];
+    }
     bReturn = [self attemptCaptureOf:attacked byTeam:curPiece.team];
   } else {
     bReturn = YES;
@@ -434,7 +438,7 @@
   [setA unionSet:setB];
 
   NSMutableArray *array = [NSMutableArray arrayWithArray:[setA allObjects]];
-
+//
   return array;
 }
 

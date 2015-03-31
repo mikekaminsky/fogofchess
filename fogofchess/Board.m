@@ -337,4 +337,17 @@
   }
 }
 
+
+- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
+  int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);
+  int attackY = lastMove.piece.team == DARK ? 2 : 5;
+  if( lastMove.piece.type == PAWN
+      && xLoc == lastMove.xLoc
+      && yDiff == 2
+      && yLoc == attackY )
+    return lastMove.piece;
+
+  return nil;
+}
+
 @end

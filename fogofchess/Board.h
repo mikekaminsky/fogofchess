@@ -59,4 +59,7 @@
 
 - (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL) bOn;
 
+- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
+
+
 @end
