@@ -57,7 +57,7 @@
 
 - (void)clearSelection;
 
-- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL) bOn;
+- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL)bOn;
 
 - (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
 

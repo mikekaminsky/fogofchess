@@ -318,33 +318,32 @@
     return;
   }
 
+  if(!bOn) {
+    return;
+  }
+
   NSMutableArray *array = nil;
 
-  if(bOn && curPiece.type == PAWN){
-    array = [self.engine pawnMoves:curPiece];
+  switch(curPiece.type) {
+    case PAWN:
+      array = [self.engine pawnMoves:curPiece];
+      break;
+    case KNIGHT:
+      array = [self.engine knightMoves:curPiece];
+      break;
+    case ROOK:
+      array = [self.engine rookMoves:curPiece];
+      break;
+    case BISHOP:
+      array = [self.engine bishopMoves:curPiece];
+      break;
+    case QUEEN:
+      array = [self.engine queenMoves:curPiece];
+      break;
+    case KING:
+      array = [self.engine kingMoves:curPiece];
+      break;
   }
-
-  if(bOn && curPiece.type == KNIGHT){
-    array = [self.engine knightMoves:curPiece];
-  }
-
-  if(bOn && curPiece.type == ROOK){
-    array = [self.engine rookMoves:curPiece];
-  }
-
-  if(bOn && curPiece.type == BISHOP){
-    array = [self.engine bishopMoves:curPiece];
-  }
-
-  if(bOn && curPiece.type == QUEEN){
-    array = [self.engine queenMoves:curPiece];
-  }
-
-
-  if(bOn && curPiece.type == KING){
-    array = [self.engine kingMoves:curPiece];
-  }
-
 
   if(array) {
     for (Move *move in array) {

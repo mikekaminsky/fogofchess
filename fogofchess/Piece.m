@@ -86,7 +86,8 @@ NSString * const TeamName[] = {
   }
 }
 
-- (void)highlight:(BOOL)bOn{
+- (void)highlight:(BOOL)bOn
+{
   if (bOn){
     self.alpha = 0.5;
   }
