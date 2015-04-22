@@ -81,11 +81,9 @@
       [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
     }
   }
-  [self highlightPossibleMoves:nil On:NO];
 
   lastMove = nil;
   [self clearSelection];
-
   [self.moves removeAllObjects];
   self.turn = 0;
   self.darkCapturedCount = 0;
@@ -279,15 +277,30 @@
   {
     Piece *piece = [self getPieceAtX:xLoc Y:yLoc];
     if(piece) {
-      selected = piece;
-      [piece select:YES];
+      [self selectPiece:piece];
     }
   }
 }
 
+- (void)selectPiece:(Piece *)curPiece
+{
+  if((self.turn % 2 == 0 && curPiece.team == DARK) ||
+      (self.turn % 2 == 1 && curPiece.team == LIGHT)) {
+    [self clearSelection];
+    return;
+  }
+
+  [self highlightPossibleMoves:curPiece];
+
+  [curPiece highlight:YES];
+  selected = curPiece;
+}
+
 -(void) clearSelection
 {
-  [selected select:NO];
+  [self clearHighlights];
+
+  [selected highlight:NO];
   selected = nil;
 }
 
@@ -307,21 +320,8 @@
 }
 
 
-- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL)bOn
+- (void)highlightPossibleMoves:(Piece *)curPiece
 {
-  for(UIImageView* view in highlights) {
-    [view removeFromSuperview];
-  }
-
-  if((self.turn % 2 == 0 && curPiece.team == DARK) ||
-      (self.turn % 2 == 1 && curPiece.team == LIGHT)) {
-    return;
-  }
-
-  if(!bOn) {
-    return;
-  }
-
   NSMutableArray *array = nil;
 
   switch(curPiece.type) {
@@ -355,6 +355,12 @@
   }
 }
 
+- (void)clearHighlights
+{
+  for(UIImageView* view in highlights) {
+    [view removeFromSuperview];
+  }
+}
 
 - (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
   int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);

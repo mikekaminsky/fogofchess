@@ -96,27 +96,22 @@ NSString * const TeamName[] = {
   }
 }
 
-- (void)select:(BOOL)bOn{
-  [self highlight:bOn];
-
-  [self.board highlightPossibleMoves:self On:bOn];
-}
-
 - (void)panAnim:(UIPanGestureRecognizer*)gestureRecognizer
 {
   CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer.view superview]];
 
+
   if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
   {
     [self.board clearSelection];
-    [self select:YES];
+    [self.board selectPiece:self];
   }
   else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
   {
     int xLoc = (int)location.x/self.board.squareWidth;
     int yLoc = (int)location.y/self.board.squareWidth;
 
-    [self select:NO];
+    [self.board clearSelection];
     [self attemptMoveX:xLoc Y:yLoc];
   }
 }

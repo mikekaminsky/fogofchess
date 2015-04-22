@@ -55,11 +55,10 @@
 
 - (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
+- (void)selectPiece:(Piece *)curPiece;
+
 - (void)clearSelection;
 
-- (void)highlightPossibleMoves:(Piece *)curPiece On:(BOOL)bOn;
-
 - (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
-
 
 @end
