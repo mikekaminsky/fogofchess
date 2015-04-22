@@ -310,9 +310,6 @@
 - (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc byTeam:(Team)team
 {
 
-  // if( self.board.turn % 2 == 0 ){
-    // Dark
-  // }
   return NO;
 
 }
