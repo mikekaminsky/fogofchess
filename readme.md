@@ -30,10 +30,11 @@
 * [x] Reset game after winning
   * [x] Clear highlighting
   * [x] Clear selections
-* [ ] REFACTOR!
-  * [ ] 'Stateful' things inside board, stateless inside game engine.
-    * [ ] Simplify the board class
-  * [ ] Group things by speed
+* [x] Highlight only while selected
+* [x] REFACTOR!
+  * [x] 'Stateful' things inside board, stateless inside game engine.
+  * [x] Simplify the board class
+* [ ] Clear all arrays after use
 * [ ] Win screen specifies who won button restarts
 * [ ] Create '[COLOR] Wins' screen
 * [ ] Allow players to resign
@@ -46,7 +47,6 @@
   * [ ] Implement correct castling (can't castle through check)
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
-* [ ] Allow players to resign
 * [ ] Network iphones.
 * [ ] Limit view based on piece position.
 * [ ] Upgrade all UI
