@@ -48,17 +48,6 @@
 
 - (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc;
 
-- (NSMutableArray *)pawnMoves:(Piece *)piece;
-
-- (NSMutableArray *)knightMoves:(Piece *)piece;
-
-- (NSMutableArray *)rookMoves:(Piece *)piece;
-
-- (NSMutableArray *)bishopMoves:(Piece *)piece;
-
-- (NSMutableArray *)queenMoves:(Piece *)piece;
-
-- (NSMutableArray *)kingMoves:(Piece *)piece;
-
+- (NSMutableArray *)possibleMoves:(Piece *)piece;
 
 @end

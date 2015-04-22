@@ -317,10 +317,34 @@
 
 }
 
-- (NSMutableArray *)pawnMoves:(Piece *)piece{
+- (NSMutableArray *)possibleMoves:(Piece *)piece
+{
+  switch(piece.type) {
+    case PAWN:
+      return [self pawnMoves:piece];
+      break;
+    case KNIGHT:
+      return [self knightMoves:piece];
+      break;
+    case ROOK:
+      return [self rookMoves:piece];
+      break;
+    case BISHOP:
+      return [self bishopMoves:piece];
+      break;
+    case QUEEN:
+      return [self queenMoves:piece];
+      break;
+    case KING:
+      return [self kingMoves:piece];
+      break;
+  }
+}
 
-  int direction = [piece team] == DARK ? 1 : -1;
+- (NSMutableArray *)pawnMoves:(Piece *)piece
+{
   NSMutableArray *array = [NSMutableArray array];
+  int direction = [piece team] == DARK ? 1 : -1;
 
   for (int i = -1; i <= 1; i++)
   {
@@ -438,7 +462,7 @@
   [setA unionSet:setB];
 
   NSMutableArray *array = [NSMutableArray arrayWithArray:[setA allObjects]];
-//
+
   return array;
 }
 

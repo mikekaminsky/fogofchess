@@ -343,37 +343,16 @@
 
 - (void)highlightPossibleMoves:(Piece *)curPiece
 {
-  NSMutableArray *array = nil;
+  NSMutableArray *array = [self.engine possibleMoves:curPiece];
 
-  switch(curPiece.type) {
-    case PAWN:
-      array = [self.engine pawnMoves:curPiece];
-      break;
-    case KNIGHT:
-      array = [self.engine knightMoves:curPiece];
-      break;
-    case ROOK:
-      array = [self.engine rookMoves:curPiece];
-      break;
-    case BISHOP:
-      array = [self.engine bishopMoves:curPiece];
-      break;
-    case QUEEN:
-      array = [self.engine queenMoves:curPiece];
-      break;
-    case KING:
-      array = [self.engine kingMoves:curPiece];
-      break;
+  for (Move *move in array) {
+    int xLoc = move.xLoc;
+    int yLoc = move.yLoc;
+    [self highlightSquareX:xLoc Y:yLoc];
+    NSLog(@"%d",xLoc);
   }
 
-  if(array) {
-    for (Move *move in array) {
-      int xLoc = move.xLoc;
-      int yLoc = move.yLoc;
-      [self highlightSquareX:xLoc Y:yLoc];
-      NSLog(@"%d",xLoc);
-    }
-  }
+  [array removeAllObjects];
 }
 
 - (void)clearHighlights
@@ -381,6 +360,8 @@
   for(UIImageView* view in highlights) {
     [view removeFromSuperview];
   }
+
+  [highlights removeAllObjects];
 }
 
 @end
