@@ -35,11 +35,7 @@
 
 - (void)resetGame;
 
-- (void)enableInteraction;
-
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
-
-- (NSMutableArray *)populatePieces;
 
 - (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
@@ -50,8 +46,6 @@
 - (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (void)capturePiece:(Piece *)piece;
-
-- (void)nextTurn;
 
 - (void)recordMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 

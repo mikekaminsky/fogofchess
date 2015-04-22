@@ -61,36 +61,7 @@
   return self;
 }
 
-- (void)resetGame
-{
-  for (int i = 0; i < BOARD_SIZE * 4; i++) {
-    Piece *piece = self.pieces[i];
-
-    CGRect frame = piece.frame;
-    frame.size.width = self.squareWidth;
-    frame.size.height = self.squareWidth;
-    piece.frame = frame;
-
-    piece.bCaptured = false;
-    piece.bEverMoved = false;
-
-
-    if( i < BOARD_SIZE * 2) {
-      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?1:BOARD_SIZE-2];
-    } else {
-      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
-    }
-  }
-
-  lastMove = nil;
-  [self clearSelection];
-  [self.moves removeAllObjects];
-  self.turn = 0;
-  self.darkCapturedCount = 0;
-  self.lightCapturedCount = 0;
-
-  self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, self.frame.size.width/6, self.frame.size.width/16);
-}
+//setup
 
 - (void)enableInteraction
 {
@@ -161,6 +132,39 @@
   }
 
   return arrayOfPieces;
+}
+
+//public methods
+
+- (void)resetGame
+{
+  for (int i = 0; i < BOARD_SIZE * 4; i++) {
+    Piece *piece = self.pieces[i];
+
+    CGRect frame = piece.frame;
+    frame.size.width = self.squareWidth;
+    frame.size.height = self.squareWidth;
+    piece.frame = frame;
+
+    piece.bCaptured = false;
+    piece.bEverMoved = false;
+
+
+    if( i < BOARD_SIZE * 2) {
+      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?1:BOARD_SIZE-2];
+    } else {
+      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
+    }
+  }
+
+  lastMove = nil;
+  [self clearSelection];
+  [self.moves removeAllObjects];
+  self.turn = 0;
+  self.darkCapturedCount = 0;
+  self.lightCapturedCount = 0;
+
+  self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, self.frame.size.width/6, self.frame.size.width/16);
 }
 
 - (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
@@ -239,6 +243,64 @@
 
 }
 
+- (void)selectPiece:(Piece *)curPiece
+{
+  if((self.turn % 2 == 0 && curPiece.team == DARK) ||
+      (self.turn % 2 == 1 && curPiece.team == LIGHT)) {
+    [self clearSelection];
+    return;
+  }
+
+  [self highlightPossibleMoves:curPiece];
+
+  [curPiece highlight:YES];
+  selected = curPiece;
+}
+
+- (void)clearSelection
+{
+  [self clearHighlights];
+
+  [selected highlight:NO];
+  selected = nil;
+}
+
+
+- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
+  int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);
+  int attackY = lastMove.piece.team == DARK ? 2 : 5;
+  if( lastMove.piece.type == PAWN
+      && xLoc == lastMove.xLoc
+      && yDiff == 2
+      && yLoc == attackY )
+    return lastMove.piece;
+
+  return nil;
+}
+
+//interaction
+
+- (void)singleTapGesture:(UITapGestureRecognizer *)gestureRecognizer
+{
+  CGPoint location = [gestureRecognizer locationInView: self];
+  int xLoc = (int)location.x/self.squareWidth;
+  int yLoc = (int)location.y/self.squareWidth;
+
+  if(selected) {
+    [selected attemptMoveX:xLoc Y:yLoc];
+    [self clearSelection];
+  }
+  else
+  {
+    Piece *piece = [self getPieceAtX:xLoc Y:yLoc];
+    if(piece) {
+      [self selectPiece:piece];
+    }
+  }
+}
+
+//private
+
 - (void)nextTurn{
   self.turn++;
 
@@ -261,47 +323,6 @@
   for (int i = 0; i<self.moves.count; i++) {
     NSLog(@"obj: %@",self.moves[i]);
   }
-}
-
-- (void)singleTapGesture:(UITapGestureRecognizer *)gestureRecognizer
-{
-  CGPoint location = [gestureRecognizer locationInView: self];
-  int xLoc = (int)location.x/self.squareWidth;
-  int yLoc = (int)location.y/self.squareWidth;
-
-  if(selected) {
-    [selected attemptMoveX:xLoc Y:yLoc];
-    [self clearSelection];
-  }
-  else
-  {
-    Piece *piece = [self getPieceAtX:xLoc Y:yLoc];
-    if(piece) {
-      [self selectPiece:piece];
-    }
-  }
-}
-
-- (void)selectPiece:(Piece *)curPiece
-{
-  if((self.turn % 2 == 0 && curPiece.team == DARK) ||
-      (self.turn % 2 == 1 && curPiece.team == LIGHT)) {
-    [self clearSelection];
-    return;
-  }
-
-  [self highlightPossibleMoves:curPiece];
-
-  [curPiece highlight:YES];
-  selected = curPiece;
-}
-
--(void) clearSelection
-{
-  [self clearHighlights];
-
-  [selected highlight:NO];
-  selected = nil;
 }
 
 - (void)highlightSquareX:(int)xLoc Y:(int)yLoc
@@ -360,18 +381,6 @@
   for(UIImageView* view in highlights) {
     [view removeFromSuperview];
   }
-}
-
-- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
-  int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);
-  int attackY = lastMove.piece.team == DARK ? 2 : 5;
-  if( lastMove.piece.type == PAWN
-      && xLoc == lastMove.xLoc
-      && yDiff == 2
-      && yLoc == attackY )
-    return lastMove.piece;
-
-  return nil;
 }
 
 @end
