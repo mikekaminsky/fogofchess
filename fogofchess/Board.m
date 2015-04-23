@@ -13,12 +13,13 @@
 #import "Move.h"
 
 
-@implementation Board {
-   NSMutableArray *allSquares;
-   NSMutableArray *highlights;
-   Move *lastMove;
-   Piece *selected;
-}
+@implementation Board
+
+ static NSMutableArray *allSquares;
+ static NSMutableArray *highlights;
+ static Move *lastMove;
+ static Piece *selected;
+ static BOOL resetFlag;
 
 - (id)initWithWidth:(float)fullWidth controller:(GameViewController *)viewController
 {
@@ -38,14 +39,12 @@
     self.frame = CGRectMake(0, ycoord, fullWidth, fullWidth);
 
     self.turn = 0;
-    lastMove = nil;
 
     self.moves = [NSMutableArray array];
 
     self.darkCapturedCount = 0;
     self.lightCapturedCount = 0;
 
-    self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
     self.engine = [[GameEngine alloc] initWithBoard:self];
 
     self.turnMarker = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -56,6 +55,13 @@
 
     self.contentMode = UIViewContentModeScaleAspectFit;
     [self enableInteraction];
+
+    self.pieces = [[NSArray alloc] initWithArray:[self populatePieces]];
+    [self setPieces];
+
+    lastMove = nil;
+    selected = nil;
+    resetFlag = NO;
   }
 
   return self;
@@ -76,8 +82,7 @@
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array
 {
-  CGRect frame = CGRectMake(0, 0, self.squareWidth, self.squareWidth);
-  Piece *newPiece = [[Piece alloc] initWithFrame:frame withBoard:self];
+  Piece *newPiece = [[Piece alloc] initWithBoard:self];
   [array addObject:newPiece];
   [self addSubview:newPiece];
 
@@ -87,48 +92,8 @@
 - (NSMutableArray *)populatePieces
 {
   NSMutableArray *arrayOfPieces = [NSMutableArray array];
-  for (int i = 0; i < BOARD_SIZE; i++) {
-    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:1];
-    [newPiece setTeam:DARK andType:PAWN];
-
-    newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:BOARD_SIZE-2];
-    [newPiece setTeam:LIGHT andType:PAWN];
-  }
-
-  for (int i = 0; i < BOARD_SIZE; i++) {
-    Type newType;
-    switch(i) {
-      case 0 :
-      case 7 :
-        newType = ROOK;
-        break;
-      case 1 :
-      case 6 :
-        newType = KNIGHT;
-        break;
-      case 2 :
-      case 5 :
-        newType = BISHOP;
-        break;
-      case 3 :
-        newType = QUEEN;
-        break;
-      case 4 :
-        newType = KING;
-        break;
-      default:
-        break;
-    }
-
-    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:0];
-    [newPiece setTeam:DARK andType:newType];
-
-    newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:7];
-    [newPiece setTeam:LIGHT andType:newType];
+  for (int i = 0; i < BOARD_SIZE * 4; i++) {
+    [self addPieceToArray:arrayOfPieces];
   }
 
   return arrayOfPieces;
@@ -136,82 +101,78 @@
 
 - (void) setPieces
 {
-  NSMutableArray *arrayOfPieces = [NSMutableArray array];
-  for (int i = 0; i < BOARD_SIZE * 2; i++) {
-    Piece *newPiece = pieces[i]
-
-    if (i % 2 == 0) {
-      [newPiece changeLocationX:i Y:1];
-      [newPiece setTeam:DARK andType:PAWN];
-    } else {
-      [newPiece changeLocationX:i Y:BOARD_SIZE-2];
-      [newPiece setTeam:LIGHT andType:PAWN];
-    }
-  }
-
-  for (int i = 0; i < BOARD_SIZE; i++) {
-    Type newType;
-    switch(i) {
-      case 0 :
-      case 7 :
-        newType = ROOK;
-        break;
-      case 1 :
-      case 6 :
-        newType = KNIGHT;
-        break;
-      case 2 :
-      case 5 :
-        newType = BISHOP;
-        break;
-      case 3 :
-        newType = QUEEN;
-        break;
-      case 4 :
-        newType = KING;
-        break;
-      default:
-        break;
-    }
-
-    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:0];
-    [newPiece setTeam:DARK andType:newType];
-
-    newPiece = [self addPieceToArray:arrayOfPieces];
-    [newPiece changeLocationX:i Y:7];
-    [newPiece setTeam:LIGHT andType:newType];
-  }
-
-//public methods
-
-- (void)resetGame
-{
   for (int i = 0; i < BOARD_SIZE * 4; i++) {
     Piece *piece = self.pieces[i];
+
+    piece.bCaptured = false;
+    piece.bEverMoved = false;
+
+    [self updateAllSquares:piece X:-1 Y:-1];
+
 
     CGRect frame = piece.frame;
     frame.size.width = self.squareWidth;
     frame.size.height = self.squareWidth;
     piece.frame = frame;
 
-    piece.bCaptured = false;
-    piece.bEverMoved = false;
+    if (i < BOARD_SIZE) {
+      [piece changeLocationX:i%BOARD_SIZE Y:1];
+      [piece setTeam:DARK andType:PAWN];
+    } else if(i < BOARD_SIZE * 2){
+      [piece changeLocationX:i%BOARD_SIZE Y:BOARD_SIZE - 2];
+      [piece setTeam:LIGHT andType:PAWN];
+    }
+    else {
 
+      Type newType;
+      switch(i%BOARD_SIZE) {
+        case 0 :
+        case 7 :
+          newType = ROOK;
+          break;
+        case 1 :
+        case 6 :
+          newType = KNIGHT;
+          break;
+        case 2 :
+        case 5 :
+          newType = BISHOP;
+          break;
+        case 3 :
+          newType = QUEEN;
+          break;
+        case 4 :
+          newType = KING;
+          break;
+        default:
+          break;
+      }
 
-    if( i < BOARD_SIZE * 2) {
-      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?1:BOARD_SIZE-2];
-    } else {
-      [piece changeLocationX:(i/2)%8 Y:(i%2 == 0)?0:BOARD_SIZE-1];
+      if (i < BOARD_SIZE * 3) {
+        [piece changeLocationX:i%BOARD_SIZE Y:0];
+        [piece setTeam:DARK andType:newType];
+      } else {
+        [piece changeLocationX:i%BOARD_SIZE Y:7];
+        [piece setTeam:LIGHT andType:newType];
+      }
     }
   }
+}
+
+//public methods
+
+- (void)resetGame
+{
+  [self setPieces];
 
   lastMove = nil;
-  [self clearSelection];
-  [self.moves removeAllObjects];
+  resetFlag = NO;
   self.turn = 0;
   self.darkCapturedCount = 0;
   self.lightCapturedCount = 0;
+
+  [self clearSelection];
+  [self.moves removeAllObjects];
 
   self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, self.frame.size.width/6, self.frame.size.width/16);
 }
@@ -225,7 +186,7 @@
     [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
   }
 
-  if(!curPiece.bCaptured) {
+  if(newIndex >= 0 && newIndex < BOARD_SIZE * BOARD_SIZE) {
     [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
   }
 }
@@ -244,14 +205,19 @@
   return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 
-- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
-    BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
-    if(bMoved) {
-      [self nextTurn];
-      [self recordMove:curPiece X:xLoc Y:yLoc];
-    }
-    return bMoved;
+  BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
+  if(resetFlag) {
+    [self resetGame];
+  }
+  else if(bMoved) {
+    [self nextTurn];
+    [self recordMove:curPiece X:xLoc Y:yLoc];
+
+    curPiece.bEverMoved = YES;
+    [curPiece changeLocationX:xLoc Y:yLoc];
+  }
 }
 
 - (void)capturePiece:(Piece *)piece
@@ -287,7 +253,7 @@
 
   if (piece.type == KING){
     //[self.gameViewController showWinscreen];
-    [self resetGame];
+    resetFlag = YES;
   }
 
 }
@@ -336,7 +302,7 @@
   int yLoc = (int)location.y/self.squareWidth;
 
   if(selected) {
-    [selected attemptMoveX:xLoc Y:yLoc];
+    [self executeMove:selected X:xLoc Y:yLoc];
     [self clearSelection];
   }
   else

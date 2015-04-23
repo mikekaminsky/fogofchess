@@ -25,8 +25,9 @@ NSString * const TeamName[] = {
 
 @implementation Piece
 
-- (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard
+- (id)initWithBoard:(Board *)gameBoard
 {
+  CGRect frame;
   self = [super initWithFrame:frame];
 
   if(self) {
@@ -77,15 +78,6 @@ NSString * const TeamName[] = {
   self.frame = frame;
 }
 
-- (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
-{
-
-  if([self.board executeMove:self X:xLoc Y:yLoc]) {
-    self.bEverMoved = YES;
-    [self changeLocationX:xLoc Y:yLoc];
-  }
-}
-
 - (void)highlight:(BOOL)bOn
 {
   if (bOn){
@@ -112,7 +104,7 @@ NSString * const TeamName[] = {
     int yLoc = (int)location.y/self.board.squareWidth;
 
     [self.board clearSelection];
-    [self attemptMoveX:xLoc Y:yLoc];
+    [self.board executeMove:self X:xLoc Y:yLoc];
   }
 }
 

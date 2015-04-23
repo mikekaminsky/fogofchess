@@ -25,11 +25,9 @@
 
 @property BOOL bEverMoved;
 
-- (id)initWithFrame:(CGRect)frame withBoard:(Board *)gameBoard;
+- (id)initWithBoard:(Board *)gameBoard;
 
 - (void)enableInteraction;
-
-- (void)attemptMoveX:(int)xLoc Y:(int)yLoc;
 
 - (void)changeLocationX:(int)xLoc Y:(int)yLoc;
 

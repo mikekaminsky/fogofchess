@@ -271,8 +271,7 @@
   if(attacked && attacked.team != team) {
     [self.board capturePiece: attacked];
 
-    if(attacked.type != KING)
-      return YES;
+    return YES;
   }
 
   return NO;
