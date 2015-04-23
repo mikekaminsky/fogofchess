@@ -134,6 +134,55 @@
   return arrayOfPieces;
 }
 
+- (void) setPieces
+{
+  NSMutableArray *arrayOfPieces = [NSMutableArray array];
+  for (int i = 0; i < BOARD_SIZE * 2; i++) {
+    Piece *newPiece = pieces[i]
+
+    if (i % 2 == 0) {
+      [newPiece changeLocationX:i Y:1];
+      [newPiece setTeam:DARK andType:PAWN];
+    } else {
+      [newPiece changeLocationX:i Y:BOARD_SIZE-2];
+      [newPiece setTeam:LIGHT andType:PAWN];
+    }
+  }
+
+  for (int i = 0; i < BOARD_SIZE; i++) {
+    Type newType;
+    switch(i) {
+      case 0 :
+      case 7 :
+        newType = ROOK;
+        break;
+      case 1 :
+      case 6 :
+        newType = KNIGHT;
+        break;
+      case 2 :
+      case 5 :
+        newType = BISHOP;
+        break;
+      case 3 :
+        newType = QUEEN;
+        break;
+      case 4 :
+        newType = KING;
+        break;
+      default:
+        break;
+    }
+
+    Piece *newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:0];
+    [newPiece setTeam:DARK andType:newType];
+
+    newPiece = [self addPieceToArray:arrayOfPieces];
+    [newPiece changeLocationX:i Y:7];
+    [newPiece setTeam:LIGHT andType:newType];
+  }
+
 //public methods
 
 - (void)resetGame
