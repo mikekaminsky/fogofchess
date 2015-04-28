@@ -37,7 +37,7 @@
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 
-- (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+- (void)updateAllSquares;
 
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc;
 

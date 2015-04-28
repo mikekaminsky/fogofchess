@@ -107,7 +107,6 @@
     piece.bCaptured = false;
     piece.bEverMoved = false;
 
-    [self updateAllSquares:piece X:-1 Y:-1];
 
 
     CGRect frame = piece.frame;
@@ -158,6 +157,7 @@
       }
     }
   }
+  [self updateAllSquares];
 }
 
 //public methods
@@ -178,17 +178,20 @@
   self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, self.frame.size.width/6, self.frame.size.width/16);
 }
 
-- (void)updateAllSquares:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (void)updateAllSquares
 {
-  int oldIndex = curPiece.yLoc * BOARD_SIZE + curPiece.xLoc;
-  int newIndex = yLoc * BOARD_SIZE + xLoc;
+  //Clear array
+  for (int i=0; i < BOARD_SIZE * BOARD_SIZE; i++)
+    [allSquares replaceObjectAtIndex:i withObject:[NSNull null]];
 
-  if(oldIndex >= 0 && oldIndex < BOARD_SIZE * BOARD_SIZE) {
-    [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
-  }
-
-  if(newIndex >= 0 && newIndex < BOARD_SIZE * BOARD_SIZE) {
-    [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+  //Ask each piece where in the array they belong
+  for (Piece *curPiece in self.pieces){
+    if (!curPiece.bCaptured){
+      int newIndex = curPiece.yLoc * BOARD_SIZE + curPiece.xLoc;
+      if (newIndex >= 0 && newIndex < BOARD_SIZE * BOARD_SIZE){
+        [allSquares replaceObjectAtIndex:newIndex withObject:curPiece];
+      }
+    }
   }
 }
 
@@ -224,7 +227,6 @@
 - (void)capturePiece:(Piece *)piece
 {
   piece.bCaptured = true;
-  [self updateAllSquares:piece X:-1 Y:-1];
 
   if(piece.team == DARK) {
 
@@ -257,6 +259,7 @@
     resetFlag = YES;
   }
 
+  [self updateAllSquares];
 }
 
 - (void)selectPiece:(Piece *)curPiece
@@ -379,5 +382,9 @@
 
   [highlights removeAllObjects];
 }
+
+
+
+
 
 @end
