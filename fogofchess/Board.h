@@ -43,7 +43,7 @@
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;
 
-- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
+- (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
 - (void)capturePiece:(Piece *)piece;
 

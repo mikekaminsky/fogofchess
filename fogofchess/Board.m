@@ -145,6 +145,7 @@
           newType = KING;
           break;
         default:
+          newType = PAWN;
           break;
       }
 
