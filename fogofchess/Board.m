@@ -115,15 +115,15 @@
     piece.frame = frame;
 
     if (i < BOARD_SIZE) {
-      [piece changeLocationX:i%BOARD_SIZE Y:1];
+      [piece setLocationX:i%BOARD_SIZE Y:1];
       [piece setTeam:DARK andType:PAWN];
     } else if(i < BOARD_SIZE * 2){
-      [piece changeLocationX:i%BOARD_SIZE Y:BOARD_SIZE - 2];
+      [piece setLocationX:i%BOARD_SIZE Y:BOARD_SIZE - 2];
       [piece setTeam:LIGHT andType:PAWN];
     }
     else {
 
-      Type newType;
+      Type newType = PAWN;
       switch(i%BOARD_SIZE) {
         case 0 :
         case 7 :
@@ -144,19 +144,19 @@
           newType = KING;
           break;
         default:
-          newType = PAWN;
           break;
       }
 
       if (i < BOARD_SIZE * 3) {
-        [piece changeLocationX:i%BOARD_SIZE Y:0];
+        [piece setLocationX:i%BOARD_SIZE Y:0];
         [piece setTeam:DARK andType:newType];
       } else {
-        [piece changeLocationX:i%BOARD_SIZE Y:7];
+        [piece setLocationX:i%BOARD_SIZE Y:7];
         [piece setTeam:LIGHT andType:newType];
       }
     }
   }
+
   [self updateAllSquares];
 }
 
@@ -220,7 +220,8 @@
     [self recordMove:curPiece X:xLoc Y:yLoc];
 
     curPiece.bEverMoved = YES;
-    [curPiece changeLocationX:xLoc Y:yLoc];
+    [curPiece setLocationX:xLoc Y:yLoc];
+    [self updateAllSquares];
   }
 }
 

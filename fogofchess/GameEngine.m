@@ -262,7 +262,7 @@
 
   int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
 
-  [rook changeLocationX:newXLoc Y:rook.yLoc];
+  [rook setLocationX:newXLoc Y:rook.yLoc];
   return YES;
 }
 

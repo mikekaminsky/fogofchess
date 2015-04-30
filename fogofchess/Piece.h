@@ -29,7 +29,7 @@
 
 - (void)enableInteraction;
 
-- (void)changeLocationX:(int)xLoc Y:(int)yLoc;
+- (void)setLocationX:(int)xLoc Y:(int)yLoc;
 
 - (void)setTeam:(Team)newTeam andType:(Type)newType;
 

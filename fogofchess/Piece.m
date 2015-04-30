@@ -65,9 +65,8 @@ NSString * const TeamName[] = {
   [self setImage:[UIImage imageNamed:assetFile]];
 }
 
-- (void)changeLocationX:(int)xLoc Y:(int)yLoc
+- (void)setLocationX:(int)xLoc Y:(int)yLoc
 {
-
   self.xLoc = xLoc;
   self.yLoc = yLoc;
 
@@ -75,9 +74,6 @@ NSString * const TeamName[] = {
   frame.origin.x = self.xLoc * self.board.squareWidth;
   frame.origin.y = self.yLoc * self.board.squareWidth;
   self.frame = frame;
-
-  [self.board updateAllSquares];
-
 }
 
 - (void)highlight:(BOOL)bOn
