@@ -15,11 +15,10 @@
 
 @implementation Board
 
- static NSMutableArray *allSquares;
- static NSMutableArray *highlights;
- static Move *lastMove;
- static Piece *selected;
- static BOOL resetFlag;
+static NSMutableArray *allSquares;
+static NSMutableArray *highlights;
+static Move *lastMove;
+static Piece *selected;
 
 - (id)initWithWidth:(float)fullWidth controller:(GameViewController *)viewController
 {
@@ -61,7 +60,6 @@
 
     lastMove = nil;
     selected = nil;
-    resetFlag = NO;
   }
 
   return self;
@@ -167,7 +165,6 @@
   [self setPieces];
 
   lastMove = nil;
-  resetFlag = NO;
   self.turn = 0;
   self.darkCapturedCount = 0;
   self.lightCapturedCount = 0;
@@ -212,10 +209,7 @@
 - (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
-  if(resetFlag) {
-    [self resetGame];
-  }
-  else if(bMoved) {
+  if(bMoved) {
     [self nextTurn];
     [self recordMove:curPiece X:xLoc Y:yLoc];
 
@@ -257,10 +251,11 @@
 
   if (piece.type == KING){
     //[self.gameViewController showWinscreen];
-    resetFlag = YES;
+    [self resetGame];
   }
-
-  [self updateAllSquares];
+  else {
+    [self updateAllSquares];
+  }
 }
 
 - (void)selectPiece:(Piece *)curPiece

@@ -37,8 +37,6 @@
 
 - (Piece *)addPieceToArray:(NSMutableArray *)array;
 
-- (void)updateAllSquares;
-
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc;
 
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc;

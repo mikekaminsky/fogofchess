@@ -271,7 +271,9 @@
   if(attacked && attacked.team != team) {
     [self.board capturePiece: attacked];
 
-    return YES;
+    if(attacked.type != KING){
+      return YES;
+    }
   }
 
   return NO;
@@ -286,7 +288,6 @@
 
 
   return [self attemptCaptureOf:otherPiece byTeam:curPiece.team];
-
 }
 
 - (BOOL)pawnMoveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc

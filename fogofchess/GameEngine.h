@@ -46,8 +46,6 @@
 
 - (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
 
-- (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc;
-
 - (NSMutableArray *)possibleMoves:(Piece *)piece;
 
 @end
