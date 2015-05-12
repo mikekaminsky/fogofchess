@@ -46,4 +46,5 @@
 
 - (NSMutableArray *)possibleMoves:(Piece *)piece;
 
+- (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc;
 @end

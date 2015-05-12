@@ -238,9 +238,15 @@
     }
 
     int direction = xLoc == 2 ? -1 : 1;
+    Team enemy = curPiece.team == DARK ? LIGHT : DARK;
 
     for (int i = curPiece.xLoc + direction; i != rook.xLoc; i += direction) {
       if (![self.board isUnoccupiedX:i Y:curPiece.yLoc])
+        return NO;
+    }
+
+    for (int i = curPiece.xLoc; i != xLoc + direction; i += direction) {
+      if ([self squareUnderAttackByTeam:enemy X:i Y:curPiece.yLoc])
         return NO;
     }
 
@@ -491,6 +497,43 @@
     }
   }
   return array;
+}
+
+- (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc
+{
+  for (Piece *piece in self.board.pieces){
+    if(piece.bCaptured || piece.team != team)
+      continue;
+
+    switch(piece.type) {
+      case PAWN:
+        if([self pawnCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+      case KNIGHT:
+        if([self knightCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+      case ROOK:
+        if([self rookCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+      case BISHOP:
+        if([self bishopCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+      case QUEEN:
+        if([self queenCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+      case KING:
+        if([self kingCanMove:piece X:xLoc Y:yLoc])
+          return YES;
+        break;
+    }
+  }
+
+  return NO;
 }
 
 @end
