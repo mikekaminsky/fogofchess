@@ -34,7 +34,7 @@
 * [x] REFACTOR!
   * [x] 'Stateful' things inside board, stateless inside game engine.
   * [x] Simplify the board class
-* [ ] Clear all arrays after use
+* [x] Clear all arrays after use
 * [ ] Win screen specifies who won button restarts
 * [ ] Create '[COLOR] Wins' screen
 * [ ] Allow players to resign
@@ -43,8 +43,9 @@
   * [ ] Verify no check before allowing move.
 * [ ] Finish rules
   * [x] Implement en passant
-  * [ ] Detect if square is under attack?
-  * [ ] Implement correct castling (can't castle through check)
+  * [x] Detect if square is under attack?
+  * [x] Implement correct castling (can't castle through check)
+  * [ ] BUG: Need to account for pawn diagonal attack when doing castling
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
 * [ ] Network iphones.
