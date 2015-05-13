@@ -508,6 +508,24 @@
   return array;
 }
 
+- (BOOL)pawnThreatensKing:(Piece *)pawn X:(int)xLoc Y:(int)yLoc
+{
+  int direction = [pawn team] == DARK ? 1 : -1;
+
+  int xDiff = xLoc - pawn.xLoc;
+  int yDiff = yLoc - pawn.yLoc;
+
+  if (abs(xDiff) == 1 && yDiff == 1 * direction)
+  {
+    Piece *occupier = [self.board getPieceAtX:xLoc Y:yLoc];
+    if(!occupier || (occupier.type == KING && occupier.team != pawn.team)) {
+      return YES;
+    }
+  }
+
+  return NO;
+}
+
 - (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc
 {
   for (Piece *piece in self.board.pieces){
@@ -516,7 +534,7 @@
 
     switch(piece.type) {
       case PAWN:
-        if([self pawnCanMove:piece X:xLoc Y:yLoc])
+        if([self pawnThreatensKing:piece X:xLoc Y:yLoc])
           return YES;
         break;
       case KNIGHT:
