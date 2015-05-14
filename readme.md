@@ -45,7 +45,7 @@
   * [x] Implement en passant
   * [x] Detect if square is under attack?
   * [x] Implement correct castling (can't castle through check)
-  * [ ] BUG: Need to account for pawn diagonal attack when doing castling
+  * [x] BUG: Need to account for pawn diagonal attack when doing castling
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
 * [ ] Network iphones.

@@ -508,7 +508,7 @@
   return array;
 }
 
-- (BOOL)pawnThreatensKing:(Piece *)pawn X:(int)xLoc Y:(int)yLoc
+- (BOOL)pawnThreatensSquare:(Piece *)pawn X:(int)xLoc Y:(int)yLoc
 {
   int direction = [pawn team] == DARK ? 1 : -1;
 
@@ -518,7 +518,7 @@
   if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
     Piece *occupier = [self.board getPieceAtX:xLoc Y:yLoc];
-    if(!occupier || (occupier.type == KING && occupier.team != pawn.team)) {
+    if(!occupier || occupier.team != pawn.team) {
       return YES;
     }
   }
@@ -534,7 +534,7 @@
 
     switch(piece.type) {
       case PAWN:
-        if([self pawnThreatensKing:piece X:xLoc Y:yLoc])
+        if([self pawnThreatensSquare:piece X:xLoc Y:yLoc])
           return YES;
         break;
       case KNIGHT:
