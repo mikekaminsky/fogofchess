@@ -46,6 +46,7 @@
   * [x] Detect if square is under attack?
   * [x] Implement correct castling (can't castle through check)
   * [x] BUG: Need to account for pawn diagonal attack when doing castling
+  * [ ] Need to take into account future state of the world when validating move does not put king into check.
   * [ ] Promote pawn to any piece
   * [ ] Detect checkmate
 * [ ] Network iphones.
