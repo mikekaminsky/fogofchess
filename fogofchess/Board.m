@@ -202,12 +202,34 @@ static Piece *selected;
   return p;
 }
 
+
+- (Piece *)getKing:(Team)team
+{
+
+  for (int i = 0; i<self.pieces.count; i++) {
+    Piece *piece = self.pieces[i];
+    if (piece.type == KING && piece.team == team){
+      return piece;
+    }
+  }
+
+  return nil;
+}
+
+
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc {
   return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }
 
 - (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  Move* newMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
+  BOOL bDetectCheck = [self.engine detectCheck:newMove];
+  if(bDetectCheck) {
+    [self updateAllSquares];
+    return;
+  }
+
   BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
   if(bMoved) {
     [self nextTurn];
@@ -379,8 +401,12 @@ static Piece *selected;
   [highlights removeAllObjects];
 }
 
-
-
-
+- (void)futureBoard:(Move *)move
+{
+  int oldIndex = move.oldYLoc * BOARD_SIZE + move.oldXLoc;
+  int newIndex = move.yLoc * BOARD_SIZE + move.xLoc;
+  [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
+  [allSquares replaceObjectAtIndex:newIndex withObject:move.piece];
+}
 
 @end
