@@ -317,13 +317,6 @@
   return bReturn;
 }
 
-- (BOOL)squareUnderAttackX:(int)xLoc Y:(int)yLoc byTeam:(Team)team
-{
-
-  return NO;
-
-}
-
 - (NSMutableArray *)possibleMoves:(Piece *)piece
 {
   switch(piece.type) {
