@@ -51,6 +51,8 @@
 
 - (void)clearSelection;
 
-- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
+- (Piece *)getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
+
+- (Piece *)getKing:(Team)team;
 
 @end

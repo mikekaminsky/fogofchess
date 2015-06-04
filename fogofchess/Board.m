@@ -202,6 +202,21 @@ static Piece *selected;
   return p;
 }
 
+
+- (Piece *)getKing:(Team)team
+{
+
+  for (int i = 0; i<self.pieces.count; i++) {
+    Piece *piece = self.pieces[i];
+    if (piece.type == KING && piece.team == team){
+      return piece;
+    }
+  }
+
+  return nil;
+}
+
+
 - (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc {
   return [self getPieceAtX:xLoc Y:yLoc] == nil;
 }

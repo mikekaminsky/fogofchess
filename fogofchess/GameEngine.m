@@ -219,10 +219,6 @@
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
-  Team enemy = curPiece.team == DARK ? LIGHT : DARK;
-  if ([self squareUnderAttackByTeam:enemy X:xLoc Y:yLoc])
-    return NO;
-
   return YES;
 }
 
@@ -509,7 +505,11 @@
 {
   int direction = [pawn team] == DARK ? 1 : -1;
 
-  int xDiff = xLoc - pawn.xLoc; int yDiff = yLoc - pawn.yLoc; if (abs(xDiff) == 1 && yDiff == 1 * direction) { Piece *occupier = [self.board getPieceAtX:xLoc Y:yLoc]; if(!occupier || occupier.team != pawn.team) { return YES;
+  int xDiff = xLoc - pawn.xLoc; int yDiff = yLoc - pawn.yLoc;
+  if (abs(xDiff) == 1 && yDiff == 1 * direction) {
+    Piece *occupier = [self.board getPieceAtX:xLoc Y:yLoc];
+    if(!occupier || occupier.team != pawn.team) {
+      return YES;
     }
   }
 
