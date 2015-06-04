@@ -226,7 +226,6 @@ static Piece *selected;
   Move* newMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
   BOOL bDetectCheck = [self.engine detectCheck:newMove];
   if(bDetectCheck) {
-    [self updateAllSquares];
     return;
   }
 
