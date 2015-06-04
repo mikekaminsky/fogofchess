@@ -394,8 +394,12 @@ static Piece *selected;
   [highlights removeAllObjects];
 }
 
-
-
-
+- (void)futureBoard:(Move *)move
+{
+  int oldIndex = move.oldYLoc * BOARD_SIZE + move.oldXLoc;
+  int newIndex = move.yLoc * BOARD_SIZE + move.xLoc;
+  [allSquares replaceObjectAtIndex:oldIndex withObject:[NSNull null]];
+  [allSquares replaceObjectAtIndex:newIndex withObject:move.piece];
+}
 
 @end
