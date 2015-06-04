@@ -223,6 +223,13 @@ static Piece *selected;
 
 - (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
+  Move* newMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
+  BOOL bDetectCheck = [self.engine detectCheck:newMove];
+  if(bDetectCheck) {
+    [self updateAllSquares];
+    return;
+  }
+
   BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
   if(bMoved) {
     [self nextTurn];

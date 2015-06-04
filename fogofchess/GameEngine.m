@@ -521,7 +521,10 @@
   for (Piece *piece in self.board.pieces){
     if(piece.bCaptured || piece.team != team)
       continue;
-
+    
+    if(xLoc == piece.xLoc && yLoc == piece.yLoc)
+      continue;
+    
     switch(piece.type) {
       case PAWN:
         if([self pawnThreatensSquare:piece X:xLoc Y:yLoc])
@@ -551,6 +554,30 @@
   }
 
   return NO;
+}
+
+- (BOOL)detectCheck:(Move *)move
+{
+  [self.board futureBoard:move];
+
+  int kingX;
+  int kingY;
+  
+  if(move.piece.type == KING) {
+    kingX = move.xLoc;
+    kingY = move.yLoc;
+  } else {
+    Piece* king = [self.board getKing:move.piece.team];
+    kingX = king.xLoc;
+    kingY = king.yLoc;
+  }
+
+  Team enemy = move.piece.team == DARK ? LIGHT : DARK;
+  BOOL ret = [self squareUnderAttackByTeam:enemy X:kingX Y:kingY];
+
+  [self.board updateAllSquares];
+
+  return ret;
 }
 
 @end
