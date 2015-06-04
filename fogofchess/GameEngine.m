@@ -219,6 +219,10 @@
   if (abs(xDiff) > 1 || abs(yDiff) > 1)
     return NO;
 
+  Team enemy = curPiece.team == DARK ? LIGHT : DARK;
+  if ([self squareUnderAttackByTeam:enemy X:xLoc Y:yLoc])
+    return NO;
+
   return YES;
 }
 
@@ -547,30 +551,6 @@
   }
 
   return NO;
-}
-
-- (BOOL)detectCheck:(Move *)move
-{
-  [self.board futureBoard:move];
-
-  int kingX;
-  int kingY;
-
-  if(move.piece.type == KING) {
-    kingX = move.piece.xLoc;
-    kingY = move.piece.yLoc;
-  } else {
-    Piece* king = [self.board getKing:move.piece.team];
-    kingX = king.xLoc;
-    kingY = king.yLoc;
-  }
-
-  Team enemy = move.piece.team == DARK ? LIGHT : DARK;
-  BOOL ret = [self squareUnderAttackByTeam:enemy X:kingX Y:kingY];
-
-  [self.board updateAllSquares];
-
-  return ret;
 }
 
 @end

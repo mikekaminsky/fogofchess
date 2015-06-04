@@ -11,7 +11,6 @@
 
 @class Board;
 @class Piece;
-@class Move;
 
 @interface GameEngine : NSObject
 
@@ -48,7 +47,4 @@
 - (NSMutableArray *)possibleMoves:(Piece *)piece;
 
 - (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)detectCheck:(Move *)move;
-
 @end

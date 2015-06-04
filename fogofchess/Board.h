@@ -51,12 +51,6 @@
 
 - (void)clearSelection;
 
-- (Piece *)getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
-
-- (void)futureBoard:(Move *)move;
-
-- (Piece *)getKing:(Team)team;
-
-- (void)updateAllSquares;
+- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc;
 
 @end
