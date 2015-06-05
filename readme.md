@@ -2,6 +2,43 @@
 ###A Chess Game of Limited Information
 
 ###TODO:
+
+####Chess Rules:
+* [ ] Promote pawn to any piece
+* [ ] Detect checkmate
+
+####UI:
+* [ ] BUG: Fix highlighting.
+* [ ] Create '[COLOR] Wins' screen
+* [ ] Add 'resign' for both teams button -- show on screen during game.
+* [ ] Add 'restart' button to win screen
+  * [ ] Real navigations
+    * [ ] Welcome/Intro Screen
+    * [ ] Home Screen
+    * [ ] Game screen
+  * [ ] 'Your turn' animation/text box
+  * [ ] New piece images
+  * [ ] New board image
+  * [ ] Piece movement animations
+  * [ ] Cool 'fog' animations
+* [ ] Replay feature
+  * [ ] 'God view' (see whole board)
+  * [ ] 'My view' (see with my vision)
+  * [ ] 'Opponent view' (see with their vision)
+  * [ ] Speed slider (slow, medium, fast) 
+
+#### Application Infrastructure:
+* [ ] Network iphones.
+* [ ] Single-user view
+* [ ] Limit view based on piece position.
+* [ ] Users
+  * [ ] Sign in
+  * [ ] Save games
+  * [ ] Find friends
+* [ ] Alerts
+  * [ ] Allow for "it's your turn" notifications
+
+###Completed:
 * [X] Add all pieces to board
 * [X] Rename BoardView to Board
 * [X] Move game logic to GameEngine class
@@ -35,40 +72,9 @@
   * [x] 'Stateful' things inside board, stateless inside game engine.
   * [x] Simplify the board class
 * [x] Clear all arrays after use
-* [ ] Win screen specifies who won button restarts
-* [ ] Create '[COLOR] Wins' screen
-* [ ] Allow players to resign
-* [ ] Check if square with king is under attack?
-* [ ] List legal moves per piece
-  * [ ] Verify no check before allowing move.
-* [ ] Finish rules
-  * [x] Implement en passant
-  * [x] Detect if square is under attack?
-  * [x] Implement correct castling (can't castle through check)
-  * [x] BUG: Need to account for pawn diagonal attack when doing castling
-  * [ ] Need to take into account future state of the world when validating move does not put king into check.
-  * [ ] Promote pawn to any piece
-  * [ ] Detect checkmate
-* [ ] Network iphones.
-* [ ] Limit view based on piece position.
-* [ ] Upgrade all UI
-  * [ ] Real navigations
-    * [ ] Welcome/Intro Screen
-    * [ ] Home Screen
-    * [ ] Game screen
-  * [ ] 'You're turn' animation/text box
-  * [ ] New Pieces
-  * [ ] New Board
-  * [ ] Piece animations
-  * [ ] Cool 'fog' animations
-* [ ] Replay feature
-  * [ ] 'God view' (see whole board)
-  * [ ] 'My view' (see with my vision)
-  * [ ] 'Opponent view' (see with their vision)
-  * [ ] Speed slider (slow, medium, fast)
-* [ ] Users
-  * [ ] Sign in
-  * [ ] Save games
-  * [ ] Find friends
-* [ ] Alerts
-  * [ ] Allow for "it's your turn" notifications
+* [x] Check if square with king is under attack
+* [x] Implement en passant
+* [x] Detect if square is under attack?
+* [x] Implement correct castling (can't castle through check)
+* [x] BUG: Need to account for pawn diagonal attack when doing castling
+* [x] Need to take into account future state of the world when validating move does not put king into check.
