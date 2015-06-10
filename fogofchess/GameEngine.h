@@ -17,38 +17,6 @@
 
 @property (strong, nonatomic) Board *board;
 
-- (id)initWithBoard:(Board *)board;
-
-- (BOOL)onBoardX:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)pawnMoveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)rookCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)bishopCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (void)promotePawn:(Piece *)curPiece Y:(int)yLoc;
-
-- (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team;
-
-- (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc;
-
-- (NSMutableArray *)possibleMoves:(Piece *)piece;
-
-- (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc;
-
-- (BOOL)detectCheck:(Move *)move;
+- (NSMutableArray *)possibleMovesByTeam:(Team)team WithBoard:(NSMutableArray *)boardState LastMove:(Move *)lastMoveFromBoard;
 
 @end

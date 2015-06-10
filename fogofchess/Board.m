@@ -44,8 +44,6 @@ static Piece *selected;
     self.darkCapturedCount = 0;
     self.lightCapturedCount = 0;
 
-    self.engine = [[GameEngine alloc] initWithBoard:self];
-
     self.turnMarker = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.turnMarker.frame = CGRectMake(3.5 * self.squareWidth, 8 * self.squareWidth, fullWidth/6, fullWidth/16);
     [self.turnMarker setTitle:@"My turn!" forState:UIControlStateNormal];
@@ -192,9 +190,18 @@ static Piece *selected;
   }
 }
 
+- (BOOL)onBoardX:(int)xLoc Y:(int)yLoc
+{
+  if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1){
+    return NO;
+  }else{
+    return YES;
+  }
+}
+
 - (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc
 {
-  if(![self.engine onBoardX:xLoc Y:yLoc])
+  if(![self onBoardX:xLoc Y:yLoc])
     return nil;
   Piece *p = [allSquares objectAtIndex:yLoc*BOARD_SIZE+xLoc];
   if([p isEqual:[NSNull null]] || p.bCaptured == YES)
@@ -216,27 +223,18 @@ static Piece *selected;
   return nil;
 }
 
-
-- (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc {
-  return [self getPieceAtX:xLoc Y:yLoc] == nil;
-}
-
 - (void)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
 {
   Move* newMove = [[Move alloc] initWithPiece:curPiece X:xLoc Y:yLoc];
-  BOOL bDetectCheck = [self.engine detectCheck:newMove];
-  if(bDetectCheck) {
-    return;
-  }
 
-  BOOL bMoved = [self.engine executeMove:curPiece X:xLoc Y:yLoc];
-  if(bMoved) {
+  if (newMove in arrayFromEngine){
     [self nextTurn];
     [self recordMove:curPiece X:xLoc Y:yLoc];
 
     curPiece.bEverMoved = YES;
     [curPiece setLocationX:xLoc Y:yLoc];
     [self updateAllSquares];
+
   }
 }
 
@@ -299,19 +297,6 @@ static Piece *selected;
 
   [selected highlight:NO];
   selected = nil;
-}
-
-
-- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
-  int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);
-  int attackY = lastMove.piece.team == DARK ? 2 : 5;
-  if( lastMove.piece.type == PAWN
-      && xLoc == lastMove.xLoc
-      && yDiff == 2
-      && yLoc == attackY )
-    return lastMove.piece;
-
-  return nil;
 }
 
 //interaction
@@ -379,7 +364,10 @@ static Piece *selected;
 
 - (void)highlightPossibleMoves:(Piece *)curPiece
 {
-  NSMutableArray *array = [self.engine possibleMoves:curPiece];
+
+  Team team = lastMove.piece.team == DARK ? LIGHT : DARK;
+
+  NSMutableArray *array = [self.engine possibleMovesByTeam:team WithBoard:allSquares LastMove:lastMove];
 
   for (Move *move in array) {
     int xLoc = move.xLoc;

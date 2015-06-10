@@ -13,15 +13,44 @@
 
 
 @implementation GameEngine
+static Move *lastMove;
 
-- (id)initWithBoard:(Board *)board
+- (NSMutableArray *)possibleMovesByTeam:(Team)team WithBoard:(NSMutableArray *)boardState LastMove:(Move *)lastMoveFromBoard
 {
-  self = [super init];
-  if(self) {
-    self.board = board;
+  NSMutableArray *moves = [NSMutableArray array];
+
+  lastMove = lastMoveFromBoard;
+
+  for (Piece *piece in boardState){
+    if([piece isEqual:[NSNull null]] || piece.team != team){
+      continue;
+    }
+
+    NSMutableArray *array = [self possibleMoves:piece BoardState:boardState];
+
+    [moves addObjectsFromArray:array];
+
   }
 
-  return self;
+  lastMove = nil;
+
+  return moves;
+
+}
+
+- (Piece *)getPieceAtX:(int)xLoc Y:(int)yLoc BoardState:boardState
+{
+  if(![self onBoardX:xLoc Y:yLoc])
+    return nil;
+  Piece *p = [boardState objectAtIndex:yLoc*BOARD_SIZE+xLoc];
+  if([p isEqual:[NSNull null]] || p.bCaptured == YES)
+    return nil;
+  return p;
+}
+
+- (BOOL)isUnoccupiedX:(int)xLoc Y:(int)yLoc BoardState:boardState
+{
+  return [self getPieceAtX:xLoc Y:yLoc BoardState:boardState] == nil;
 }
 
 - (BOOL)onBoardX:(int)xLoc Y:(int)yLoc
@@ -33,7 +62,8 @@
   }
 }
 
-- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)executeMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:(NSMutableArray*)boardState
+// TODO: Refactor and move any state changes to board.
 {
   if( (self.board.turn % 2 == 0 && curPiece.team == DARK) ||
      (self.board.turn %2 == 1 && curPiece.team == LIGHT) ) {
@@ -46,35 +76,35 @@
     return NO;
 
   if(curPiece.type == PAWN &&
-      [self pawnCanMove:curPiece X:xLoc Y:yLoc])
+      [self pawnCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState])
   {
     return [self pawnMoveOrCapture:curPiece X:xLoc Y:yLoc];
   }
   if(curPiece.type == KNIGHT &&
-      [self knightCanMove:curPiece X:xLoc Y:yLoc])
+      [self knightCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState])
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
   if(curPiece.type == ROOK &&
-      [self rookCanMove:curPiece X:xLoc Y:yLoc])
+      [self rookCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState])
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
   if(curPiece.type == BISHOP &&
-      [self bishopCanMove:curPiece X:xLoc Y:yLoc])
+      [self bishopCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState])
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
   if(curPiece.type == QUEEN &&
-      [self queenCanMove:curPiece X:xLoc Y:yLoc])
+      [self queenCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState])
   {
     return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
   }
   if(curPiece.type == KING) {
 
-    if([self kingCanMove:curPiece X:xLoc Y:yLoc]) {
+    if([self kingCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState]) {
       return [self moveOrCapture:curPiece X:xLoc Y:yLoc];
-    } else if([self kingCanCastle:curPiece X:xLoc Y:yLoc]) {
+    } else if([self kingCanCastle:curPiece X:xLoc Y:yLoc BoardState:boardState]) {
       return [self executeCastle:curPiece X:xLoc Y:yLoc];
     }
 
@@ -83,13 +113,26 @@
 }
 
 - (void)promotePawn:(Piece *)curPiece Y:(int)yLoc
+//Where does this live? Should it be on the board?
 {
   if(yLoc == 0 || yLoc == BOARD_SIZE - 1) {
     [curPiece setTeam:curPiece.team andType:QUEEN];
   }
 }
 
-- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (Piece *) getEnPassantPawnX:(int)xLoc Y:(int)yLoc{
+  int yDiff = abs(lastMove.yLoc - lastMove.oldYLoc);
+  int attackY = lastMove.piece.team == DARK ? 2 : 5;
+  if(lastMove.piece.type == PAWN
+      && xLoc == lastMove.xLoc
+      && yDiff == 2
+      && yLoc == attackY)
+    return lastMove.piece;
+
+  return nil;
+}
+
+- (BOOL)pawnCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   int direction = [curPiece team] == DARK ? 1 : -1;
 
@@ -102,21 +145,21 @@
   {
     if (yDiff == 1 * direction)
     {
-      bReturn = [self.board isUnoccupiedX:xLoc Y:yLoc];
+      bReturn = [self isUnoccupiedX:xLoc Y:yLoc BoardState:boardState];
     }
     else if (yDiff == 2 * direction)
     {
       bReturn = !curPiece.bEverMoved &&
-                [self.board isUnoccupiedX:xLoc Y:yLoc] &&
-                [self.board isUnoccupiedX:xLoc Y:curPiece.yLoc + direction];
+                [self isUnoccupiedX:xLoc Y:yLoc BoardState:boardState] &&
+                [self isUnoccupiedX:xLoc Y:curPiece.yLoc + direction BoardState:boardState];
     }
 
   }
   else if (abs(xDiff) == 1 && yDiff == 1 * direction)
   {
-    Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
+    Piece *attacked = [self getPieceAtX:xLoc Y:yLoc BoardState:boardState];
     if(!attacked) {
-      attacked = [self.board getEnPassantPawnX:xLoc Y:yLoc];
+      attacked = [self getEnPassantPawnX:xLoc Y:yLoc];
     }
     if (attacked && attacked.team != curPiece.team){
       bReturn = YES;
@@ -126,7 +169,7 @@
   return bReturn;
 }
 
-- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)knightCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   if(xLoc < 0 || yLoc < 0 || xLoc > BOARD_SIZE-1 || yLoc > BOARD_SIZE-1)
     return NO;
@@ -142,7 +185,7 @@
     return NO;
 
   if (xDiff + yDiff == 3) {
-    Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+    Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc BoardState:boardState];
 
     if(otherPiece == nil)
       return YES;
@@ -153,7 +196,7 @@
   return NO;
 }
 
-- (BOOL)rookCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)rookCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
@@ -165,7 +208,7 @@
   {
     int direction = yDiff > 0 ? 1 : -1;
     for (int i = curPiece.yLoc + direction; i != yLoc; i += direction) {
-      if (![self.board isUnoccupiedX:curPiece.xLoc Y:i])
+      if (![self isUnoccupiedX:curPiece.xLoc Y:i BoardState:boardState])
         return NO;
     }
   }
@@ -173,7 +216,7 @@
   {
     int direction = xDiff > 0 ? 1 : -1;
     for (int i = curPiece.xLoc + direction; i != xLoc; i += direction) {
-      if (![self.board isUnoccupiedX:i Y:curPiece.yLoc])
+      if (![self isUnoccupiedX:i Y:curPiece.yLoc BoardState:boardState])
         return NO;
     }
   }
@@ -182,7 +225,7 @@
 }
 
 
-- (BOOL)bishopCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)bishopCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
 
   int xDiff = xLoc - curPiece.xLoc;
@@ -195,7 +238,7 @@
 
   int j = curPiece.yLoc + yDirection;
   for (int i = curPiece.xLoc + xDirection; i != xLoc && j != yLoc; i += xDirection) {
-    if (![self.board isUnoccupiedX:i Y:j])
+    if (![self isUnoccupiedX:i Y:j BoardState:boardState])
       return NO;
     j += yDirection;
   }
@@ -204,14 +247,14 @@
 }
 
 
-- (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)queenCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
-  return [self bishopCanMove:curPiece X:xLoc Y:yLoc] ||
-         [self rookCanMove:curPiece X:xLoc Y:yLoc];
+  return [self bishopCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState] ||
+         [self rookCanMove:curPiece X:xLoc Y:yLoc BoardState:boardState];
 }
 
 
-- (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)kingCanMove:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   int xDiff = xLoc - curPiece.xLoc;
   int yDiff = yLoc - curPiece.yLoc;
@@ -222,15 +265,15 @@
   return YES;
 }
 
-- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+- (BOOL)kingCanCastle:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   BOOL isCastleXLoc = xLoc == 2 || xLoc == BOARD_SIZE - 2;
   if (!curPiece.bEverMoved && curPiece.yLoc == yLoc && isCastleXLoc) {
     Piece *rook;
     if(xLoc == 2) {
-      rook = [self.board getPieceAtX:0 Y:curPiece.yLoc];
+      rook = [self getPieceAtX:0 Y:curPiece.yLoc BoardState:boardState];
     } else {
-      rook = [self.board getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc];
+      rook = [self getPieceAtX:BOARD_SIZE-1 Y:curPiece.yLoc BoardState:boardState];
     }
 
     if(!rook || rook.bEverMoved) {
@@ -241,12 +284,12 @@
     Team enemy = curPiece.team == DARK ? LIGHT : DARK;
 
     for (int i = curPiece.xLoc + direction; i != rook.xLoc; i += direction) {
-      if (![self.board isUnoccupiedX:i Y:curPiece.yLoc])
+      if (![self isUnoccupiedX:i Y:curPiece.yLoc BoardState:boardState])
         return NO;
     }
 
     for (int i = curPiece.xLoc; i != xLoc + direction; i += direction) {
-      if ([self squareUnderAttackByTeam:enemy X:i Y:curPiece.yLoc])
+      if ([self squareUnderAttackByTeam:enemy X:i Y:curPiece.yLoc BoardState:boardState])
         return NO;
     }
 
@@ -268,11 +311,12 @@
 
   int newXLoc = rook.xLoc == 0 ? 3 : BOARD_SIZE - 3;
 
-  [rook setLocationX:newXLoc Y:rook.yLoc];
+  [rook setLocationX:newXLoc Y:rook.yLoc]; // TODO: Unfuck this.
   return YES;
 }
 
 - (BOOL)attemptCaptureOf:(Piece *)attacked byTeam:(Team)team
+//Move to Board
 {
   if(attacked && attacked.team != team) {
     [self.board capturePiece: attacked];
@@ -286,6 +330,7 @@
 }
 
 - (BOOL)moveOrCapture:(Piece *)curPiece X:(int)xLoc Y:(int)yLoc
+//Move to Board
 {
   Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
 
@@ -302,7 +347,7 @@
   if(xLoc != curPiece.xLoc) {
     Piece *attacked = [self.board getPieceAtX:xLoc Y:yLoc];
     if(!attacked) {
-      attacked = [self.board getEnPassantPawnX:xLoc Y:yLoc];
+      attacked = [self getEnPassantPawnX:xLoc Y:yLoc];
     }
     bReturn = [self attemptCaptureOf:attacked byTeam:curPiece.team];
   } else {
@@ -313,31 +358,32 @@
   return bReturn;
 }
 
-- (NSMutableArray *)possibleMoves:(Piece *)piece
+- (NSMutableArray *)possibleMoves:(Piece *)piece BoardState:(NSMutableArray *)boardState
+//TODO Detect check in here somewhere?!!?!?!
 {
   switch(piece.type) {
     case PAWN:
-      return [self pawnMoves:piece];
+      return [self pawnMoves:piece BoardState:boardState];
       break;
     case KNIGHT:
-      return [self knightMoves:piece];
+      return [self knightMoves:piece BoardState:boardState];
       break;
     case ROOK:
-      return [self rookMoves:piece];
+      return [self rookMoves:piece BoardState:boardState];
       break;
     case BISHOP:
-      return [self bishopMoves:piece];
+      return [self bishopMoves:piece BoardState:boardState];
       break;
     case QUEEN:
-      return [self queenMoves:piece];
+      return [self queenMoves:piece BoardState:boardState];
       break;
     case KING:
-      return [self kingMoves:piece];
+      return [self kingMoves:piece BoardState:boardState];
       break;
   }
 }
 
-- (NSMutableArray *)pawnMoves:(Piece *)piece
+- (NSMutableArray *)pawnMoves:(Piece *)piece BoardState:boardState
 {
   NSMutableArray *array = [NSMutableArray array];
   int direction = [piece team] == DARK ? 1 : -1;
@@ -348,7 +394,7 @@
     int yLoc = piece.yLoc + direction;
 
     Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
-    if ([self pawnCanMove:piece X:xLoc Y:yLoc]){
+    if ([self pawnCanMove:piece X:xLoc Y:yLoc BoardState:boardState]){
       [array addObject:move];
     }
   }
@@ -357,14 +403,14 @@
   int yLoc = piece.yLoc + 2*direction;
 
   Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
-  if ([self pawnCanMove:piece X:xLoc Y:yLoc]){
+  if ([self pawnCanMove:piece X:xLoc Y:yLoc BoardState:boardState]){
     [array addObject:move];
   }
 
   return array;
 }
 
-- (NSMutableArray *)knightMoves:(Piece *)piece
+- (NSMutableArray *)knightMoves:(Piece *)piece BoardState:boardState
 {
   NSMutableArray *array = [NSMutableArray array];
 
@@ -378,9 +424,9 @@
       int yLoc = piece.yLoc + y;
 
       Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
-      Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+      Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc BoardState:boardState];
 
-      if ([self knightCanMove:piece X:xLoc Y:yLoc]){
+      if ([self knightCanMove:piece X:xLoc Y:yLoc BoardState:boardState]){
         if ((!otherPiece || otherPiece.team != piece.team)){
            [array addObject:move];
         }
@@ -390,7 +436,7 @@
   return array;
 }
 
-- (NSMutableArray *)rookMoves:(Piece *)piece
+- (NSMutableArray *)rookMoves:(Piece *)piece BoardState:boardState
 {
   NSMutableArray *array = [NSMutableArray array];
 
@@ -406,9 +452,9 @@
         int yLoc = x == 1 ? piece.yLoc : piece.yLoc + i*direction;
 
         Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
-        Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
+        Piece *otherPiece = [self getPieceAtX:xLoc Y:yLoc BoardState:boardState];
 
-        if ([self rookCanMove:piece X:xLoc Y:yLoc] && [self onBoardX:xLoc Y:yLoc]){
+        if ([self rookCanMove:piece X:xLoc Y:yLoc BoardState:boardState] && [self onBoardX:xLoc Y:yLoc]){
           if ((!otherPiece || otherPiece.team != piece.team)){
            [array addObject:move];
           }
@@ -419,7 +465,7 @@
   return array;
 }
 
-- (NSMutableArray *)bishopMoves:(Piece *)piece
+- (NSMutableArray *)bishopMoves:(Piece *)piece BoardState:boardState
 {
   NSMutableArray *array = [NSMutableArray array];
 
@@ -439,7 +485,7 @@
         Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
         Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
 
-        if ([self bishopCanMove:piece X:xLoc Y:yLoc] && [self onBoardX:xLoc Y:yLoc]){
+        if ([self bishopCanMove:piece X:xLoc Y:yLoc BoardState:boardState] && [self onBoardX:xLoc Y:yLoc]){
           if ((!otherPiece || otherPiece.team != piece.team)){
            [array addObject:move];
           }
@@ -450,10 +496,10 @@
   return array;
 }
 
-- (NSMutableArray *)queenMoves:(Piece *)piece
+- (NSMutableArray *)queenMoves:(Piece *)piece BoardState:boardState
 {
-  NSMutableSet *setA = [NSMutableSet setWithArray:[self bishopMoves:piece]];
-  NSMutableSet *setB = [NSMutableSet setWithArray:[self rookMoves:piece]];
+  NSMutableSet *setA = [NSMutableSet setWithArray:[self bishopMoves:piece BoardState:boardState]];
+  NSMutableSet *setB = [NSMutableSet setWithArray:[self rookMoves:piece BoardState:boardState]];
 
   [setA unionSet:setB];
 
@@ -463,7 +509,7 @@
 }
 
 
-- (NSMutableArray *)kingMoves:(Piece *)piece
+- (NSMutableArray *)kingMoves:(Piece *)piece BoardState:boardState
 {
   NSMutableArray *array = [NSMutableArray array];
 
@@ -479,7 +525,7 @@
       if(![self onBoardX:xLoc Y:yLoc])
         continue;
 
-      if ([self kingCanMove:piece X:xLoc Y:yLoc]){
+      if ([self kingCanMove:piece X:xLoc Y:yLoc BoardState:boardState]){
         Piece *otherPiece = [self.board getPieceAtX:xLoc Y:yLoc];
         if (!otherPiece || otherPiece.team != piece.team){
           Move *move = [[Move alloc] initWithPiece:piece X:xLoc Y:yLoc];
@@ -491,7 +537,7 @@
 
   if(!piece.bEverMoved) {
     for (int x = 0; x < BOARD_SIZE; x++) {
-      if([self kingCanCastle:piece X:x Y:piece.yLoc]){
+      if([self kingCanCastle:piece X:x Y:piece.yLoc BoardState:boardState]){
           Move *move = [[Move alloc] initWithPiece:piece X:x Y:piece.yLoc];
           [array addObject:move];
       }
@@ -501,7 +547,7 @@
   return array;
 }
 
-- (BOOL)pawnThreatensSquare:(Piece *)pawn X:(int)xLoc Y:(int)yLoc
+- (BOOL)pawnThreatensSquare:(Piece *)pawn X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   int direction = [pawn team] == DARK ? 1 : -1;
 
@@ -516,7 +562,7 @@
   return NO;
 }
 
-- (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc
+- (BOOL)squareUnderAttackByTeam:(Team)team X:(int)xLoc Y:(int)yLoc BoardState:boardState
 {
   for (Piece *piece in self.board.pieces){
     if(piece.bCaptured || piece.team != team)
@@ -527,27 +573,27 @@
 
     switch(piece.type) {
       case PAWN:
-        if([self pawnThreatensSquare:piece X:xLoc Y:yLoc])
+        if([self pawnThreatensSquare:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
       case KNIGHT:
-        if([self knightCanMove:piece X:xLoc Y:yLoc])
+        if([self knightCanMove:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
       case ROOK:
-        if([self rookCanMove:piece X:xLoc Y:yLoc])
+        if([self rookCanMove:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
       case BISHOP:
-        if([self bishopCanMove:piece X:xLoc Y:yLoc])
+        if([self bishopCanMove:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
       case QUEEN:
-        if([self queenCanMove:piece X:xLoc Y:yLoc])
+        if([self queenCanMove:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
       case KING:
-        if([self kingCanMove:piece X:xLoc Y:yLoc])
+        if([self kingCanMove:piece X:xLoc Y:yLoc BoardState:boardState])
           return YES;
         break;
     }
@@ -556,7 +602,7 @@
   return NO;
 }
 
-- (BOOL)detectCheck:(Move *)move
+- (BOOL)detectCheck:(Move *)move BoardState:boardState
 {
   Piece* attacked = nil;
 
@@ -571,14 +617,14 @@
     kingX = king.xLoc;
     kingY = king.yLoc;
 
-    attacked = [self.board getPieceAtX:move.xLoc Y:move.yLoc];
+    attacked = [self getPieceAtX:move.xLoc Y:move.yLoc BoardState:boardState];
     attacked.bCaptured = YES;
   }
 
   Team enemy = move.piece.team == DARK ? LIGHT : DARK;
 
   [self.board futureBoard:move]; // Don't do this too early or it breaks :(
-  BOOL ret = [self squareUnderAttackByTeam:enemy X:kingX Y:kingY];
+  BOOL ret = [self squareUnderAttackByTeam:enemy X:kingX Y:kingY BoardState:boardState];
 
   if(attacked) {
     attacked.bCaptured = NO;
